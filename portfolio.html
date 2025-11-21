@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aliyan's Portfolio</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+
+    <style>
+        /* Body: black to dark gray diagonal gradient */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #0a0a0a 0%, #1c1c1c 100%);
+            color: white;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Sections to inherit body gradient */
+        #home,
+        #skills,
+        #contact {
+            background: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Image auto-resize */
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Project card container */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Overlay with description and links */
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 12px;
+        }
+
+        /* Show overlay on hover */
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        /* Blur image on hover */
+        .project-card:hover .project-img {
+            filter: blur(4px);
+        }
+
+        /* Links inside overlay clickable */
+        .project-overlay a {
+            pointer-events: auto;
+            color: #fff;
+            margin: 0 5px;
+            font-weight: bold;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .project-overlay a:hover {
+            color: #ffd700;
+            /* hover effect for links */
+        }
+    </style>
+
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+    <header class="fixed w-full top-0 left-0 z-50 bg-[#0a0a0a] shadow-lg">
+        <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+            <h1 id="logo"
+                class="text-xl font-bold cursor-pointer hover:text-yellow-500 hover:scale-105 transition-transform duration-300">
+                Aliyan's Portfolio</h1>
+
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-yellow-500 flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7m-9 9v-6h4v6" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="#about" class="hover:text-yellow-500 flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5.121 17.804A4 4 0 018 16h8a4 4 0 012.879 1.804M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                    </svg>
+                    <span>About</span>
+                </a>
+                <a href="#skills" class="hover:text-yellow-500 flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
+                    </svg>
+                    <span>Skills</span>
+                </a>
+                <a href="#projects" class="hover:text-yellow-500 flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 17v-4h6v4M9 12V8h6v4M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <span>Projects</span>
+                </a>
+                <a href="#contact" class="hover:text-yellow-500 flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <span>Contact</span>
+                </a>
+            </nav>
+
+
+            <button id="menu-btn" type="button" title="Toggle menu" class="md:hidden text-2xl">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="hidden md:hidden bg-[#1c1c1c] shadow-2xl p-4 space-y-3">
+            <a href="#home" class="flex items-center space-x-2 hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7m-9 9v-6h4v6" />
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <a href="#about" class="flex items-center space-x-2 hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5.121 17.804A4 4 0 018 16h8a4 4 0 012.879 1.804M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                </svg>
+                <span>About</span>
+            </a>
+
+            <a href="#skills" class="flex items-center space-x-2 hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
+                </svg>
+                <span>Skills</span>
+            </a>
+
+            <a href="#projects" class="flex items-center space-x-2 hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 17v-4h6v4M9 12V8h6v4M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span>Projects</span>
+            </a>
+
+            <a href="#contact" class="flex items-center space-x-2 hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gray-100 dark:bg-gray-800 pt-28 py-20 px-6 transition-colors ">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 items-center">
+
+            <!-- Left Side -->
+            <div class="text-center md:text-left flex-1">
+                <h2 class="text-4xl md:text-6xl font-bold leading-tight">
+                    Hi, I'm <span class="text-yellow-300">Aliyan</span> 👋
+                    <span id="typed-text" class="text-indigo-400"></span>
+                </h2>
+
+                <p class="mt-4 text-lg md:text-2xl">
+                    Software Engineering Student | Web Developer | Freelancer
+                </p>
+
+                <div class="flex flex-wrap gap-4 justify-center mt-6">
+                    <!-- View My Work -->
+                    <a href="#projects"
+                        class="flex items-center gap-2 bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-yellow-300 hover:shadow-lg transition-all duration-300">
+                        🚀 View My Work
+                    </a>
+
+                    <!-- Hire Me -->
+                    <a href="#contact"
+                        class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
+                        💼 Hire Me
+                    </a>
+
+                    <!-- View / Download CV -->
+                    <a href="image/Resume.pdf" target="_blank" rel="noopener noreferrer" download
+                        class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
+                        📄 View / Download CV
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Right Side -->
+            <div class="flex justify-center md:justify-end flex-1">
+                <img src="image/use 5.png" alt="Custom image" class="  border-white w-40 sm:w-60 md:w-80 lg:w-96  ">
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="text-3xl font-bold text-center mb-10">About Me</h2>
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <!-- Profile Image -->
+            <div class="flex justify-center">
+                <img src="image/profile 2.png" alt="Profile"
+                    class="w-64 sm:w-72 md:w-80 lg:w-96 rounded-full shadow-2xl object-cover transition-transform duration-300 hover:scale-105">
+            </div>
+
+            <!-- About Text -->
+            <p class="text-lg leading-relaxed text-gray-300">
+                I'm Aliyan, a passionate Software Engineer with expertise in HTML, CSS, JavaScript and React. I also
+                have solid knowledge of high level language c++, java, pyhton and also knowledge of Linux systems and
+                CCNA, which allows me to combine development and system-level skills. I love solving problems and
+                building creative solutions.
+            </p>
+            </p>
+        </div>
+
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-[#111111] py-20 px-6 transition-colors">
+        <h2 class="text-3xl font-bold text-center mb-10">My Skill</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">HTML</div>
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">CSS</div>
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">JavaScript</div>
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">React</div>
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">C++</div>
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">java</div>
+            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">pyhton</div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-[#111111] py-20 px-6 transition-colors">
+        <h2 class="text-3xl font-bold text-center mb-10">Projects</h2>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div
+                class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105">
+
+                <!-- Project Image -->
+                <img src="image/business_web_banner_30.jpg" alt="Business website banner showing homepage layout"
+                    title="Business Website" class="project-img rounded-lg mb-4">
+
+                <!-- Project Title -->
+                <h3 class="font-semibold text-lg mb-2">BUSINESS WEBSITE</h3>
+
+                <!-- Overlay with description + links -->
+                <div class="project-overlay rounded-xl">
+                    <p class="text-gray-200 mb-4 px-2">
+                        A modern business website designed to showcase services and connect with customers.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="http://127.0.0.1:3000/internship task , business website/index.html?serverWindowId=96964d9c-43e0-4369-8664-0acc10a629e5"
+                            target="_blank" rel="noopener noreferrer">
+                            Live Demo
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div
+                class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105">
+
+                <!-- Project Image -->
+                <img src="image/calculator.jpg" alt="Calculator Project" title="Calculator"
+                    class="project-img rounded-lg mb-4">
+
+                <!-- Project Title -->
+                <h3 class="font-semibold text-lg mb-2">Calculator Webpage</h3>
+
+                <!-- Overlay with description + links -->
+                <div class="project-overlay rounded-xl">
+                    <p class="text-gray-200 mb-4 px-2">
+                        A fully functional calculator built using HTML, CSS, and JavaScript. It performs accurate
+                        standard arithmetic operations.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="http://127.0.0.1:3000/calculator/index.html" target="_blank" rel="noopener noreferrer">
+                            Live Demo
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div
+                class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105">
+
+                <!-- Project Image -->
+                <img src="image/pass.png" alt="Password Generator" title="Password Generator"
+                    class="project-img rounded-lg mb-4">
+
+                <!-- Project Title -->
+                <h3 class="font-semibold text-lg mb-2">Password Generator App</h3>
+
+                <!-- Overlay with description + links -->
+                <div class="project-overlay rounded-xl">
+                    <p class="text-gray-200 mb-4 px-2">
+                        A web-based password generator that creates strong, random passwords based on user-defined
+                        criteria such as length and character types.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            Live Demo
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-100 dark:bg-gray-800 py-20 px-6 transition-colors">
+        <h2 class="text-3xl font-bold text-center mb-10">Contact Me</h2>
+        <p class="text-lg text-center mb-10">Let's build something amazing together.</p>
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+
+            <!-- Left: Social Links -->
+            <div class="flex flex-col justify-center items-center md:items-start gap-6">
+
+                <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank" rel="noopener noreferrer"
+                    class="flex items-start gap-3 hover:opacity-80">
+                    <i class="ri-linkedin-box-fill text-blue-600 text-4xl"></i>
+                    <div>
+                        <span class="font-bold">LinkedIn</span>
+                        <p class="text-sm text-gray-400">Connect with me on LinkedIn.</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer"
+                    class="flex items-start gap-3 hover:opacity-80">
+                    <i class="ri-github-fill text-4xl"></i>
+                    <div>
+                        <span class="font-bold">GitHub</span>
+                        <p class="text-sm text-gray-400">Check out my code and projects.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/yourusername" target="_blank" rel="noopener noreferrer"
+                    class="flex items-start gap-3 hover:opacity-80">
+                    <i class="ri-instagram-fill text-4xl text-pink-500"></i>
+                    <div>
+                        <span class="font-bold">Instagram</span>
+                        <p class="text-sm text-gray-400">Follow me for updates & stories.</p>
+                    </div>
+                </a>
+
+                <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer"
+                    class="flex items-start gap-3 hover:opacity-80">
+                    <i class="ri-whatsapp-fill text-4xl text-green-500"></i>
+                    <div>
+                        <span class="font-bold">WhatsApp</span>
+                        <p class="text-sm text-gray-400">Chat with me on WhatsApp.</p>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+            <!-- Right: Form -->
+            <form action="mailto:aliyanbc@gmail.com" method="post"
+                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl space-y-6">
+
+                <input type="text" placeholder="Your Name"
+                    class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300">
+
+                <input type="email" placeholder="Your Email"
+                    class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300">
+
+                <textarea placeholder="Your Message"
+                    class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300 h-32"></textarea>
+
+                <button type="submit"
+                    class="w-full bg-yellow-400 text-gray-900 font-semibold py-3 rounded-xl hover:bg-yellow-300 shadow-lg transition-all duration-300">
+                    Send Message
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl mx-auto py-10 px-6 text-center text-sm">
+        <p>© 2025 Aliyan. All rights reserved.</p>
+    </footer>
+    // Project Card Interaction Script
+    <script>
+        document.querySelectorAll(".project-card").forEach(card => {
+            const img = card.querySelector(".project-img");
+            const desc = card.querySelector(".project-desc");
+
+            let isLocked = false;
+
+            // Click to lock/unlock
+            img.addEventListener("click", () => {
+                isLocked = !isLocked;
+                if (isLocked) {
+                    desc.style.opacity = "1";
+                    img.style.filter = "blur(4px)";
+                } else {
+                    desc.style.opacity = "0";
+                    img.style.filter = "none";
+                }
+            });
+        });
+    </script>
+
+    // Mobile Menu Toggle
+    <script>
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    // Added typing effect script
+    <script>
+        const texts = ["Web Developer"];
+        let count = 0;
+        let index = 0;
+        let currentText = '';
+        let letter = '';
+
+        (function type() {
+            if (count === texts.length) count = 0;
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            document.getElementById('typed-text').textContent = letter;
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(type, 1000); // pause before next word
+            } else {
+                setTimeout(type, 150);
+            }
+        })();
+    </script>
+
+    // Added script to scroll to top on logo click
+    <script>
+        const logo = document.getElementById("logo");
+        logo.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+</body>
+
+</html>
