@@ -15,89 +15,12 @@
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
+    /swiperjs-->
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <style>
-        /* Body: black to dark gray diagonal gradient */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, #0a0a0a 0%, #1c1c1c 100%);
-            color: white;
-            transition: background 0.3s, color 0.3s;
-        }
+    <link rel="stylesheet" href="style.css" />
 
-        /* Sections to inherit body gradient */
-        #home,
-        #skills,
-        #contact {
-            background: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Image auto-resize */
-        .project-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 12px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Project card container */
-        .project-card {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        /* Overlay with description and links */
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem;
-            font-size: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            border-radius: 12px;
-        }
-
-        /* Show overlay on hover */
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-
-        /* Blur image on hover */
-        .project-card:hover .project-img {
-            filter: blur(4px);
-        }
-
-        /* Links inside overlay clickable */
-        .project-overlay a {
-            pointer-events: auto;
-            color: #fff;
-            margin: 0 5px;
-            font-weight: bold;
-            text-decoration: underline;
-            transition: color 0.2s;
-        }
-
-        .project-overlay a:hover {
-            color: #ffd700;
-            /* hover effect for links */
-        }
-    </style>
 
 </head>
 
@@ -212,11 +135,12 @@
             <div class="text-center md:text-left flex-1">
                 <h2 class="text-4xl md:text-6xl font-bold leading-tight">
                     Hi, I'm <span class="text-yellow-300">Aliyan</span> 👋
+                    <br>
                     <span id="typed-text" class="text-indigo-400"></span>
                 </h2>
 
                 <p class="mt-4 text-lg md:text-2xl">
-                    Software Engineering Student | Web Developer | Freelancer
+                    Software Engineering Student | Web Developer | Freelancer | Mern Stack Developer
                 </p>
 
                 <div class="flex flex-wrap gap-4 justify-center mt-6">
@@ -226,26 +150,36 @@
                         🚀 View My Work
                     </a>
 
-                    <!-- Hire Me -->
-                    <a href="#contact"
-                        class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
-                        💼 Hire Me
-                    </a>
-
                     <!-- View / Download CV -->
                     <a href="image/Resume.pdf" target="_blank" rel="noopener noreferrer" download
                         class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
                         📄 View / Download CV
+                    </a>
+
+                    <!-- Hire Me -->
+                    <a href="#contact"
+                        class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
+                        let's build together
                     </a>
                 </div>
 
             </div>
 
             <!-- Right Side -->
-            <div class="flex justify-center md:justify-end flex-1">
-                <img src="image/use 5.png" alt="Custom image" class="  border-white w-40 sm:w-60 md:w-80 lg:w-96  ">
-
+            <!-- Right Side -->
+            <div class="hidden md:flex justify-center flex-1">
+                <div class="cube-container">
+                    <div class="cube">
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face left"></div>
+                        <div class="face right"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -288,96 +222,105 @@
     <!-- Projects Section -->
     <section id="projects" class="bg-[#111111] py-20 px-6 transition-colors">
         <h2 class="text-3xl font-bold text-center mb-10">Projects</h2>
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div
-                class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105">
-
-                <!-- Project Image -->
-                <img src="image/business_web_banner_30.jpg" alt="Business website banner showing homepage layout"
-                    title="Business Website" class="project-img rounded-lg mb-4">
-
-                <!-- Project Title -->
-                <h3 class="font-semibold text-lg mb-2">BUSINESS WEBSITE</h3>
-
-                <!-- Overlay with description + links -->
-                <div class="project-overlay rounded-xl">
-                    <p class="text-gray-200 mb-4 px-2">
-                        A modern business website designed to showcase services and connect with customers.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="http://127.0.0.1:3000/internship task , business website/index.html?serverWindowId=96964d9c-43e0-4369-8664-0acc10a629e5"
-                            target="_blank" rel="noopener noreferrer">
-                            Live Demo
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-
-            </div>
 
 
-            <div
-                class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105">
+        <!-- FILTER BUTTONS -->
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
 
-                <!-- Project Image -->
-                <img src="image/calculator.jpg" alt="Calculator Project" title="Calculator"
-                    class="project-img rounded-lg mb-4">
-
-                <!-- Project Title -->
-                <h3 class="font-semibold text-lg mb-2">Calculator Webpage</h3>
-
-                <!-- Overlay with description + links -->
-                <div class="project-overlay rounded-xl">
-                    <p class="text-gray-200 mb-4 px-2">
-                        A fully functional calculator built using HTML, CSS, and JavaScript. It performs accurate
-                        standard arithmetic operations.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="http://127.0.0.1:3000/calculator/index.html" target="_blank" rel="noopener noreferrer">
-                            Live Demo
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div
-                class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105">
-
-                <!-- Project Image -->
-                <img src="image/pass.png" alt="Password Generator" title="Password Generator"
-                    class="project-img rounded-lg mb-4">
-
-                <!-- Project Title -->
-                <h3 class="font-semibold text-lg mb-2">Password Generator App</h3>
-
-                <!-- Overlay with description + links -->
-                <div class="project-overlay rounded-xl">
-                    <p class="text-gray-200 mb-4 px-2">
-                        A web-based password generator that creates strong, random passwords based on user-defined
-                        criteria such as length and character types.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                            Live Demo
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-
+            <button class="filter-btn bg-yellow-500 text-black px-4 py-2 rounded-lg" data-filter="all">
+                All
+            </button>
+            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-lg" data-filter="html">
+                HTML / CSS / JS
+            </button>
+            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-lg" data-filter="react">
+                react
+            </button>
         </div>
+
+        <!-- Swiper Container -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+
+                <!-- SLIDE 1 -->
+                <div class="swiper-slide">
+                    <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
+                        data-category="react">
+
+                        <img src="image/business_web_banner_30.jpg" class="project-img rounded-lg mb-4"
+                            alt="image error">
+
+                        <h3 class="font-semibold text-lg mb-2">BUSINESS WEBSITE</h3>
+
+                        <div class="project-overlay rounded-xl">
+                            <p class="text-gray-200 mb-4 px-2">
+                                A modern business website designed to showcase services and connect with customers.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#" target="_blank">Live Demo</a>
+                                <a href="#" target="_blank">GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="swiper-slide">
+                    <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
+                        data-category="html">
+
+                        <img src="image/calculator.jpg" class="project-img rounded-lg mb-4" alt="image error">
+
+                        <h3 class="font-semibold text-lg mb-2">Calculator Webpage</h3>
+
+                        <div class="project-overlay rounded-xl">
+                            <p class="text-gray-200 mb-4 px-2">
+                                A fully functional calculator built using HTML, CSS, and JavaScript.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#" target="_blank">Live Demo</a>
+                                <a href="#" target="_blank">GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="swiper-slide">
+                    <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
+                        data-category="html">
+
+                        <img src="image/pass.png" class="project-img rounded-lg mb-4" alt="image error">
+
+                        <h3 class="font-semibold text-lg mb-2">Password Generator App</h3>
+
+                        <div class="project-overlay rounded-xl">
+                            <p class="text-gray-200 mb-4 px-2">
+                                Creates strong random passwords using length & character options.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#" target="_blank">Live Demo</a>
+                                <a href="#" target="_blank">GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Next/Prev Buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+            <!-- Pagination Dots -->
+            <div class="swiper-pagination"></div>
+        </div>
+
     </section>
+
 
     <!-- Contact Section -->
     <section id="contact" class="bg-gray-100 dark:bg-gray-800 py-20 px-6 transition-colors">
@@ -389,7 +332,7 @@
             <div class="flex flex-col justify-center items-center md:items-start gap-6">
 
                 <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank" rel="noopener noreferrer"
-                    class="flex items-start gap-3 hover:opacity-80">
+                    class="flex items-center md:items-start gap-3 hover:opacity-80">
                     <i class="ri-linkedin-box-fill text-blue-600 text-4xl"></i>
                     <div>
                         <span class="font-bold">LinkedIn</span>
@@ -398,7 +341,7 @@
                 </a>
 
                 <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer"
-                    class="flex items-start gap-3 hover:opacity-80">
+                    class="flex items-center md:items-start gap-3 hover:opacity-80">
                     <i class="ri-github-fill text-4xl"></i>
                     <div>
                         <span class="font-bold">GitHub</span>
@@ -407,7 +350,7 @@
                 </a>
 
                 <a href="https://www.instagram.com/yourusername" target="_blank" rel="noopener noreferrer"
-                    class="flex items-start gap-3 hover:opacity-80">
+                    class="flex items-center md:items-start gap-3 hover:opacity-80">
                     <i class="ri-instagram-fill text-4xl text-pink-500"></i>
                     <div>
                         <span class="font-bold">Instagram</span>
@@ -416,7 +359,7 @@
                 </a>
 
                 <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer"
-                    class="flex items-start gap-3 hover:opacity-80">
+                    class="flex items-center md:items-start gap-3 hover:opacity-80">
                     <i class="ri-whatsapp-fill text-4xl text-green-500"></i>
                     <div>
                         <span class="font-bold">WhatsApp</span>
@@ -454,7 +397,9 @@
     <footer class="max-w-6xl mx-auto py-10 px-6 text-center text-sm">
         <p>© 2025 Aliyan. All rights reserved.</p>
     </footer>
+
     // Project Card Interaction Script
+    
     <script>
         document.querySelectorAll(".project-card").forEach(card => {
             const img = card.querySelector(".project-img");
@@ -521,6 +466,72 @@
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            grabCursor: true,
+            centeredSlides: false,
+
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+  <script>
+const filterButtons = document.querySelectorAll(".filter-btn");
+const allSlides = document.querySelectorAll(".swiper-slide");
+
+filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // active button color change
+        filterButtons.forEach(b => {
+            b.classList.remove("bg-yellow-500", "text-black");
+            b.classList.add("bg-gray-700", "text-white");
+        });
+
+        btn.classList.remove("bg-gray-700", "text-white");
+        btn.classList.add("bg-yellow-500", "text-black");
+
+        const filterValue = btn.getAttribute("data-filter");
+
+        allSlides.forEach(slide => {
+            const category = slide.querySelector(".project-card").getAttribute("data-category");
+
+            if (filterValue === "all" || filterValue === category) {
+                slide.style.display = "block";
+            } else {
+                slide.style.display = "none";
+            }
+        });
+
+        // Swiper ko force update karna zaroori hai warna hide/show detect nahi karega
+        swiper.update();
+    });
+});
+</script>
 </body>
 
 </html>
