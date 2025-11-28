@@ -279,8 +279,8 @@
                                 A fully functional calculator built using HTML, CSS, and JavaScript.
                             </p>
                             <div class="flex gap-4">
-                                <a href="#" target="_blank">Live Demo</a>
-                                <a href="#" target="_blank">GitHub</a>
+                                <a href="calculator-functional.vercel.app" target="_blank">Live Demo</a>
+                                <a href="https://github.com/Aliyank001/calculator.git" target="_blank" rel="noopener">GitHub</a>
                             </div>
                         </div>
 
@@ -301,8 +301,31 @@
                                 Creates strong random passwords using length & character options.
                             </p>
                             <div class="flex gap-4">
-                                <a href="#" target="_blank">Live Demo</a>
-                                <a href="#" target="_blank">GitHub</a>
+                                <a href="password-generator-pro-theta.vercel.app" target="_blank">Live Demo</a>
+                                <a href="https://github.com/Aliyank001/password-generator.git" target="_blank"
+                                    rel="noopener">GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 4 -->
+                <div class="swiper-slide">
+                    <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
+                        data-category="html">
+
+                        <img src="image/cv maker.jpg" class="project-img rounded-lg mb-4" alt="image error">
+
+                        <h3 class="font-semibold text-lg mb-2">CV-Maker App</h3>
+
+                        <div class="project-overlay rounded-xl">
+                            <p class="text-gray-200 mb-4 px-2">
+                                Build your professional CV in minutes and land your next interview faster.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="cv-maker-pro-mocha.vercel.app" target="_blank">Live Demo</a>
+                                <a href="https://github.com/Aliyank001/cv-maker.git" target="_blank" rel="noopener">GitHub</a>
                             </div>
                         </div>
 
@@ -399,7 +422,7 @@
     </footer>
 
     // Project Card Interaction Script
-    
+
     <script>
         document.querySelectorAll(".project-card").forEach(card => {
             const img = card.querySelector(".project-img");
@@ -499,39 +522,39 @@
             },
         });
     </script>
-  <script>
-const filterButtons = document.querySelectorAll(".filter-btn");
-const allSlides = document.querySelectorAll(".swiper-slide");
+    <script>
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const allSlides = document.querySelectorAll(".swiper-slide");
 
-filterButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
 
-        // active button color change
-        filterButtons.forEach(b => {
-            b.classList.remove("bg-yellow-500", "text-black");
-            b.classList.add("bg-gray-700", "text-white");
+                // active button color change
+                filterButtons.forEach(b => {
+                    b.classList.remove("bg-yellow-500", "text-black");
+                    b.classList.add("bg-gray-700", "text-white");
+                });
+
+                btn.classList.remove("bg-gray-700", "text-white");
+                btn.classList.add("bg-yellow-500", "text-black");
+
+                const filterValue = btn.getAttribute("data-filter");
+
+                allSlides.forEach(slide => {
+                    const category = slide.querySelector(".project-card").getAttribute("data-category");
+
+                    if (filterValue === "all" || filterValue === category) {
+                        slide.style.display = "block";
+                    } else {
+                        slide.style.display = "none";
+                    }
+                });
+
+                // Swiper ko force update karna zaroori hai warna hide/show detect nahi karega
+                swiper.update();
+            });
         });
-
-        btn.classList.remove("bg-gray-700", "text-white");
-        btn.classList.add("bg-yellow-500", "text-black");
-
-        const filterValue = btn.getAttribute("data-filter");
-
-        allSlides.forEach(slide => {
-            const category = slide.querySelector(".project-card").getAttribute("data-category");
-
-            if (filterValue === "all" || filterValue === category) {
-                slide.style.display = "block";
-            } else {
-                slide.style.display = "none";
-            }
-        });
-
-        // Swiper ko force update karna zaroori hai warna hide/show detect nahi karega
-        swiper.update();
-    });
-});
-</script>
+    </script>
 </body>
 
 </html>
