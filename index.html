@@ -15,12 +15,8 @@
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
-    /swiperjs-->
-    <!-- Swiper CSS -->
-     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    
+
 
 
 </head>
@@ -196,10 +192,11 @@
 
             <!-- About Text -->
             <p class="text-lg leading-relaxed text-gray-300">
-                I'm Aliyan, a passionate Software Engineer with expertise in HTML, CSS, JavaScript and React. I also
-                have solid knowledge of high level language c++, java, pyhton and also knowledge of Linux systems and
-                CCNA, which allows me to combine development and system-level skills. I love solving problems and
-                building creative solutions.
+                My name is Aliyan, and I am a skilled Full Stack Web Developer with hands-on experience in building
+                modern, responsive, and high-performance websites. I have successfully delivered quality products to
+                100+ clients, meeting diverse business requirements with precision and creativity. I specialize in
+                turning ideas into functional digital solutions using clean code and best practices. I am passionate
+                about my work and committed to delivering reliable, scalable, and user-focused web experiences.
             </p>
             </p>
         </div>
@@ -280,7 +277,8 @@
                                 A fully functional calculator built using HTML, CSS, and JavaScript.
                             </p>
                             <div class="flex gap-4">
-                                <a href="https://calculator-functional.vercel.app/" target="_blank" rel="noopener">Live Demo</a>
+                                <a href="https://calculator-functional.vercel.app/" target="_blank" rel="noopener">Live
+                                    Demo</a>
                                 <a href="https://github.com/Aliyank001/calculator.git" target="_blank"
                                     rel="noopener">GitHub</a>
                             </div>
@@ -303,7 +301,8 @@
                                 Creates strong random passwords using length & character options.
                             </p>
                             <div class="flex gap-4">
-                                <a href="https://password-generator-pro-theta.vercel.app/" target="_blank" rel="noopener">Live Demo</a>
+                                <a href="https://password-generator-pro-theta.vercel.app/" target="_blank"
+                                    rel="noopener">Live Demo</a>
                                 <a href="https://github.com/Aliyank001/password-generator.git" target="_blank"
                                     rel="noopener">GitHub</a>
                             </div>
@@ -326,7 +325,8 @@
                                 Build your professional CV in minutes and land your next interview faster.
                             </p>
                             <div class="flex gap-4">
-                                <a href="https://cv-maker-pro-mocha.vercel.app/" target="_blank" rel="noopener">Live Demo</a>
+                                <a href="https://cv-maker-pro-mocha.vercel.app/" target="_blank" rel="noopener">Live
+                                    Demo</a>
                                 <a href="https://github.com/Aliyank001/cv-maker.git" target="_blank"
                                     rel="noopener">GitHub</a>
                             </div>
@@ -398,8 +398,7 @@
 
 
             <!-- Right: Form -->
-            <form action="mailto:aliyanbc@gmail.com" method="post"
-                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl space-y-6">
+            <form action="" method="post" class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl space-y-6">
 
                 <input type="text" placeholder="Your Name"
                     class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300">
@@ -424,8 +423,6 @@
         <p>© 2025 Aliyan. All rights reserved.</p>
     </footer>
 
-    // Project Card Interaction Script
-
     <script>
         document.querySelectorAll(".project-card").forEach(card => {
             const img = card.querySelector(".project-img");
@@ -445,10 +442,10 @@
                 }
             });
         });
-    </script>
 
-    // Mobile Menu Toggle
-    <script>
+
+        // Mobile Menu Toggle
+
 
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -456,10 +453,10 @@
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-    </script>
 
-    // Added typing effect script
-    <script>
+
+        // Added typing effect script
+
         const texts = ["Web Developer"];
         let count = 0;
         let index = 0;
@@ -479,10 +476,10 @@
                 setTimeout(type, 150);
             }
         })();
-    </script>
 
-    // Added script to scroll to top on logo click
-    <script>
+
+        // Added script to scroll to top on logo click
+
         const logo = document.getElementById("logo");
         logo.addEventListener("click", () => {
             window.scrollTo({
@@ -492,9 +489,9 @@
         });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js">
 
-    <script>
+
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 20,
@@ -524,8 +521,8 @@
                 clickable: true,
             },
         });
-    </script>
-    <script>
+
+
         const filterButtons = document.querySelectorAll(".filter-btn");
         const allSlides = document.querySelectorAll(".swiper-slide");
 
@@ -559,5 +556,11 @@
         });
     </script>
 </body>
+
+<!--/swiperjs-->
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 
 </html>
