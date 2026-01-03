@@ -53,6 +53,14 @@
                     </svg>
                     <span>Skills</span>
                 </a>
+                <a href="#services" class="hover:text-yellow-500 flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>Services</span>
+                </a>
                 <a href="#projects" class="hover:text-yellow-500 flex items-center space-x-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -102,6 +110,15 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
                 </svg>
                 <span>Skills</span>
+            </a>
+
+            <a href="#services" class="flex items-center space-x-2 hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Services</span>
             </a>
 
             <a href="#projects" class="flex items-center space-x-2 hover:text-yellow-500">
@@ -217,6 +234,67 @@
         </div>
     </section>
 
+    <!-- Services Section -->
+    <section id="services" class="bg-[#111111] py-20 px-6 transition-colors">
+        <h2 class="text-3xl font-bold text-center mb-4">My Services</h2>
+        <p class="text-center text-gray-400 mb-12 text-lg">What I can do for you</p>
+
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Service 1: Web Development -->
+            <div
+                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col">
+                <div class="text-yellow-400 text-5xl mb-4">
+                    <i class="ri-code-s-slash-line"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+                <p class="text-gray-300 mb-6 flex-grow">
+                    I build modern, responsive, and high-performance websites tailored to your business needs using the
+                    latest technologies and best practices.
+                </p>
+                <a href="#contact"
+                    class="bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 shadow-md hover:shadow-lg transition-all duration-300 text-center">
+                    Let's Build Together
+                </a>
+            </div>
+
+            <!-- Service 2: Full Stack Development -->
+            <div
+                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col">
+                <div class="text-yellow-400 text-5xl mb-4">
+                    <i class="ri-stack-line"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">MERN Stack Development</h3>
+                <p class="text-gray-300 mb-6 flex-grow">
+                    Complete end-to-end web application development using MongoDB, Express, React, and Node.js for
+                    scalable and robust solutions.
+                </p>
+                <a href="#contact"
+                    class="bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 shadow-md hover:shadow-lg transition-all duration-300 text-center">
+                    Get Started
+                </a>
+            </div>
+
+            <!-- Service 3: Website Refinement & Updates -->
+            <div
+                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col">
+                <div class="text-yellow-400 text-5xl mb-4">
+                    <i class="ri-refresh-line"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Website Refinement & Updates</h3>
+                <p class="text-gray-300 mb-6 flex-grow">
+                    Enhance and modernize your existing website with performance improvements, new features, and design
+                    updates to keep it fresh and competitive.
+                </p>
+                <a href="#contact"
+                    class="bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 shadow-md hover:shadow-lg transition-all duration-300 text-center">
+                    Upgrade Now
+                </a>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="bg-[#111111] py-20 px-6 transition-colors">
         <h2 class="text-3xl font-bold text-center mb-10">Projects</h2>
@@ -240,23 +318,50 @@
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
 
+
                 <!-- SLIDE 1 -->
                 <div class="swiper-slide">
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/business_web_banner_30.jpg" class="project-img rounded-lg mb-4"
-                            alt="image error">
+                        <img src="image/gym logo 2.jpg" class="project-img rounded-lg mb-4" alt="image error">
 
-                        <h3 class="font-semibold text-lg mb-2">BUSINESS WEBSITE</h3>
+                        <h3 class="font-semibold text-lg mb-2">GYM WEBSITE</h3>
 
                         <div class="project-overlay rounded-xl">
                             <p class="text-gray-200 mb-4 px-2">
-                                A modern business website designed to showcase services and connect with customers.
+                                A modern gym website designed to showcase services and connect with customers.
                             </p>
                             <div class="flex gap-4">
-                                <a href="#" target="_blank">Live Demo</a>
-                                <a href="#" target="_blank">GitHub</a>
+                                <a href="https://gym-frontend-navy.vercel.app/" target="_blank" rel="noopener">Live
+                                    Demo</a>
+                                <a href="https://github.com/Aliyank001/gym-website-frontend.git" target="_blank"
+                                    rel="noopener">GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 1 -->
+                <div class="swiper-slide">
+                    <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
+                        data-category="html">
+
+                        <img src="image/clinic logo.jpg" class="project-img rounded-lg mb-4" alt="image error">
+
+                        <h3 class="font-semibold text-lg mb-2">CLINIC WEBSITE </h3>
+
+                        <div class="project-overlay rounded-xl">
+                            <p class="text-gray-200 mb-4 px-2">
+                                Our mission is to provide patient-centered care that combines medical expertise with
+                                compassion.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="https://clinic-frontend-rosy.vercel.app/" target="_blank" rel="noopener">Live
+                                    Demo</a>
+                                <a href="https://github.com/Aliyank001/clinic-website-frontend.git" target="_blank"
+                                    rel="noopener">GitHub</a>
                             </div>
                         </div>
 
@@ -292,7 +397,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/pass.png" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/pass logo.jpg" class="project-img rounded-lg mb-4" alt="image error">
 
                         <h3 class="font-semibold text-lg mb-2">Password Generator App</h3>
 
@@ -329,6 +434,29 @@
                                     Demo</a>
                                 <a href="https://github.com/Aliyank001/cv-maker.git" target="_blank"
                                     rel="noopener">GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 5 -->
+                <div class="swiper-slide">
+                    <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
+                        data-category="html">
+
+                        <img src="image/business_web_banner_30.jpg" class="project-img rounded-lg mb-4"
+                            alt="image error">
+
+                        <h3 class="font-semibold text-lg mb-2">BUSINESS WEBSITE</h3>
+
+                        <div class="project-overlay rounded-xl">
+                            <p class="text-gray-200 mb-4 px-2">
+                                A modern business website designed to showcase services and connect with customers.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#" target="_blank">Live Demo</a>
+                                <a href="#" target="_blank">GitHub</a>
                             </div>
                         </div>
 
