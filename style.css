@@ -15,6 +15,28 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Offset for fixed header */
+        }
+
+        /* Loading Animation */
+        #loader {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255, 204, 0, 0.2);
+            border-top-color: #ffcc00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Image auto-resize */

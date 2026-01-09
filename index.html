@@ -4,7 +4,26 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aliyan's Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aliyan - Full Stack Web Developer & MERN Stack Developer. Building modern, responsive websites with 100+ satisfied clients. Specializing in web development, MERN stack, and website refinement." />
+    <meta name="keywords" content="web developer, full stack developer, MERN stack, MongoDB, Express, React, Node.js, portfolio, freelancer, software engineer, Aliyan" />
+    <meta name="author" content="Aliyan" />
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="Aliyan's Portfolio - Full Stack Web Developer" />
+    <meta property="og:description" content="Full Stack Web Developer specializing in MERN Stack. Building modern, responsive websites with 100+ satisfied clients." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta property="og:image" content="https://yourwebsite.com/image/profile%202.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aliyan's Portfolio - Full Stack Web Developer" />
+    <meta name="twitter:description" content="Full Stack Web Developer specializing in MERN Stack. Building modern, responsive websites." />
+    <meta name="twitter:image" content="https://yourwebsite.com/image/profile%202.png" />
+    
+    <title>Aliyan's Portfolio - Full Stack Web Developer</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -30,6 +49,14 @@
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+    <!-- Loading Animation -->
+    <div id="loader" class="fixed inset-0 bg-[#0a0a0a] z-[9999] flex items-center justify-center">
+        <div class="text-center">
+            <div class="loader-spinner mb-4"></div>
+            <p class="text-yellow-400 text-xl font-semibold animate-pulse">Loading...</p>
+        </div>
+    </div>
 
     <header class="fixed w-full top-0 left-0 z-50 bg-[#0a0a0a] shadow-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
@@ -230,15 +257,65 @@
 
     <!-- Skills Section -->
     <section id="skills" class="bg-[#111111] py-20 px-6 transition-colors">
-        <h2 class="text-3xl font-bold text-center mb-10">My Skill</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">HTML</div>
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">CSS</div>
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">JavaScript</div>
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">React</div>
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">C++</div>
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">java</div>
-            <div class="bg-[#1c1c1c] p-6 rounded-xl shadow hover:shadow-lg transition">pyhton</div>
+        <h2 class="text-3xl font-bold text-center mb-10">My Skills</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8 max-w-6xl mx-auto">
+            
+            <!-- HTML -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-html5-fill text-orange-500 text-6xl group-hover:animate-bounce"></i>
+                    <span class="mt-4 font-semibold text-sm">HTML</span>
+                </div>
+            </div>
+
+            <!-- CSS -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-css3-fill text-blue-500 text-6xl group-hover:animate-bounce"></i>
+                    <span class="mt-4 font-semibold text-sm">CSS</span>
+                </div>
+            </div>
+
+            <!-- JavaScript -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-javascript-fill text-yellow-400 text-6xl group-hover:animate-bounce"></i>
+                    <span class="mt-4 font-semibold text-sm">JavaScript</span>
+                </div>
+            </div>
+
+            <!-- React -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-reactjs-line text-cyan-400 text-6xl group-hover:animate-spin"></i>
+                    <span class="mt-4 font-semibold text-sm">React</span>
+                </div>
+            </div>
+
+            <!-- C++ -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-code-box-fill text-purple-500 text-6xl group-hover:animate-pulse"></i>
+                    <span class="mt-4 font-semibold text-sm">C++</span>
+                </div>
+            </div>
+
+            <!-- Java -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-cup-fill text-red-500 text-6xl group-hover:animate-bounce"></i>
+                    <span class="mt-4 font-semibold text-sm">Java</span>
+                </div>
+            </div>
+
+            <!-- Python -->
+            <div class="skill-card group">
+                <div class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
+                    <i class="ri-code-s-slash-fill text-green-500 text-6xl group-hover:animate-pulse"></i>
+                    <span class="mt-4 font-semibold text-sm">Python</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -332,7 +409,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/cafe logo.png" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/cafe logo.png" class="project-img rounded-lg mb-4" alt="Café Website Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2"> CAFÉ WEBSITE</h3>
 
@@ -358,7 +435,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/gym logo 2.jpg" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/gym logo 2.jpg" class="project-img rounded-lg mb-4" alt="Gym Website Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">GYM WEBSITE</h3>
 
@@ -376,14 +453,14 @@
 
                     </div>
                 </div>
-                
+
 
                 <!-- SLIDE 1 -->
                 <div class="swiper-slide">
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/cleaning.jpg" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/cleaning.jpg" class="project-img rounded-lg mb-4" alt="Cleaning Website Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">CLEANING WEBSITE</h3>
 
@@ -407,7 +484,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/clinic logo.jpg" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/clinic logo.jpg" class="project-img rounded-lg mb-4" alt="Clinic Website Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">CLINIC WEBSITE </h3>
 
@@ -432,7 +509,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/calculator.jpg" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/calculator.jpg" class="project-img rounded-lg mb-4" alt="Calculator Webpage Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">Calculator Webpage</h3>
 
@@ -456,7 +533,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/pass logo.jpg" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/pass logo.jpg" class="project-img rounded-lg mb-4" alt="Password Generator App Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">Password Generator App</h3>
 
@@ -480,7 +557,7 @@
                     <div class="project-card bg-[#1c1c1c] rounded-xl shadow hover:shadow-lg p-4 transition cursor-pointer hover:scale-105"
                         data-category="html">
 
-                        <img src="image/cv maker.jpg" class="project-img rounded-lg mb-4" alt="image error">
+                        <img src="image/cv maker.jpg" class="project-img rounded-lg mb-4" alt="CV Maker App Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">CV-Maker App</h3>
 
@@ -505,7 +582,7 @@
                         data-category="html">
 
                         <img src="image/business_web_banner_30.jpg" class="project-img rounded-lg mb-4"
-                            alt="image error">
+                            alt="Business Website Project" loading="lazy">
 
                         <h3 class="font-semibold text-lg mb-2">BUSINESS WEBSITE</h3>
 
@@ -607,7 +684,7 @@
 
     <!-- Footer -->
     <footer class="max-w-6xl mx-auto py-10 px-6 text-center text-sm">
-        <p>© 2025 Aliyan. All rights reserved.</p>
+        <p>© 2026 Aliyan. All rights reserved.</p>
     </footer>
 
     <script>
@@ -631,14 +708,31 @@
         });
 
 
+        // Page Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }, 500);
+        });
+
         // Mobile Menu Toggle
-
-
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // Auto-close mobile menu when clicking a link
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
         });
 
 
