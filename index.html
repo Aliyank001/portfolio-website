@@ -801,6 +801,23 @@
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
+                renderBullet: function (index, className) {
+                    const totalSlides = this.slides.length;
+                    const maxDots = 4;
+                    
+                    if (totalSlides <= maxDots) {
+                        return '<span class="' + className + '"></span>';
+                    }
+                    
+                    if (index < maxDots) {
+                        return '<span class="' + className + '"></span>';
+                    } else if (index === maxDots) {
+                        const remaining = totalSlides - maxDots;
+                        return '<span class="' + className + ' swiper-pagination-plus">+' + remaining + '</span>';
+                    }
+                    
+                    return '';
+                },
             },
         });
 

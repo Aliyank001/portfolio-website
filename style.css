@@ -118,6 +118,19 @@
             opacity: 1 !important;
         }
 
+        /* Custom Plus Pagination */
+        .swiper-pagination-plus {
+            width: auto !important;
+            height: auto !important;
+            padding: 4px 10px !important;
+            border-radius: 12px !important;
+            font-size: 12px !important;
+            font-weight: bold !important;
+            background: yellow !important;
+            color: #000 !important;
+            opacity: 1 !important;
+        }
+
         .cube-container {
             width: 250px;
             height: 250px;
