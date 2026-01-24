@@ -1,0 +1,74 @@
+[
+  {
+    "title": "CAFÉ WEBSITE",
+    "image": "image/cafe logo.png",
+    "description": "A modern and responsive coffee café website featuring a premium UI, menu sections, gallery, and contact layout. Built for demo and portfolio showcase.",
+    "liveUrl": "https://cafe-mauve-two.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/Coffee-frontend.git",
+    "category": "html"
+  },
+  {
+    "title": "REAL STATE WEBSITE",
+    "image": "image/real state logo.jpg",
+    "description": "A premium real estate demo website built for Gulf countries, focused on luxury UI, smooth animations, responsive design, and lead-driven user experience for modern property businesses.",
+    "liveUrl": "https://real-state-sigma-rouge.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/Real-State-website-frontend-.git",
+    "category": "html"
+  },
+  {
+    "title": "GYM WEBSITE",
+    "image": "image/gym logo 2.jpg",
+    "description": "A modern gym website designed to showcase services and connect with customers.",
+    "liveUrl": "https://gym-frontend-navy.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/gym-website-frontend.git",
+    "category": "html"
+  },
+  {
+    "title": "CLEANING WEBSITE",
+    "image": "image/cleaning.jpg",
+    "description": "A modern cleaning website designed to showcase services and connect with customers.",
+    "liveUrl": "https://cleaning-demo-two.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/cleaning-frontend.git",
+    "category": "html"
+  },
+  {
+    "title": "CLINIC WEBSITE",
+    "image": "image/clinic logo.jpg",
+    "description": "Our mission is to provide patient-centered care that combines medical expertise with compassion.",
+    "liveUrl": "https://clinic-frontend-rosy.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/clinic-website-frontend.git",
+    "category": "html"
+  },
+  {
+    "title": "Calculator Webpage",
+    "image": "image/calculator.jpg",
+    "description": "A fully functional calculator built using HTML, CSS, and JavaScript.",
+    "liveUrl": "https://calculator-functional.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/calculator.git",
+    "category": "html"
+  },
+  {
+    "title": "Password Generator App",
+    "image": "image/pass logo.jpg",
+    "description": "Creates strong random passwords using length & character options.",
+    "liveUrl": "https://password-generator-pro-theta.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/password-generator.git",
+    "category": "html"
+  },
+  {
+    "title": "CV-Maker App",
+    "image": "image/cv maker.jpg",
+    "description": "Build your professional CV in minutes and land your next interview faster.",
+    "liveUrl": "https://cv-maker-pro-mocha.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/cv-maker.git",
+    "category": "html"
+  },
+  {
+    "title": "BUSINESS WEBSITE",
+    "image": "image/business_web_banner_30.jpg",
+    "description": "A modern business website designed to showcase services and connect with customers.",
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "category": "html"
+  }
+]
