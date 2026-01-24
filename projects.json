@@ -8,6 +8,14 @@
     "category": "html"
   },
   {
+    "title": "PHYSIOTHERAPY CLINIC WEBSITE",
+    "image": "image/phsio pic.jpg",
+    "description": "A modern and responsive physiotherapy clinic website featuring a premium UI, services sections, gallery, and contact layout. Built for demo and portfolio showcase.",
+    "liveUrl": "https://physiocare-website.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/physiocare-clinic-website-.git",
+    "category": "html"
+  },
+  {
     "title": "REAL STATE WEBSITE",
     "image": "image/real state logo.jpg",
     "description": "A premium real estate demo website built for Gulf countries, focused on luxury UI, smooth animations, responsive design, and lead-driven user experience for modern property businesses.",
