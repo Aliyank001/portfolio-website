@@ -16,6 +16,14 @@
     "category": "html"
   },
   {
+    "title": "HOME DECORE WEBSITE",
+    "image": "image/home decore pic.jpg",
+    "description": "Modern Home Décor website featuring 7 fully designed pages with a premium UI, smooth animations, and a fully responsive layout optimized for mobile, tablet, and desktop devices.",
+    "liveUrl": "https://home-decore-frontend.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/Home-decore-website.git",
+    "category": "html"
+  },
+  {
     "title": "REAL STATE WEBSITE",
     "image": "image/real state logo.jpg",
     "description": "A premium real estate demo website built for Gulf countries, focused on luxury UI, smooth animations, responsive design, and lead-driven user experience for modern property businesses.",
