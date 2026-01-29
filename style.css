@@ -108,6 +108,11 @@
         }
 
         /* Pagination Dots */
+        .swiper-pagination {
+            margin-top: 30px !important;
+            position: relative !important;
+        }
+
         .swiper-pagination-bullet {
             background: yellow !important;
             opacity: 0.5 !important;
