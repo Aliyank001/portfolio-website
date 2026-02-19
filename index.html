@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- SEO Meta Tags -->
     <meta name="description"
@@ -28,19 +28,34 @@
     <meta name="twitter:image" content="https://www.aaliyankhan.me/image/profile%202.png" />
 
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
 
     <title>Aliyan's Portfolio - Full Stack Web Developer</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { poppins: ['Poppins', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YL60LLQM9"></script>
@@ -51,459 +66,645 @@
         gtag('config', 'G-3YL60LLQM9');
     </script>
 
-
-
 </head>
 
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+<body class="font-inter">
 
-    <!-- Loading Animation -->
-    <div id="loader" class="fixed inset-0 bg-[#0a0a0a] z-[9999] flex items-center justify-center">
+    <!-- Noise Texture Overlay -->
+    <div class="noise-overlay"></div>
+
+
+    <!-- ==================== PREMIUM LOADER ==================== -->
+    <div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center">
         <div class="text-center">
-            <div class="loader-spinner mb-4"></div>
-            <p class="text-yellow-400 text-xl font-semibold animate-pulse">Loading...</p>
+            <div class="loader-logo-wrap">
+                <span class="loader-logo">A</span>
+            </div>
+            <div class="loader-bar-track">
+                <div class="loader-bar-fill" id="loader-bar"></div>
+            </div>
+            <p class="loader-text">Loading Experience</p>
         </div>
     </div>
 
-    <header class="fixed w-full top-0 left-0 z-50 bg-[#0a0a0a] shadow-lg">
-        <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
-            <h1 id="logo"
-                class="text-xl font-bold cursor-pointer hover:text-yellow-500 hover:scale-105 transition-transform duration-300">
-                Aliyan's Portfolio</h1>
+    <!-- ==================== HEADER ==================== -->
+    <header class="fixed w-full top-0 left-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-3 md:py-4">
+            <h1 id="logo" class="text-2xl font-bold cursor-pointer tracking-tight">
+                Aliyan<span class="logo-dot">.</span>
+            </h1>
 
-            <nav class="hidden md:flex space-x-6">
-                <a href="#home" class="hover:text-yellow-500 flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7m-9 9v-6h4v6" />
-                    </svg>
-                    <span>Home</span>
-                </a>
-                <a href="#about" class="hover:text-yellow-500 flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5.121 17.804A4 4 0 018 16h8a4 4 0 012.879 1.804M12 12a4 4 0 100-8 4 4 0 000 8z" />
-                    </svg>
-                    <span>About</span>
-                </a>
-                <a href="#skills" class="hover:text-yellow-500 flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
-                    </svg>
-                    <span>Skills</span>
-                </a>
-                <a href="#services" class="hover:text-yellow-500 flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <span>Services</span>
-                </a>
-                <a href="#projects" class="hover:text-yellow-500 flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 17v-4h6v4M9 12V8h6v4M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                    <span>Projects</span>
-                </a>
-                <a href="#contact" class="hover:text-yellow-500 flex items-center space-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <span>Contact</span>
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#contact" class="nav-link-cta">
+                    <i class="ri-mail-send-line"></i> Contact
                 </a>
             </nav>
 
-
-            <button id="menu-btn" type="button" title="Toggle menu" class="md:hidden text-2xl">
-                <i class="ri-menu-line"></i>
+            <button id="menu-btn" type="button" title="Toggle menu" class="md:hidden text-2xl hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
         </div>
 
-        <nav id="mobile-menu" class="hidden md:hidden bg-[#1c1c1c] shadow-2xl p-4 space-y-3">
-            <a href="#home" class="flex items-center space-x-2 hover:text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 12l2-2m0 0l7-7 7 7m-9 9v-6h4v6" />
-                </svg>
-                <span>Home</span>
+        <nav id="mobile-menu" class="mobile-menu-panel hidden md:hidden">
+            <a href="#home" class="mobile-link">
+                <i class="ri-home-4-line"></i> Home
             </a>
-
-            <a href="#about" class="flex items-center space-x-2 hover:text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M5.121 17.804A4 4 0 018 16h8a4 4 0 012.879 1.804M12 12a4 4 0 100-8 4 4 0 000 8z" />
-                </svg>
-                <span>About</span>
+            <a href="#about" class="mobile-link">
+                <i class="ri-user-3-line"></i> About
             </a>
-
-            <a href="#skills" class="flex items-center space-x-2 hover:text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
-                </svg>
-                <span>Skills</span>
+            <a href="#skills" class="mobile-link">
+                <i class="ri-code-s-slash-line"></i> Skills
             </a>
-
-            <a href="#services" class="flex items-center space-x-2 hover:text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span>Services</span>
+            <a href="#services" class="mobile-link">
+                <i class="ri-briefcase-line"></i> Services
             </a>
-
-            <a href="#projects" class="flex items-center space-x-2 hover:text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 17v-4h6v4M9 12V8h6v4M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                <span>Projects</span>
+            <a href="#projects" class="mobile-link">
+                <i class="ri-folder-line"></i> Projects
             </a>
-
-            <a href="#contact" class="flex items-center space-x-2 hover:text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <span>Contact</span>
+            <a href="#testimonials" class="mobile-link">
+                <i class="ri-chat-quote-line"></i> Testimonials
+            </a>
+            <a href="#contact" class="mobile-link">
+                <i class="ri-mail-line"></i> Contact
             </a>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="bg-gray-100 dark:bg-gray-800 pt-28 py-20 px-6 transition-colors ">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 items-center">
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
+        <!-- Particle Canvas -->
+        <canvas id="particle-canvas" class="absolute inset-0 z-0"></canvas>
+        <!-- Gradient Orbs -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
 
-            <!-- Left Side -->
-            <div class="text-center md:text-left flex-1">
-                <h2 class="text-4xl md:text-6xl font-bold leading-tight">
-                    Hi, I'm <span class="text-yellow-300">Aliyan</span> 👋
-                    <br>
-                    <span id="typed-text" class="text-indigo-400"></span>
-                </h2>
+        <div class="max-w-7xl mx-auto px-6 pt-28 pb-20 relative z-10 w-full">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
 
-                <p class="mt-4 text-lg md:text-2xl">
-                    Software Engineering Student | Web Developer | Freelancer | Mern Stack Developer
-                </p>
+                <!-- Left Side -->
+                <div class="text-center lg:text-left flex-1 reveal-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6 hero-badge">
+                        <span class="status-dot"></span>
+                        <span class="text-xs font-medium tracking-wider uppercase">Available for freelance</span>
+                    </div>
 
-                <div class="flex flex-wrap gap-4 justify-center mt-6">
-                    <!-- View My Work -->
-                    <a href="#projects"
-                        class="flex items-center gap-2 bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-yellow-300 hover:shadow-lg transition-all duration-300">
-                        🚀 View My Work
+                    <h2 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight hero-heading">
+                        Hi, I'm<br>
+                        <span class="name-highlight">Aliyan</span>
+                    </h2>
+
+                    <div class="mt-4 h-12 flex items-center justify-center lg:justify-start">
+                        <span class="typed-prefix">I'm a&nbsp;</span>
+                        <span id="typed-text" class="typed-text"></span>
+                    </div>
+
+                    <p class="mt-6 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 hero-desc">
+                        Crafting high-performance digital experiences with clean code, modern design, and pixel-perfect attention to detail.
+                    </p>
+
+                    <!-- Stats Row -->
+                    <div class="flex flex-wrap gap-3 md:gap-10 justify-center lg:justify-start mt-10 mb-10">
+                        <div class="stat-card">
+                            <div class="stat-number counter" data-target="100">0</div>
+                            <div class="stat-suffix">+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number counter" data-target="50">0</div>
+                            <div class="stat-suffix">+</div>
+                            <div class="stat-label">Projects Done</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number counter" data-target="2">0</div>
+                            <div class="stat-suffix">+</div>
+                            <div class="stat-label">Years Exp.</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                        <a href="#projects" class="btn-primary">
+                            <span>View My Work</span>
+                            <i class="ri-arrow-right-up-line"></i>
+                        </a>
+                        <a href="image/AALIYAN - final Resume.pdf" target="_blank" rel="noopener noreferrer" download class="btn-outline">
+                            <i class="ri-download-2-line"></i>
+                            <span>Resume</span>
+                        </a>
+                        <a href="#contact" class="btn-outline">
+                            <i class="ri-chat-1-line"></i>
+                            <span>Let's Talk</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side: 3D Cube -->
+                <div class="hidden lg:flex justify-center flex-1 reveal-right">
+                    <div class="cube-container">
+                        <div class="cube">
+                            <div class="face front"><span>&lt;/&gt;</span></div>
+                            <div class="face back"><span>{ }</span></div>
+                            <div class="face left"><span>API</span></div>
+                            <div class="face right"><span>UI</span></div>
+                            <div class="face top"><span>DB</span></div>
+                            <div class="face bottom"><span>JS</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator reveal">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <span>Scroll down</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="section-padding">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <span class="section-tag">Who I Am</span>
+                <h2 class="section-heading">About Me</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Profile Image -->
+                <div class="flex justify-center reveal-left">
+                    <div class="about-image-wrap">
+                        <div class="about-image-ring"></div>
+                        <div class="about-image-ring about-image-ring-2"></div>
+                        <img src="image/profile 2.png" alt="Aliyan - Full Stack Developer"
+                            class="about-img">
+                        <!-- Experience badge -->
+                        <div class="experience-badge">
+                            <span class="exp-number">2+</span>
+                            <span class="exp-label">Years<br>Experience</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Text -->
+                <div class="reveal-right">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-2 about-subtitle">
+                        Full Stack Developer &
+                    </h3>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 gradient-text-accent">
+                        Problem Solver
+                    </h3>
+                    <p class="text-base leading-relaxed mb-5 text-muted">
+                        I'm Aliyan, a skilled Full Stack Web Developer with hands-on experience building
+                        modern, responsive, and high-performance websites. I've successfully delivered quality products to
+                        100+ clients, meeting diverse business requirements with precision and creativity.
+                    </p>
+                    <p class="text-base leading-relaxed mb-8 text-muted">
+                        I specialize in turning ideas into functional digital solutions using clean code and best practices.
+                        Passionate about my work and committed to delivering reliable, scalable, and user-focused web experiences.
+                    </p>
+
+                    <!-- Info Grid -->
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="info-item">
+                            <i class="ri-map-pin-line"></i>
+                            <div>
+                                <span class="info-label">Location</span>
+                                <span class="info-value">Pakistan</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-graduation-cap-line"></i>
+                            <div>
+                                <span class="info-label">Education</span>
+                                <span class="info-value">Software Engineering</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-briefcase-line"></i>
+                            <div>
+                                <span class="info-label">Freelance</span>
+                                <span class="info-value">Available</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-global-line"></i>
+                            <div>
+                                <span class="info-label">Languages</span>
+                                <span class="info-value">English, Urdu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="btn-primary">
+                            <span>Work With Me</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                        <a href="#services" class="btn-outline">
+                            <span>My Services</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS SECTION ==================== -->
+    <section id="skills" class="section-padding section-alt">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <span class="section-tag">What I Know</span>
+                <h2 class="section-heading">My Skills</h2>
+                <div class="section-line"></div>
+                <p class="section-desc">Technologies & tools I use to bring ideas to life</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-5 max-w-6xl mx-auto stagger-children">
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-html5-fill text-orange-500"></i>
+                    </div>
+                    <span class="skill-name">HTML5</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+                </div>
+
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-css3-fill text-blue-500"></i>
+                    </div>
+                    <span class="skill-name">CSS3</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+                </div>
+
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-javascript-fill text-yellow-400"></i>
+                    </div>
+                    <span class="skill-name">JavaScript</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+                </div>
+
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-reactjs-line text-cyan-400"></i>
+                    </div>
+                    <span class="skill-name">React</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                </div>
+
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-nodejs-fill text-green-500"></i>
+                    </div>
+                    <span class="skill-name">Node.js</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                </div>
+
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-database-2-line text-emerald-500"></i>
+                    </div>
+                    <span class="skill-name">MongoDB</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+                </div>
+
+                <div class="skill-card-pro group" data-tilt>
+                    <div class="skill-icon-wrap">
+                        <i class="ri-code-box-fill text-purple-500"></i>
+                    </div>
+                    <span class="skill-name">C++</span>
+                    <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+                </div>
+            </div>
+
+            <!-- Additional tools row -->
+            <div class="flex flex-wrap justify-center gap-3 mt-12 max-w-4xl mx-auto reveal">
+                <span class="tool-tag">Git</span>
+                <span class="tool-tag">Express.js</span>
+                <span class="tool-tag">Tailwind CSS</span>
+                <span class="tool-tag">Bootstrap</span>
+                <span class="tool-tag">REST API</span>
+                <span class="tool-tag">Firebase</span>
+                <span class="tool-tag">Python</span>
+                <span class="tool-tag">Java</span>
+                <span class="tool-tag">Figma</span>
+                <span class="tool-tag">VS Code</span>
+                <span class="tool-tag">Postman</span>
+                <span class="tool-tag">GitHub</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES SECTION ==================== -->
+    <section id="services" class="section-padding">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <span class="section-tag">What I Do</span>
+                <h2 class="section-heading">My Services</h2>
+                <div class="section-line"></div>
+                <p class="section-desc">Transforming your ideas into exceptional digital products</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto stagger-children">
+
+                <div class="service-card-pro" data-tilt>
+                    <div class="service-number">01</div>
+                    <div class="service-icon-pro">
+                        <i class="ri-code-s-slash-line"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>
+                        Building modern, responsive, and high-performance websites tailored to your business needs using the
+                        latest technologies and best practices.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="ri-check-line"></i> Responsive Design</li>
+                        <li><i class="ri-check-line"></i> SEO Optimized</li>
+                        <li><i class="ri-check-line"></i> Fast Loading</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">
+                        Get Started <i class="ri-arrow-right-up-line"></i>
                     </a>
+                </div>
 
-                    <!-- View / Download CV -->
-                    <a href="image/AALIYAN - final Resume.pdf" target="_blank" rel="noopener noreferrer" download
-                        class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
-                        📄 View / Download Resume
+                <div class="service-card-pro featured" data-tilt>
+                    <div class="featured-badge">Popular</div>
+                    <div class="service-number">02</div>
+                    <div class="service-icon-pro">
+                        <i class="ri-stack-line"></i>
+                    </div>
+                    <h3>MERN Stack Development</h3>
+                    <p>
+                        Complete end-to-end web application development using MongoDB, Express, React, and Node.js for
+                        scalable and robust solutions.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="ri-check-line"></i> Full Stack Solution</li>
+                        <li><i class="ri-check-line"></i> Database Design</li>
+                        <li><i class="ri-check-line"></i> API Development</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">
+                        Get Started <i class="ri-arrow-right-up-line"></i>
                     </a>
+                </div>
 
-                    <!-- Hire Me -->
-                    <a href="#contact"
-                        class="flex items-center gap-2 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-600 shadow-md hover:shadow-lg transition-all duration-300">
-                        let's build together
+                <div class="service-card-pro" data-tilt>
+                    <div class="service-number">03</div>
+                    <div class="service-icon-pro">
+                        <i class="ri-refresh-line"></i>
+                    </div>
+                    <h3>Website Refinement</h3>
+                    <p>
+                        Enhance and modernize existing websites with performance improvements, new features, and design
+                        updates to keep them fresh and competitive.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="ri-check-line"></i> Performance Boost</li>
+                        <li><i class="ri-check-line"></i> Modern Redesign</li>
+                        <li><i class="ri-check-line"></i> Bug Fixing</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">
+                        Get Started <i class="ri-arrow-right-up-line"></i>
                     </a>
                 </div>
 
             </div>
+        </div>
+    </section>
 
-            <!-- Right Side -->
-            <!-- Right Side -->
-            <div class="hidden md:flex justify-center flex-1">
-                <div class="cube-container">
-                    <div class="cube">
-                        <div class="face front"></div>
-                        <div class="face back"></div>
-                        <div class="face left"></div>
-                        <div class="face right"></div>
-                        <div class="face top"></div>
-                        <div class="face bottom"></div>
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <section id="projects" class="section-padding section-alt">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <span class="section-tag">My Work</span>
+                <h2 class="section-heading">Featured Projects</h2>
+                <div class="section-line"></div>
+                <p class="section-desc">A showcase of my recent development work</p>
+            </div>
+
+            <!-- FILTER BUTTONS -->
+            <div class="flex flex-wrap justify-center gap-3 mb-14 reveal">
+                <button class="filter-btn active-filter" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="html">HTML / CSS / JS</button>
+                <button class="filter-btn" data-filter="react">React</button>
+            </div>
+
+            <!-- Swiper Container -->
+            <div class="swiper mySwiper reveal">
+                <div class="swiper-wrapper" id="projects-container">
+                    <!-- Projects will be loaded here from projects.json -->
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS SECTION ==================== -->
+    <section id="testimonials" class="section-padding">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <span class="section-tag">Client Stories</span>
+                <h2 class="section-heading">What Clients Say</h2>
+                <div class="section-line"></div>
+                <p class="section-desc">Feedback from people I've had the pleasure to work with</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto stagger-children">
+                <div class="testimonial-card" data-tilt>
+                    <div class="testimonial-stars">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Aliyan delivered an outstanding website for my business. Professional, fast, and pixel-perfect. 
+                        The attention to detail was incredible. Highly recommended!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">A</div>
+                        <div>
+                            <span class="testimonial-name">Ahmed R.</span>
+                            <span class="testimonial-role">Business Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-tilt>
+                    <div class="testimonial-stars">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Working with Aliyan was a great experience. He understood exactly what I needed and delivered 
+                        beyond expectations. Will definitely work again!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">S</div>
+                        <div>
+                            <span class="testimonial-name">Sarah K.</span>
+                            <span class="testimonial-role">Startup Founder</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-tilt>
+                    <div class="testimonial-stars">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Exceptional MERN stack development skills. Aliyan built a complex web app for us with clean code 
+                        and great performance. Very reliable developer."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">M</div>
+                        <div>
+                            <span class="testimonial-name">Michael T.</span>
+                            <span class="testimonial-role">Tech Lead</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="max-w-6xl mx-auto py-20 px-6">
-        <h2 class="text-3xl font-bold text-center mb-10">About Me</h2>
-        <div class="grid md:grid-cols-2 gap-10 items-center">
-            <!-- Profile Image -->
-            <div class="flex justify-center">
-                <img src="image/profile 2.png" alt="Profile"
-                    class="w-64 sm:w-72 md:w-80 lg:w-96 rounded-full shadow-2xl object-cover transition-transform duration-300 hover:scale-105">
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="section-padding section-alt">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <span class="section-tag">Say Hello</span>
+                <h2 class="section-heading">Get In Touch</h2>
+                <div class="section-line"></div>
+                <p class="section-desc">Have a project in mind? Let's build something amazing together</p>
             </div>
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
 
-            <!-- About Text -->
-            <p class="text-lg leading-relaxed text-gray-300">
-                My name is Aliyan, and I am a skilled Full Stack Web Developer with hands-on experience in building
-                modern, responsive, and high-performance websites. I have successfully delivered quality products to
-                clients, meeting diverse business requirements with precision and creativity. I specialize in
-                turning ideas into functional digital solutions using clean code and best practices. I am passionate
-                about my work and committed to delivering reliable, scalable, and user-focused web experiences.
-            </p>
-            </p>
-        </div>
-
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="bg-[#111111] py-20 px-6 transition-colors">
-        <h2 class="text-3xl font-bold text-center mb-10">My Skills</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8 max-w-6xl mx-auto">
-
-            <!-- HTML -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-html5-fill text-orange-500 text-6xl group-hover:animate-bounce"></i>
-                    <span class="mt-4 font-semibold text-sm">HTML</span>
-                </div>
-            </div>
-
-            <!-- CSS -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-css3-fill text-blue-500 text-6xl group-hover:animate-bounce"></i>
-                    <span class="mt-4 font-semibold text-sm">CSS</span>
-                </div>
-            </div>
-
-            <!-- JavaScript -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-javascript-fill text-yellow-400 text-6xl group-hover:animate-bounce"></i>
-                    <span class="mt-4 font-semibold text-sm">JavaScript</span>
-                </div>
-            </div>
-
-            <!-- React -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-reactjs-line text-cyan-400 text-6xl group-hover:animate-spin"></i>
-                    <span class="mt-4 font-semibold text-sm">React</span>
-                </div>
-            </div>
-
-            <!-- C++ -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-code-box-fill text-purple-500 text-6xl group-hover:animate-pulse"></i>
-                    <span class="mt-4 font-semibold text-sm">C++</span>
-                </div>
-            </div>
-
-            <!-- Java -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-cup-fill text-red-500 text-6xl group-hover:animate-bounce"></i>
-                    <span class="mt-4 font-semibold text-sm">Java</span>
-                </div>
-            </div>
-
-            <!-- Python -->
-            <div class="skill-card group">
-                <div
-                    class="bg-[#1c1c1c] p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-[#252525] flex flex-col items-center justify-center">
-                    <i class="ri-code-s-slash-fill text-green-500 text-6xl group-hover:animate-pulse"></i>
-                    <span class="mt-4 font-semibold text-sm">Python</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="bg-[#111111] py-20 px-6 transition-colors">
-        <h2 class="text-3xl font-bold text-center mb-4">My Services</h2>
-        <p class="text-center text-gray-400 mb-12 text-lg">What I can do for you</p>
-
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- Service 1: Web Development -->
-            <div
-                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col">
-                <div class="text-yellow-400 text-5xl mb-4">
-                    <i class="ri-code-s-slash-line"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Web Development</h3>
-                <p class="text-gray-300 mb-6 flex-grow">
-                    I build modern, responsive, and high-performance websites tailored to your business needs using the
-                    latest technologies and best practices.
-                </p>
-                <a href="#contact"
-                    class="bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 shadow-md hover:shadow-lg transition-all duration-300 text-center">
-                    Let's Build Together
-                </a>
-            </div>
-
-            <!-- Service 2: Full Stack Development -->
-            <div
-                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col">
-                <div class="text-yellow-400 text-5xl mb-4">
-                    <i class="ri-stack-line"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">MERN Stack Development</h3>
-                <p class="text-gray-300 mb-6 flex-grow">
-                    Complete end-to-end web application development using MongoDB, Express, React, and Node.js for
-                    scalable and robust solutions.
-                </p>
-                <a href="#contact"
-                    class="bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 shadow-md hover:shadow-lg transition-all duration-300 text-center">
-                    Get Started
-                </a>
-            </div>
-
-            <!-- Service 3: Website Refinement & Updates -->
-            <div
-                class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col">
-                <div class="text-yellow-400 text-5xl mb-4">
-                    <i class="ri-refresh-line"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Website Refinement & Updates</h3>
-                <p class="text-gray-300 mb-6 flex-grow">
-                    Enhance and modernize your existing website with performance improvements, new features, and design
-                    updates to keep it fresh and competitive.
-                </p>
-                <a href="#contact"
-                    class="bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 shadow-md hover:shadow-lg transition-all duration-300 text-center">
-                    Upgrade Now
-                </a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="bg-[#111111] py-20 px-6 transition-colors">
-        <h2 class="text-3xl font-bold text-center mb-10">Projects</h2>
-
-
-        <!-- FILTER BUTTONS -->
-        <div class="flex flex-wrap justify-center gap-4 mb-10">
-
-            <button class="filter-btn bg-yellow-500 text-black px-4 py-2 rounded-lg" data-filter="all">
-                All
-            </button>
-            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-lg" data-filter="html">
-                HTML / CSS / JS
-            </button>
-            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-lg" data-filter="react">
-                react
-            </button>
-        </div>
-
-        <!-- Swiper Container -->
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper" id="projects-container">
-                <!-- Projects will be loaded here from projects.json -->
-            </div>
-
-            <!-- Next/Prev Buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-
-            <!-- Pagination Dots -->
-            <div class="swiper-pagination"></div>
-        </div>
-
-    </section>
-
-
-    <!-- Contact Section -->
-    <section id="contact" class="bg-gray-100 dark:bg-gray-800 py-20 px-6 transition-colors">
-        <h2 class="text-3xl font-bold text-center mb-10">Contact Me</h2>
-        <p class="text-lg text-center mb-10">Let's build something amazing together.</p>
-        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-
-            <!-- Left: Social Links -->
-            <div class="flex flex-col justify-center items-center md:items-start gap-6">
-
-                <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center md:items-start gap-3 hover:opacity-80">
-                    <i class="ri-linkedin-box-fill text-blue-600 text-4xl"></i>
-                    <div>
-                        <span class="font-bold">LinkedIn</span>
-                        <p class="text-sm text-gray-400">Connect with me on LinkedIn.</p>
+                <!-- Left: Info & Social -->
+                <div class="lg:col-span-2 flex flex-col gap-6 reveal-left">
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                        <div>
+                            <span class="contact-info-label">Email</span>
+                            <span class="contact-info-value">aliyan@aaliyankhan.me</span>
+                        </div>
                     </div>
-                </a>
-
-                <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center md:items-start gap-3 hover:opacity-80">
-                    <i class="ri-github-fill text-4xl"></i>
-                    <div>
-                        <span class="font-bold">GitHub</span>
-                        <p class="text-sm text-gray-400">Check out my code and projects.</p>
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <div>
+                            <span class="contact-info-label">Location</span>
+                            <span class="contact-info-value">Pakistan</span>
+                        </div>
                     </div>
-                </a>
 
-                <a href="https://www.instagram.com/aliyan_khan03" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center md:items-start gap-3 hover:opacity-80">
-                    <i class="ri-instagram-fill text-4xl text-pink-500"></i>
-                    <div>
-                        <span class="font-bold">Instagram</span>
-                        <p class="text-sm text-gray-400">Follow me for updates & stories.</p>
+                    <div class="social-links-grid">
+                        <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
+                            <i class="ri-linkedin-box-fill"></i>
+                        </a>
+                        <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub">
+                            <i class="ri-github-fill"></i>
+                        </a>
+                        <a href="https://www.instagram.com/aliyan_khan03" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Instagram">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="WhatsApp">
+                            <i class="ri-whatsapp-fill"></i>
+                        </a>
                     </div>
-                </a>
+                </div>
 
-                <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center md:items-start gap-3 hover:opacity-80">
-                    <i class="ri-whatsapp-fill text-4xl text-green-500"></i>
-                    <div>
-                        <span class="font-bold">WhatsApp</span>
-                        <p class="text-sm text-gray-400">Chat with me on WhatsApp.</p>
-                    </div>
-                </a>
-
+                <!-- Right: Form -->
+                <div class="lg:col-span-3 reveal-right">
+                    <form action="" method="post" class="contact-form-pro">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" placeholder="Aaliyan Khan" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Your Email</label>
+                                <input type="email" placeholder="aliyan@gmail.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="Project Inquiry">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="Tell me about your project..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit-pro">
+                            <span>Send Message</span>
+                            <i class="ri-send-plane-fill"></i>
+                        </button>
+                    </form>
+                </div>
 
             </div>
-
-
-            <!-- Right: Form -->
-            <form action="" method="post" class="bg-[#1c1c1c] p-8 rounded-2xl shadow-xl space-y-6">
-
-                <input type="text" placeholder="Your Name"
-                    class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300">
-
-                <input type="email" placeholder="Your Email"
-                    class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300">
-
-                <textarea placeholder="Your Message"
-                    class="w-full p-4 rounded-xl bg-[#222222] border border-gray-700 text-gray-200 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 outline-none transition-all duration-300 h-32"></textarea>
-
-                <button type="submit"
-                    class="w-full bg-yellow-400 text-gray-900 font-semibold py-3 rounded-xl hover:bg-yellow-300 shadow-lg transition-all duration-300">
-                    Send Message
-                </button>
-            </form>
-
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="max-w-6xl mx-auto py-10 px-6 text-center text-sm">
-        <p>© 2026 Aliyan. All rights reserved.</p>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer-pro">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="footer-grid">
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <h3 class="text-2xl font-bold mb-4">Aliyan<span class="logo-dot">.</span></h3>
+                    <p>Full Stack Developer specializing in MERN Stack. Building digital experiences that make a difference.</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank" rel="noopener noreferrer"><i class="ri-linkedin-box-fill"></i></a>
+                        <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer"><i class="ri-github-fill"></i></a>
+                        <a href="https://www.instagram.com/aliyan_khan03" target="_blank" rel="noopener noreferrer"><i class="ri-instagram-fill"></i></a>
+                        <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer"><i class="ri-whatsapp-fill"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#services">Services</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <a href="#services">Web Development</a>
+                    <a href="#services">MERN Stack</a>
+                    <a href="#services">Website Refinement</a>
+                    <a href="#services">API Development</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aliyan. All rights reserved.</p>
+                <p>Designed & Built with <i class="ri-heart-fill" style="color: #9BA8AB;"></i> by Aliyan</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top" title="Back to top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -511,11 +712,5 @@
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
 </body>
-
-<!--/swiperjs-->
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
 
 </html>
