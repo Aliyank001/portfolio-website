@@ -1784,26 +1784,43 @@ header *, .mobile-menu-panel, .mobile-link, .hamburger-btn {
 }
 
 /* Mobile Chat */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     #ai-chatbot {
         bottom: 16px;
         right: 16px;
     }
     .chat-toggle-btn {
-        width: 52px;
-        height: 52px;
-        font-size: 1.3rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
     }
     .chat-window {
         width: calc(100vw - 32px);
         max-height: 70vh;
         right: -8px;
-        bottom: 66px;
+        bottom: 62px;
         border-radius: 16px;
     }
     .chat-messages {
         min-height: 200px;
-        max-height: 45vh;
+        max-height: 42vh;
+    }
+    .chat-header {
+        padding: 12px 14px;
+    }
+    .chat-input-area {
+        padding: 10px 12px 12px;
+    }
+    .chat-suggestion {
+        font-size: 0.68rem;
+        padding: 5px 10px;
+    }
+    .back-to-top {
+        bottom: 80px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
     }
 }
 
@@ -2062,4 +2079,43 @@ header *, .mobile-menu-panel, .mobile-link, .hamburger-btn {
 
     .scroll-indicator { display: none; }
     .contact-form-pro { padding: 24px; }
+
+    /* ---- Compact Mobile Navbar ---- */
+    header .max-w-7xl {
+        padding-left: 14px;
+        padding-right: 14px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #logo {
+        font-size: 1.25rem;
+    }
+    .hamburger-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        gap: 4px;
+    }
+    .hamburger-line:nth-child(1) { width: 17px; }
+    .hamburger-line:nth-child(2) { width: 12px; }
+    .hamburger-line:nth-child(3) { width: 17px; }
+    .hamburger-btn.active .hamburger-line { width: 17px; }
+    .hamburger-btn.active .hamburger-line:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+    .hamburger-btn.active .hamburger-line:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+    .mobile-menu-panel {
+        padding: 12px 14px;
+    }
+    .mobile-link {
+        padding: 10px 14px;
+        font-size: 0.88rem;
+    }
+    .mobile-link i {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
+    }
 }
