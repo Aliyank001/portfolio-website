@@ -505,3 +505,203 @@ function refreshInteractions() {
 loadProjects().then(() => {
     setTimeout(refreshInteractions, 500);
 });
+
+// ============================================
+//  AI CHATBOT — Gemini API
+// ============================================
+(function() {
+    const GEMINI_API_KEY = 'AIzaSyDci4oWkKdcqn5LD1v4orFtyXNTueisvw4';
+    const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+    // All info about Aliyan — fed to AI as system context
+    const ALIYAN_CONTEXT = `
+You are Aliyan's AI assistant embedded on his portfolio website. You ONLY answer questions about Aliyan and his work. If someone asks unrelated questions, politely redirect them to ask about Aliyan.
+
+Here is everything about Aliyan:
+
+**ABOUT:**
+- Full name: Aliyan (also known as Aaliyan Khan)
+- Role: Full Stack Web Developer & MERN Stack Developer
+- Experience: 2+ years of professional experience
+- Location: Pakistan
+- Education: Software Engineering
+- Languages: English, Urdu
+- Freelance: Available for freelance work
+- Website: https://www.aaliyankhan.me
+- Email: aliyan@aaliyankhan.me
+- WhatsApp: +92 308 3504631
+- LinkedIn: https://www.linkedin.com/in/aliyan-khan-4595a7252
+- GitHub: https://github.com/Aliyank001
+- Instagram: https://www.instagram.com/aliyan_khan03
+
+**SKILLS:**
+- HTML5 (95%), CSS3 (90%), JavaScript (85%), React (80%), Node.js (80%), MongoDB (75%), C++ (70%)
+- Additional tools: Git, Express.js, Tailwind CSS, Bootstrap, REST API, Firebase, Python, Java, Figma, VS Code, Postman, GitHub
+
+**SERVICES:**
+1. Web Development — Building modern, responsive, high-performance websites. Features: Responsive Design, SEO Optimized, Fast Loading
+2. MERN Stack Development (Most Popular) — Full end-to-end web apps using MongoDB, Express, React, Node.js. Features: Full Stack Solution, Database Design, API Development
+3. Website Refinement — Enhance & modernize existing websites. Features: Performance Boost, Modern Redesign, Bug Fixing
+
+**PROJECTS (Portfolio):**
+- Café Website — Modern responsive coffee café website (HTML/CSS/JS) — Live: https://cafe-mauve-two.vercel.app/
+- Physiotherapy Clinic Website — Premium UI clinic website — Live: https://physiocare-website.vercel.app/
+- Home Décor Website — 7 fully designed pages with premium UI — Live: https://home-decore-frontend.vercel.app/
+- Real Estate Website — Luxury property website for Gulf countries — Live: https://real-state-sigma-rouge.vercel.app/
+- Gym Website — Modern gym website — Live: https://gym-frontend-navy.vercel.app/
+- Cleaning Website — Professional cleaning service website — Live: https://cleaning-demo-two.vercel.app/
+- Clinic Website — Patient-centered healthcare website — Live: https://clinic-frontend-rosy.vercel.app/
+- Calculator Webpage — Functional calculator app — Live: https://calculator-functional.vercel.app/
+- Password Generator App — Strong random password generator — Live: https://password-generator-pro-theta.vercel.app/
+- CV-Maker App — Build professional CVs quickly — Live: https://cv-maker-pro-mocha.vercel.app/
+
+**STATS:**
+- 100+ Happy Clients
+- 50+ Projects Done
+- 2+ Years Experience
+
+**TESTIMONIALS:**
+- Ahmed R. (Business Owner): "Outstanding website, professional, fast, and pixel-perfect."
+- Sarah K. (Startup Founder): "Understood exactly what I needed and delivered beyond expectations."
+- Michael T. (Tech Lead): "Exceptional MERN stack skills, clean code, great performance."
+
+**COMMUNICATION STYLE:**
+- Be friendly, concise, and professional
+- Use short paragraphs
+- If someone wants to hire Aliyan, give his email (aliyan@aaliyankhan.me) and WhatsApp (+92 308 3504631)
+- If asked about pricing, say Aliyan offers competitive rates and they should contact him directly
+- Encourage visitors to check out his projects and get in touch
+`;
+
+    let chatHistory = [];
+
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const chatClose = document.getElementById('chat-close');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatSuggestions = document.getElementById('chat-suggestions');
+
+    // Toggle chat window
+    chatToggle.addEventListener('click', () => {
+        const isOpen = chatWindow.classList.toggle('open');
+        chatToggle.classList.toggle('active', isOpen);
+        if (isOpen) chatInput.focus();
+    });
+
+    chatClose.addEventListener('click', () => {
+        chatWindow.classList.remove('open');
+        chatToggle.classList.remove('active');
+    });
+
+    // Suggestion buttons
+    chatSuggestions.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chat-suggestion');
+        if (!btn) return;
+        const msg = btn.dataset.msg;
+        sendMessage(msg);
+    });
+
+    // Form submit
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+        sendMessage(msg);
+    });
+
+    function addMessage(text, type) {
+        const div = document.createElement('div');
+        div.className = `chat-msg ${type}`;
+        const icon = type === 'bot' ? 'ri-robot-2-line' : 'ri-user-line';
+        div.innerHTML = `
+            <div class="chat-msg-avatar"><i class="${icon}"></i></div>
+            <div class="chat-msg-bubble"><p>${text}</p></div>
+        `;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return div;
+    }
+
+    function addTypingIndicator() {
+        const div = document.createElement('div');
+        div.className = 'chat-msg bot';
+        div.id = 'typing-indicator';
+        div.innerHTML = `
+            <div class="chat-msg-avatar"><i class="ri-robot-2-line"></i></div>
+            <div class="chat-msg-bubble chat-typing">
+                <span class="chat-typing-dot"></span>
+                <span class="chat-typing-dot"></span>
+                <span class="chat-typing-dot"></span>
+            </div>
+        `;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+        const el = document.getElementById('typing-indicator');
+        if (el) el.remove();
+    }
+
+    async function sendMessage(text) {
+        // Add user message to UI
+        addMessage(text, 'user');
+        chatInput.value = '';
+
+        // Hide suggestions after first message
+        if (chatSuggestions) chatSuggestions.style.display = 'none';
+
+        // Show typing indicator
+        addTypingIndicator();
+
+        // Add to history
+        chatHistory.push({ role: 'user', parts: [{ text }] });
+
+        try {
+            const response = await fetch(GEMINI_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    system_instruction: {
+                        parts: [{ text: ALIYAN_CONTEXT }]
+                    },
+                    contents: chatHistory,
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 300,
+                        topP: 0.9
+                    }
+                })
+            });
+
+            const data = await response.json();
+
+            removeTypingIndicator();
+
+            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                const reply = data.candidates[0].content.parts[0].text;
+                // Format the reply (basic markdown to HTML)
+                const formatted = formatReply(reply);
+                addMessage(formatted, 'bot');
+                chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+            } else if (data.error) {
+                addMessage(`Sorry, I'm having trouble right now. Please contact Aliyan directly at <strong>aliyan@aaliyankhan.me</strong>`, 'bot');
+            } else {
+                addMessage(`I couldn't process that. Feel free to reach Aliyan at <strong>aliyan@aaliyankhan.me</strong>`, 'bot');
+            }
+        } catch (err) {
+            removeTypingIndicator();
+            addMessage(`Connection error. You can reach Aliyan directly at <strong>aliyan@aaliyankhan.me</strong> or WhatsApp <strong>+92 308 3504631</strong>`, 'bot');
+        }
+    }
+
+    function formatReply(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\n/g, '<br>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: var(--text-bright); text-decoration: underline;">$1</a>');
+    }
+})();
