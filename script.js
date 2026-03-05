@@ -6,6 +6,9 @@
 (function initLoader() {
     const loaderBar = document.getElementById('loader-bar');
     const loader = document.getElementById('loader');
+    const loaderBrand = document.getElementById('loader-brand');
+    const loaderText = document.getElementById('loader-text');
+    const loaderTrack = loader ? loader.querySelector('.loader-bar-track') : null;
     let progress = 0;
 
     const interval = setInterval(() => {
@@ -15,19 +18,65 @@
 
         if (progress >= 100) {
             clearInterval(interval);
-            setTimeout(() => {
-                if (loader) {
-                    loader.style.opacity = '0';
-                    loader.style.visibility = 'hidden';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                        handleScrollReveal();
-                        animateSkillBars();
-                        startCounters();
-                        typeEffect();
-                    }, 600);
+
+            // Immediately fade out bar & text, start flying
+            if (loaderTrack) loaderTrack.style.opacity = '0';
+            if (loaderText) loaderText.style.opacity = '0';
+
+            // Fly brand name to navbar right away
+            requestAnimationFrame(() => {
+                const logoEl = document.getElementById('logo');
+                if (!loaderBrand || !logoEl) {
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                        setTimeout(() => { loader.style.display = 'none'; }, 500);
+                    }
+                    handleScrollReveal(); animateSkillBars(); startCounters(); typeEffect();
+                    return;
                 }
-            }, 400);
+
+                // Get positions
+                const logoRect = logoEl.getBoundingClientRect();
+                const brandRect = loaderBrand.getBoundingClientRect();
+
+                // Calculate scale
+                const targetFontSize = window.innerWidth <= 768 ? 20 : 24;
+                const currentFontSize = parseFloat(getComputedStyle(loaderBrand).fontSize);
+                const scale = targetFontSize / currentFontSize;
+
+                // Calculate translation to navbar logo
+                const dx = logoRect.left - brandRect.left + (logoRect.width / 2 - brandRect.width * scale / 2);
+                const dy = logoRect.top - brandRect.top + (logoRect.height / 2 - brandRect.height * scale / 2);
+
+                // Hide real logo during fly
+                logoEl.style.opacity = '0';
+
+                // Fade loader bg immediately
+                loader.style.background = 'transparent';
+                loader.style.pointerEvents = 'none';
+
+                // Fly
+                loaderBrand.classList.add('fly-to-nav');
+                loaderBrand.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+
+                // Listen for transition end — instant swap, no pause
+                loaderBrand.addEventListener('transitionend', function onEnd(e) {
+                    if (e.propertyName !== 'transform') return;
+                    loaderBrand.removeEventListener('transitionend', onEnd);
+
+                    // Instant swap — no fade, no delay
+                    logoEl.style.transition = 'none';
+                    logoEl.style.opacity = '1';
+                    loaderBrand.style.visibility = 'hidden';
+                    loader.style.display = 'none';
+
+                    handleScrollReveal();
+                    animateSkillBars();
+                    startCounters();
+                    typeEffect();
+                });
+            });
         }
     }, 100);
 })();
@@ -510,7 +559,7 @@ loadProjects().then(() => {
 //  AI CHATBOT — Gemini API
 // ============================================
 (function() {
-    const GEMINI_API_KEY = 'AIzaSyDci4oWkKdcqn5LD1v4orFtyXNTueisvw4';
+    const GEMINI_API_KEY = (typeof GEMINI_CONFIG !== 'undefined' && GEMINI_CONFIG.API_KEY) ? GEMINI_CONFIG.API_KEY : '';
     const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
     // All info about Aliyan — fed to AI as system context
@@ -528,7 +577,7 @@ Here is everything about Aliyan:
 - Languages: English, Urdu
 - Freelance: Available for freelance work
 - Website: https://www.aaliyankhan.me
-- Email: aliyan@aaliyankhan.me
+- Email: aaliyank266@gmail.com
 - WhatsApp: +92 308 3504631
 - LinkedIn: https://www.linkedin.com/in/aliyan-khan-4595a7252
 - GitHub: https://github.com/Aliyank001
@@ -568,7 +617,7 @@ Here is everything about Aliyan:
 **COMMUNICATION STYLE:**
 - Be friendly, concise, and professional
 - Use short paragraphs
-- If someone wants to hire Aliyan, give his email (aliyan@aaliyankhan.me) and WhatsApp (+92 308 3504631)
+- If someone wants to hire Aliyan, give his email (aaliyank266@gmail.com) and WhatsApp (+92 308 3504631)
 - If asked about pricing, say Aliyan offers competitive rates and they should contact him directly
 - Encourage visitors to check out his projects and get in touch
 `;
@@ -687,13 +736,13 @@ Here is everything about Aliyan:
                 addMessage(formatted, 'bot');
                 chatHistory.push({ role: 'model', parts: [{ text: reply }] });
             } else if (data.error) {
-                addMessage(`Sorry, I'm having trouble right now. Please contact Aliyan directly at <strong>aliyan@aaliyankhan.me</strong>`, 'bot');
+                addMessage(`Sorry, I'm having trouble right now. Please contact Aliyan directly at <strong>aaliyank266@gmail.com</strong>`, 'bot');
             } else {
-                addMessage(`I couldn't process that. Feel free to reach Aliyan at <strong>aliyan@aaliyankhan.me</strong>`, 'bot');
+                addMessage(`I couldn't process that. Feel free to reach Aliyan at <strong>aaliyank266@gmail.com</strong>`, 'bot');
             }
         } catch (err) {
             removeTypingIndicator();
-            addMessage(`Connection error. You can reach Aliyan directly at <strong>aliyan@aaliyankhan.me</strong> or WhatsApp <strong>+92 308 3504631</strong>`, 'bot');
+            addMessage(`Connection error. You can reach Aliyan directly at <strong>aaliyank266@gmail.com</strong> or WhatsApp <strong>+92 308 3504631</strong>`, 'bot');
         }
     }
 

@@ -76,29 +76,60 @@ body {
 /* ---------- Premium Loader ---------- */
 #loader {
     background: var(--bg-deepest) !important;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.loader-logo-wrap {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    border: 2px solid var(--border);
+.loader-content {
+    text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    animation: loaderPulse 1.5s ease-in-out infinite;
-    background: rgba(17, 33, 45, 0.5);
 }
-.loader-logo {
-    font-size: 2rem;
+
+.loader-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 4rem;
     font-weight: 800;
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    position: relative;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.loader-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px) scale(0.8);
+    animation: letterReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 0.08s);
+}
+
+.loader-dot {
+    display: inline-block;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: scale(0);
+    animation: dotPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(var(--i) * 0.08s + 0.1s);
+}
+
+@keyframes letterReveal {
+    0% { opacity: 0; transform: translateY(40px) scale(0.8); }
+    60% { opacity: 1; transform: translateY(-4px) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes dotPop {
+    0% { opacity: 0; transform: scale(0); }
+    60% { opacity: 1; transform: scale(1.4); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Loader bar below brand */
 .loader-bar-track {
     width: 180px;
     height: 3px;
@@ -106,6 +137,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto 16px;
+    transition: opacity 0.3s ease;
 }
 .loader-bar-fill {
     width: 0%;
@@ -119,11 +151,29 @@ body {
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--text-muted);
+    transition: opacity 0.3s ease;
 }
 
-@keyframes loaderPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(74, 92, 106, 0.3); }
-    50% { box-shadow: 0 0 0 15px rgba(74, 92, 106, 0); }
+/* Brand flying to navbar state */
+.loader-brand.fly-to-nav {
+    position: fixed;
+    z-index: 99999;
+    transition: all 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Shimmer sweep on brand before fly */
+.loader-brand.shimmer .loader-letter,
+.loader-brand.shimmer .loader-dot {
+    background: linear-gradient(90deg, var(--text-bright) 0%, var(--text-muted) 40%, var(--text-bright) 80%) !important;
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmerText 0.8s linear forwards;
+}
+@keyframes shimmerText {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
 }
 
 /* ---------- Scroll Reveal ---------- */
@@ -1816,11 +1866,11 @@ header *, .mobile-menu-panel, .mobile-link, .hamburger-btn {
         padding: 5px 10px;
     }
     .back-to-top {
-        bottom: 80px;
-        right: 16px;
-        width: 42px;
-        height: 42px;
-        font-size: 1rem;
+        bottom: 16px;\n        right: auto;
+        left: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
     }
 }
 
