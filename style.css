@@ -37,6 +37,11 @@ html {
     font-size: 16px;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 body {
     font-family: 'Inter', 'Poppins', sans-serif;
     background: var(--bg-deepest);
@@ -154,12 +159,7 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* Brand flying to navbar state */
-.loader-brand.fly-to-nav {
-    position: fixed;
-    z-index: 99999;
-    transition: all 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-}
+/* Brand flying to navbar state — now handled inline in JS */
 
 /* Shimmer sweep on brand before fly */
 .loader-brand.shimmer .loader-letter,
@@ -1996,7 +1996,7 @@ header *, .mobile-menu-panel, .mobile-link, .hamburger-btn {
 @media (max-width: 768px) {
     /* ---- Stunning Mobile Hero ---- */
     .hero-heading {
-        font-size: 2.8rem !important;
+        font-size: 2.4rem !important;
         line-height: 1.1;
         position: relative;
     }

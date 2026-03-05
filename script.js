@@ -9,7 +9,11 @@
     const loaderBrand = document.getElementById('loader-brand');
     const loaderText = document.getElementById('loader-text');
     const loaderTrack = loader ? loader.querySelector('.loader-bar-track') : null;
+    const logoEl = document.getElementById('logo');
     let progress = 0;
+
+    // Logo stays hidden until brand flies in
+    if (logoEl) logoEl.style.opacity = '0';
 
     const interval = setInterval(() => {
         progress += Math.random() * 15 + 5;
@@ -19,57 +23,87 @@
         if (progress >= 100) {
             clearInterval(interval);
 
-            // Immediately fade out bar & text, start flying
+            // Fade out bar & text immediately
             if (loaderTrack) loaderTrack.style.opacity = '0';
             if (loaderText) loaderText.style.opacity = '0';
 
-            // Fly brand name to navbar right away
+            // Fly brand name to navbar
             requestAnimationFrame(() => {
-                const logoEl = document.getElementById('logo');
                 if (!loaderBrand || !logoEl) {
                     if (loader) {
                         loader.style.opacity = '0';
                         loader.style.visibility = 'hidden';
                         setTimeout(() => { loader.style.display = 'none'; }, 500);
                     }
+                    if (logoEl) logoEl.style.opacity = '1';
                     handleScrollReveal(); animateSkillBars(); startCounters(); typeEffect();
                     return;
                 }
 
-                // Get positions
+                // Measure logo placeholder position
+                // Temporarily make logo visible but transparent to get correct rect
+                logoEl.style.visibility = 'hidden';
+                logoEl.style.opacity = '1';
                 const logoRect = logoEl.getBoundingClientRect();
+                logoEl.style.opacity = '0';
+                logoEl.style.visibility = 'visible';
+
+                // Measure brand's current on-screen position
                 const brandRect = loaderBrand.getBoundingClientRect();
 
-                // Calculate scale
+                // Scale from loader size to navbar size
                 const targetFontSize = window.innerWidth <= 768 ? 20 : 24;
                 const currentFontSize = parseFloat(getComputedStyle(loaderBrand).fontSize);
                 const scale = targetFontSize / currentFontSize;
 
-                // Calculate translation to navbar logo
-                const dx = logoRect.left - brandRect.left + (logoRect.width / 2 - brandRect.width * scale / 2);
-                const dy = logoRect.top - brandRect.top + (logoRect.height / 2 - brandRect.height * scale / 2);
+                // Calculate how far brand must travel (top-left to top-left)
+                const dx = logoRect.left - brandRect.left;
+                const dy = logoRect.top - brandRect.top + (logoRect.height - brandRect.height * scale) / 2;
 
-                // Hide real logo during fly
-                logoEl.style.opacity = '0';
-
-                // Fade loader bg immediately
+                // Fade loader bg
                 loader.style.background = 'transparent';
                 loader.style.pointerEvents = 'none';
 
-                // Fly
-                loaderBrand.classList.add('fly-to-nav');
+                // Pin brand at its exact current screen position with fixed positioning
+                // This prevents the jump when switching from flex-child to fixed
+                loaderBrand.style.position = 'fixed';
+                loaderBrand.style.left = brandRect.left + 'px';
+                loaderBrand.style.top = brandRect.top + 'px';
+                loaderBrand.style.margin = '0';
+                loaderBrand.style.zIndex = '99999';
+                loaderBrand.style.transformOrigin = 'left top';
+
+                // Force reflow so fixed position takes effect before animating
+                loaderBrand.offsetHeight;
+
+                // Now animate to navbar
+                loaderBrand.style.transition = 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)';
                 loaderBrand.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
 
-                // Listen for transition end — instant swap, no pause
+                // When fly completes — seamless handoff
                 loaderBrand.addEventListener('transitionend', function onEnd(e) {
                     if (e.propertyName !== 'transform') return;
                     loaderBrand.removeEventListener('transitionend', onEnd);
 
-                    // Instant swap — no fade, no delay
+                    // Kill all transitions for instant changes
+                    loaderBrand.style.transition = 'none';
                     logoEl.style.transition = 'none';
+
+                    // Move brand to body so it survives loader removal
+                    document.body.appendChild(loaderBrand);
+
+                    // Show real logo behind the brand (same position)
                     logoEl.style.opacity = '1';
-                    loaderBrand.style.visibility = 'hidden';
+
+                    // Hide loader (brand is safe outside it)
                     loader.style.display = 'none';
+
+                    // Smooth crossfade: dissolve brand to reveal real logo
+                    requestAnimationFrame(() => {
+                        loaderBrand.style.transition = 'opacity 0.3s ease';
+                        loaderBrand.style.opacity = '0';
+                        setTimeout(() => loaderBrand.remove(), 350);
+                    });
 
                     handleScrollReveal();
                     animateSkillBars();
