@@ -592,7 +592,7 @@ loadProjects().then(() => {
 // ============================================
 //  AI CHATBOT — Gemini API
 // ============================================
-(function() {
+(function () {
     const GEMINI_API_KEY = (typeof GEMINI_CONFIG !== 'undefined' && GEMINI_CONFIG.API_KEY) ? GEMINI_CONFIG.API_KEY : '';
     const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
