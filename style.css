@@ -2232,12 +2232,12 @@ header *,
     }
 
     .back-to-top {
-        bottom: 16px;
-        right: auto;
-        left: 16px;
-        width: 40px;
-        height: 40px;
-        font-size: 0.95rem;
+        bottom: 80px;
+        right: 16px;
+        left: auto;
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
     }
 }
 
@@ -2246,11 +2246,11 @@ header *,
    ============================================ */
 .back-to-top {
     position: fixed;
-    bottom: 32px;
-    right: 32px;
+    bottom: 100px;
+    right: 28px;
     z-index: 9990;
-    width: 48px;
-    height: 48px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     background: var(--gradient-accent);
     border: none;
