@@ -8,6 +8,14 @@
     "category": "html"
   },
   {
+    "title": "HAIR TRANSPLANT WEBSITE",
+    "image": "image/hair gig.jpg",
+    "description": "A modern and responsive hair transplant website featuring a premium UI, menu sections, gallery, and contact layout. Built for demo and portfolio showcase.",
+    "liveUrl": "https://hair-transplant-livid.vercel.app/",
+    "githubUrl": "https://github.com/Aliyank001/hair-transplant-frontend.git",
+    "category": "html"
+  },
+  {
     "title": "PHYSIOTHERAPY CLINIC WEBSITE",
     "image": "image/phsio pic.jpg",
     "description": "A modern and responsive physiotherapy clinic website featuring a premium UI, services sections, gallery, and contact layout. Built for demo and portfolio showcase.",
