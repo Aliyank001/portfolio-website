@@ -1809,6 +1809,10 @@ header *,
     right: 28px;
     z-index: 9999;
     font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
 }
 
 /* Toggle Button */
@@ -2197,6 +2201,7 @@ header *,
     #ai-chatbot {
         bottom: 16px;
         right: 16px;
+        gap: 12px;
     }
 
     .chat-toggle-btn {
@@ -2232,8 +2237,8 @@ header *,
     }
 
     .back-to-top {
-        bottom: 80px;
-        right: 16px;
+        bottom: auto;
+        right: auto;
         left: auto;
         width: 50px;
         height: 50px;
@@ -2245,9 +2250,9 @@ header *,
    BACK TO TOP
    ============================================ */
 .back-to-top {
-    position: fixed;
-    bottom: 100px;
-    right: 28px;
+    position: relative;
+    bottom: auto;
+    right: auto;
     z-index: 9990;
     width: 58px;
     height: 58px;
@@ -2265,12 +2270,14 @@ header *,
     transform: translateY(20px);
     transition: all 0.4s ease;
     box-shadow: 0 4px 20px rgba(74, 92, 106, 0.3);
+    pointer-events: none;
 }
 
 .back-to-top.visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
 .back-to-top:hover {
