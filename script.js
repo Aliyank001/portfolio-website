@@ -590,73 +590,26 @@ loadProjects().then(() => {
 });
 
 // ============================================
-//  AI CHATBOT — Gemini API
+//  AI CHATBOT — Local (No API Key Needed)
 // ============================================
 (function () {
-    const GEMINI_API_KEY = (typeof GEMINI_CONFIG !== 'undefined' && GEMINI_CONFIG.API_KEY) ? GEMINI_CONFIG.API_KEY : '';
-    const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+    const PROFILE = {
+        name: 'Aliyan',
+        role: 'Full Stack Web Developer & MERN Stack Developer',
+        experience: '2+ years',
+        location: 'Pakistan',
+        email: 'aaliyank266@gmail.com',
+        whatsapp: '+92 308 3504631',
+        website: 'https://www.aaliyankhan.me',
+        github: 'https://github.com/Aliyank001',
+        linkedin: 'https://www.linkedin.com/in/aliyan-khan-4595a7252'
+    };
 
-    // All info about Aliyan — fed to AI as system context
-    const ALIYAN_CONTEXT = `
-You are Aliyan's AI assistant embedded on his portfolio website. You ONLY answer questions about Aliyan and his work. If someone asks unrelated questions, politely redirect them to ask about Aliyan.
+    const SKILLS_TEXT = 'HTML5, CSS3, JavaScript, React, Node.js, MongoDB, Express.js, Tailwind CSS, Bootstrap, REST APIs, Firebase, Python, Java, Git, GitHub';
+    const SERVICES_TEXT = '1) Web Development, 2) MERN Stack Development, 3) Website Refinement (redesign, performance, bug fixing).';
 
-Here is everything about Aliyan:
-
-**ABOUT:**
-- Full name: Aliyan (also known as Aaliyan Khan)
-- Role: Full Stack Web Developer & MERN Stack Developer
-- Experience: 2+ years of professional experience
-- Location: Pakistan
-- Education: Software Engineering
-- Languages: English, Urdu
-- Freelance: Available for freelance work
-- Website: https://www.aaliyankhan.me
-- Email: aaliyank266@gmail.com
-- WhatsApp: +92 308 3504631
-- LinkedIn: https://www.linkedin.com/in/aliyan-khan-4595a7252
-- GitHub: https://github.com/Aliyank001
-- Instagram: https://www.instagram.com/aliyan_khan03
-
-**SKILLS:**
-- HTML5 (95%), CSS3 (90%), JavaScript (85%), React (80%), Node.js (80%), MongoDB (75%), C++ (70%)
-- Additional tools: Git, Express.js, Tailwind CSS, Bootstrap, REST API, Firebase, Python, Java, Figma, VS Code, Postman, GitHub
-
-**SERVICES:**
-1. Web Development — Building modern, responsive, high-performance websites. Features: Responsive Design, SEO Optimized, Fast Loading
-2. MERN Stack Development (Most Popular) — Full end-to-end web apps using MongoDB, Express, React, Node.js. Features: Full Stack Solution, Database Design, API Development
-3. Website Refinement — Enhance & modernize existing websites. Features: Performance Boost, Modern Redesign, Bug Fixing
-
-**PROJECTS (Portfolio):**
-- Café Website — Modern responsive coffee café website (HTML/CSS/JS) — Live: https://cafe-mauve-two.vercel.app/
-- Physiotherapy Clinic Website — Premium UI clinic website — Live: https://physiocare-website.vercel.app/
-- Home Décor Website — 7 fully designed pages with premium UI — Live: https://home-decore-frontend.vercel.app/
-- Real Estate Website — Luxury property website for Gulf countries — Live: https://real-state-sigma-rouge.vercel.app/
-- Gym Website — Modern gym website — Live: https://gym-frontend-navy.vercel.app/
-- Cleaning Website — Professional cleaning service website — Live: https://cleaning-demo-two.vercel.app/
-- Clinic Website — Patient-centered healthcare website — Live: https://clinic-frontend-rosy.vercel.app/
-- Calculator Webpage — Functional calculator app — Live: https://calculator-functional.vercel.app/
-- Password Generator App — Strong random password generator — Live: https://password-generator-pro-theta.vercel.app/
-- CV-Maker App — Build professional CVs quickly — Live: https://cv-maker-pro-mocha.vercel.app/
-
-**STATS:**
-- 100+ Happy Clients
-- 50+ Projects Done
-- 2+ Years Experience
-
-**TESTIMONIALS:**
-- Ahmed R. (Business Owner): "Outstanding website, professional, fast, and pixel-perfect."
-- Sarah K. (Startup Founder): "Understood exactly what I needed and delivered beyond expectations."
-- Michael T. (Tech Lead): "Exceptional MERN stack skills, clean code, great performance."
-
-**COMMUNICATION STYLE:**
-- Be friendly, concise, and professional
-- Use short paragraphs
-- If someone wants to hire Aliyan, give his email (aaliyank266@gmail.com) and WhatsApp (+92 308 3504631)
-- If asked about pricing, say Aliyan offers competitive rates and they should contact him directly
-- Encourage visitors to check out his projects and get in touch
-`;
-
-    let chatHistory = [];
+    const FALLBACK_REPLY =
+        "I can help with Aliyan's profile, skills, services, projects, timeline, process, pricing, and contact details. Try asking: 'project timeline', 'how do you work', or 'show GitHub projects'.";
 
     const chatToggle = document.getElementById('chat-toggle');
     const chatWindow = document.getElementById('chat-window');
@@ -665,8 +618,183 @@ Here is everything about Aliyan:
     const chatInput = document.getElementById('chat-input');
     const chatMessages = document.getElementById('chat-messages');
     const chatSuggestions = document.getElementById('chat-suggestions');
+    const chatSendBtn = chatForm ? chatForm.querySelector('.chat-send-btn') : null;
 
-    // Toggle chat window
+    let isSending = false;
+    let projects = [];
+
+    function setSendingState(sending) {
+        isSending = sending;
+        if (chatInput) chatInput.disabled = sending;
+        if (chatSendBtn) chatSendBtn.disabled = sending;
+    }
+
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function normalize(text) {
+        return String(text || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    }
+
+    function includesAny(text, words) {
+        return words.some((w) => text.includes(w));
+    }
+
+    function scoreIntent(text, words) {
+        return words.reduce((count, word) => count + (text.includes(word) ? 1 : 0), 0);
+    }
+
+    function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    async function loadProjects() {
+        try {
+            const response = await fetch('projects.json');
+            if (!response.ok) return;
+            const data = await response.json();
+            if (Array.isArray(data)) projects = data;
+        } catch (e) {
+            projects = [];
+        }
+    }
+
+    function projectSummary() {
+        if (!projects.length) {
+            return "Aliyan has multiple live portfolio projects in web development, including business, clinic, gym, and tools apps. Ask 'contact' to get his details.";
+        }
+
+        const top = projects.slice(0, 6);
+        const lines = top.map((p, i) => `${i + 1}. ${p.title} - [Live Demo](${p.liveUrl})`);
+        return `Here are some of Aliyan's projects:\n${lines.join('\n')}\n\nIf you want, I can also share GitHub links for these projects.`;
+    }
+
+    function projectGithubSummary() {
+        if (!projects.length) {
+            return `You can check Aliyan's GitHub here: [Aliyan GitHub](${PROFILE.github}).`;
+        }
+
+        const withGithub = projects.filter((p) => p.githubUrl && p.githubUrl !== '#').slice(0, 6);
+        if (!withGithub.length) {
+            return `Most projects are available on [Aliyan GitHub](${PROFILE.github}).`;
+        }
+
+        const lines = withGithub.map((p, i) => `${i + 1}. ${p.title} - [GitHub](${p.githubUrl})`);
+        return `Here are some project source links:\n${lines.join('\n')}\n\nFor more, visit [Aliyan GitHub](${PROFILE.github}).`;
+    }
+
+    function getBotReply(rawText) {
+        const text = normalize(rawText);
+        const intents = [
+            {
+                key: 'greeting',
+                words: ['hi', 'hello', 'hey', 'salam', 'assalam', 'aoa'],
+                reply: () => `Hi! I am Aliyan's portfolio assistant. You can ask about skills, services, projects, experience, or contact info.`
+            },
+            {
+                key: 'projects',
+                words: ['project', 'portfolio', 'work', 'demo', 'website examples'],
+                reply: () => projectSummary()
+            },
+            {
+                key: 'project_github',
+                words: ['github project', 'source code', 'repo', 'repository', 'code link', 'show github'],
+                reply: () => projectGithubSummary()
+            },
+            {
+                key: 'skills',
+                words: ['skill', 'tech stack', 'technology', 'tools', 'languages', 'react', 'node', 'mern'],
+                reply: () => `Aliyan's main skills: ${SKILLS_TEXT}.`
+            },
+            {
+                key: 'services',
+                words: ['service', 'offer', 'provide', 'what do you do', 'kya karte ho'],
+                reply: () => `Aliyan offers: ${SERVICES_TEXT}`
+            },
+            {
+                key: 'hire',
+                words: ['hire', 'contact', 'reach', 'call', 'whatsapp', 'email', 'kaise hire', 'work with'],
+                reply: () => `You can hire Aliyan via:\n- Email: ${PROFILE.email}\n- WhatsApp: ${PROFILE.whatsapp}\n- LinkedIn: ${PROFILE.linkedin}`
+            },
+            {
+                key: 'pricing',
+                words: ['price', 'pricing', 'cost', 'charges', 'budget', 'rate'],
+                reply: () => `Pricing depends on project scope and timeline. Aliyan offers competitive rates. Share your requirements on ${PROFILE.email} or WhatsApp ${PROFILE.whatsapp}.`
+            },
+            {
+                key: 'timeline',
+                words: ['timeline', 'delivery time', 'how long', 'deadline', 'duration', 'kitna time'],
+                reply: () => `Typical delivery timelines:\n- Landing page: 2-4 days\n- Business website: 5-10 days\n- MERN web app: 2-5 weeks\n\nExact timeline depends on features, revisions, and content readiness.`
+            },
+            {
+                key: 'process',
+                words: ['process', 'workflow', 'how do you work', 'steps', 'work process', 'kaise kaam karte ho'],
+                reply: () => `Aliyan's working process:\n1. Requirement discussion\n2. Wireframe / planning\n3. Design + development\n4. Feedback & revisions\n5. Final testing + deployment\n\nYou get progress updates throughout the project.`
+            },
+            {
+                key: 'revisions',
+                words: ['revision', 'changes', 'edits', 'modify', 'update design'],
+                reply: () => `Yes, revisions are included. Small UI/content changes are typically handled quickly during development. Major scope changes are discussed transparently before implementation.`
+            },
+            {
+                key: 'seo_performance',
+                words: ['seo', 'speed', 'performance', 'fast', 'optimization', 'google ranking'],
+                reply: () => `Aliyan builds with SEO and performance in mind: semantic HTML, responsive layouts, optimized assets, clean structure, and fast-loading pages for better user experience.`
+            },
+            {
+                key: 'maintenance',
+                words: ['maintenance', 'support', 'after delivery', 'post launch', 'bug fix support'],
+                reply: () => `Yes, post-delivery support is available for bug fixes, small improvements, and future enhancements depending on your project needs.`
+            },
+            {
+                key: 'availability',
+                words: ['available', 'freelance', 'open for work', 'taking projects', 'book now'],
+                reply: () => `Aliyan is available for freelance work. Share your project idea on ${PROFILE.email} or WhatsApp ${PROFILE.whatsapp} to get started.`
+            },
+            {
+                key: 'about',
+                words: ['about', 'who is aliyan', 'experience', 'location', 'education', 'bio'],
+                reply: () => `${PROFILE.name} is a ${PROFILE.role} with ${PROFILE.experience} of experience, based in ${PROFILE.location}. He specializes in modern responsive websites and MERN apps.`
+            },
+            {
+                key: 'testimonials',
+                words: ['testimonial', 'reviews', 'feedback', 'client says', 'happy clients'],
+                reply: () => `Client feedback highlights: professional communication, clean UI, timely delivery, and performance-focused development. Aliyan has worked with 100+ happy clients.`
+            },
+            {
+                key: 'social',
+                words: ['github', 'linkedin', 'social', 'profile links'],
+                reply: () => `Here are Aliyan's links:\n- Website: ${PROFILE.website}\n- GitHub: ${PROFILE.github}\n- LinkedIn: ${PROFILE.linkedin}`
+            }
+        ];
+
+        let bestIntent = null;
+        let bestScore = 0;
+        for (const intent of intents) {
+            const score = scoreIntent(text, intent.words);
+            if (score > bestScore) {
+                bestScore = score;
+                bestIntent = intent;
+            }
+        }
+
+        if (!bestIntent || bestScore === 0) return FALLBACK_REPLY;
+        return bestIntent.reply();
+    }
+
+    if (!chatToggle || !chatWindow || !chatClose || !chatForm || !chatInput || !chatMessages) {
+        console.warn('Chatbot UI elements are missing. Skipping chatbot initialization.');
+        return;
+    }
+
+    loadProjects();
+
     chatToggle.addEventListener('click', () => {
         const isOpen = chatWindow.classList.toggle('open');
         chatToggle.classList.toggle('active', isOpen);
@@ -678,15 +806,14 @@ Here is everything about Aliyan:
         chatToggle.classList.remove('active');
     });
 
-    // Suggestion buttons
-    chatSuggestions.addEventListener('click', (e) => {
-        const btn = e.target.closest('.chat-suggestion');
-        if (!btn) return;
-        const msg = btn.dataset.msg;
-        sendMessage(msg);
-    });
+    if (chatSuggestions) {
+        chatSuggestions.addEventListener('click', (e) => {
+            const btn = e.target.closest('.chat-suggestion');
+            if (!btn) return;
+            sendMessage(btn.dataset.msg || '');
+        });
+    }
 
-    // Form submit
     chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const msg = chatInput.value.trim();
@@ -694,17 +821,17 @@ Here is everything about Aliyan:
         sendMessage(msg);
     });
 
-    function addMessage(text, type) {
+    function addMessage(text, type, allowHtml = false) {
         const div = document.createElement('div');
         div.className = `chat-msg ${type}`;
         const icon = type === 'bot' ? 'ri-robot-2-line' : 'ri-user-line';
+        const messageContent = allowHtml ? text : escapeHtml(text);
         div.innerHTML = `
             <div class="chat-msg-avatar"><i class="${icon}"></i></div>
-            <div class="chat-msg-bubble"><p>${text}</p></div>
+            <div class="chat-msg-bubble"><p>${messageContent}</p></div>
         `;
         chatMessages.appendChild(div);
         chatMessages.scrollTop = chatMessages.scrollHeight;
-        return div;
     }
 
     function addTypingIndicator() {
@@ -729,62 +856,33 @@ Here is everything about Aliyan:
     }
 
     async function sendMessage(text) {
-        // Add user message to UI
-        addMessage(text, 'user');
+        const trimmedText = String(text || '').trim();
+        if (!trimmedText || isSending) return;
+
+        addMessage(trimmedText, 'user');
         chatInput.value = '';
+        setSendingState(true);
 
-        // Hide suggestions after first message
         if (chatSuggestions) chatSuggestions.style.display = 'none';
-
-        // Show typing indicator
         addTypingIndicator();
 
-        // Add to history
-        chatHistory.push({ role: 'user', parts: [{ text }] });
-
         try {
-            const response = await fetch(GEMINI_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    system_instruction: {
-                        parts: [{ text: ALIYAN_CONTEXT }]
-                    },
-                    contents: chatHistory,
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 300,
-                        topP: 0.9
-                    }
-                })
-            });
-
-            const data = await response.json();
-
-            removeTypingIndicator();
-
-            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                const reply = data.candidates[0].content.parts[0].text;
-                // Format the reply (basic markdown to HTML)
-                const formatted = formatReply(reply);
-                addMessage(formatted, 'bot');
-                chatHistory.push({ role: 'model', parts: [{ text: reply }] });
-            } else if (data.error) {
-                addMessage(`Sorry, I'm having trouble right now. Please contact Aliyan directly at <strong>aaliyank266@gmail.com</strong>`, 'bot');
-            } else {
-                addMessage(`I couldn't process that. Feel free to reach Aliyan at <strong>aaliyank266@gmail.com</strong>`, 'bot');
-            }
+            await sleep(350);
+            const reply = getBotReply(trimmedText);
+            addMessage(formatReply(reply), 'bot', true);
         } catch (err) {
+            addMessage(`Something went wrong. Please contact Aliyan at <strong>${PROFILE.email}</strong> or WhatsApp <strong>${PROFILE.whatsapp}</strong>.`, 'bot', true);
+        } finally {
             removeTypingIndicator();
-            addMessage(`Connection error. You can reach Aliyan directly at <strong>aaliyank266@gmail.com</strong> or WhatsApp <strong>+92 308 3504631</strong>`, 'bot');
+            setSendingState(false);
         }
     }
 
     function formatReply(text) {
-        return text
+        const safeText = escapeHtml(text);
+        return safeText
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/\n/g, '<br>')
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: var(--text-bright); text-decoration: underline;">$1</a>');
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--text-bright); text-decoration: underline;">$1</a>');
     }
 })();
