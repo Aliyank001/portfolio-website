@@ -598,7 +598,7 @@ loadProjects().then(() => {
         role: 'Full Stack Web Developer & MERN Stack Developer',
         experience: '2+ years',
         location: 'Pakistan',
-        email: 'aaliyank266@gmail.com',
+        email: 'aliyanbc7@gmail.com',
         whatsapp: '+92 308 3504631',
         website: 'https://www.aaliyankhan.me',
         github: 'https://github.com/Aliyank001',

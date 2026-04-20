@@ -1,5 +1,13 @@
 [
   {
+    "title": "SKIN & LASER CLINIC WEBSITE",
+    "image": "image/LASER GIG.png",
+    "description": "Professional skin & laser clinic website developed for Dr. Hina - featuring premium UI, service listings, gallery, appointment booking, and contact. Fully responsive and deployed to production.",
+    "liveUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
+    "githubUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
+    "category": "deployed"
+  },
+  {
     "title": "CAFÉ WEBSITE",
     "image": "image/cafe logo.png",
     "description": "A modern and responsive coffee café website featuring a premium UI, menu sections, gallery, and contact layout. Built for demo and portfolio showcase.",
