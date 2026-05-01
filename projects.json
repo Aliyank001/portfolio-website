@@ -2,7 +2,7 @@
   {
     "title": "SKIN & LASER CLINIC WEBSITE",
     "image": "image/LASER GIG.png",
-    "description": "Professional skin & laser clinic website developed for Dr. Hina - featuring premium UI, service listings, gallery, appointment booking, and contact. Fully responsive and deployed to production.",
+    "description": "Custom website for Dr. Hina's skin & laser clinic with appointment booking, service pages, image gallery, and responsive, SEO-friendly design.",
     "liveUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
     "githubUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
     "category": "deployed"
@@ -10,95 +10,95 @@
   {
     "title": "CAFÉ WEBSITE",
     "image": "image/cafe logo.png",
-    "description": "A modern and responsive coffee café website featuring a premium UI, menu sections, gallery, and contact layout. Built for demo and portfolio showcase.",
-    "liveUrl": "https://cafe-mauve-two.vercel.app/",
+    "description": "Contemporary café site with interactive menu, featured specials, photo gallery, and contact/ordering CTA; mobile-first and demo-ready.",
+    "liveUrl": "https://aliyank001.github.io/Coffee-frontend/",
     "githubUrl": "https://github.com/Aliyank001/Coffee-frontend.git",
     "category": "html"
   },
   {
     "title": "HAIR TRANSPLANT WEBSITE",
     "image": "image/hair gig.jpg",
-    "description": "A modern and responsive hair transplant website featuring a premium UI, menu sections, gallery, and contact layout. Built for demo and portfolio showcase.",
-    "liveUrl": "https://hair-transplant-nal7.vercel.app/",
+    "description": "Clinic-focused hair transplant website showcasing procedures, before/after gallery, team bios, and an easy contact form; responsive demo.",
+    "liveUrl": "https://aliyank001.github.io/hair-transplant-frontend/",
     "githubUrl": "https://github.com/Aliyank001/hair-transplant-frontend.git",
     "category": "html"
   },
   {
     "title": "PHYSIOTHERAPY CLINIC WEBSITE",
     "image": "image/phsio pic.jpg",
-    "description": "A modern and responsive physiotherapy clinic website featuring a premium UI, services sections, gallery, and contact layout. Built for demo and portfolio showcase.",
-    "liveUrl": "https://physiocare-website.vercel.app/",
+    "description": "Physiotherapy clinic site highlighting treatments, therapist profiles, patient testimonials, and appointment contact options.",
+    "liveUrl": "https://aliyank001.github.io/physiocare-clinic-website-/",
     "githubUrl": "https://github.com/Aliyank001/physiocare-clinic-website-.git",
     "category": "html"
   },
   {
     "title": "HOME DECORE WEBSITE",
     "image": "image/home decore pic.jpg",
-    "description": "Modern Home Décor website featuring 7 fully designed pages with a premium UI, smooth animations, and a fully responsive layout optimized for mobile, tablet, and desktop devices.",
-    "liveUrl": "https://home-decore-frontend.vercel.app/",
+    "description": "Home décor showcase with 7 designed pages, product highlights, smooth animations, and responsive layouts for seamless browsing.",
+    "liveUrl": "https://aliyank001.github.io/Home-decore-website/",
     "githubUrl": "https://github.com/Aliyank001/Home-decore-website.git",
     "category": "html"
   },
   {
     "title": "REAL STATE WEBSITE",
     "image": "image/real state logo.jpg",
-    "description": "A premium real estate demo website built for Gulf countries, focused on luxury UI, smooth animations, responsive design, and lead-driven user experience for modern property businesses.",
-    "liveUrl": "https://real-state-sigma-rouge.vercel.app/",
+    "description": "Real estate demo tailored for the Gulf market with property listings, advanced search UI, high-end visuals, and lead-capture features.",
+    "liveUrl": "https://aliyank001.github.io/Real-State-website-frontend-/",
     "githubUrl": "https://github.com/Aliyank001/Real-State-website-frontend-.git",
     "category": "html"
   },
   {
     "title": "GYM WEBSITE",
     "image": "image/gym logo 2.jpg",
-    "description": "A modern gym website designed to showcase services and connect with customers.",
-    "liveUrl": "https://gym-frontend-navy.vercel.app/",
+    "description": "Fitness studio site showcasing programs, trainer profiles, class schedules, and membership call-to-actions.",
+    "liveUrl": "https://aliyank001.github.io/gym-website-frontend/",
     "githubUrl": "https://github.com/Aliyank001/gym-website-frontend.git",
     "category": "html"
   },
   {
     "title": "CLEANING WEBSITE",
     "image": "image/cleaning.jpg",
-    "description": "A modern cleaning website designed to showcase services and connect with customers.",
-    "liveUrl": "https://cleaning-demo-two.vercel.app/",
+    "description": "Commercial cleaning service site with clear service packages, service area info, booking contact, and client testimonials.",
+    "liveUrl": "https://aliyank001.github.io/cleaning-frontend/",
     "githubUrl": "https://github.com/Aliyank001/cleaning-frontend.git",
     "category": "html"
   },
   {
     "title": "CLINIC WEBSITE",
     "image": "image/clinic logo.jpg",
-    "description": "Our mission is to provide patient-centered care that combines medical expertise with compassion.",
-    "liveUrl": "https://clinic-frontend-rosy.vercel.app/",
+    "description": "Clinic website focused on patient services, appointment booking, medical team introductions, and easy contact options.",
+    "liveUrl": " https://aliyank001.github.io/clinic-website-frontend/",
     "githubUrl": "https://github.com/Aliyank001/clinic-website-frontend.git",
     "category": "html"
   },
   {
     "title": "Calculator Webpage",
     "image": "image/calculator.jpg",
-    "description": "A fully functional calculator built using HTML, CSS, and JavaScript.",
-    "liveUrl": "https://calculator-functional.vercel.app/",
+    "description": "Lightweight calculator app implementing basic arithmetic operations with a clear, responsive UI built in HTML/CSS/JS.",
+    "liveUrl": "https://aliyank001.github.io/calculator/",
     "githubUrl": "https://github.com/Aliyank001/calculator.git",
     "category": "html"
   },
   {
     "title": "Password Generator App",
     "image": "image/pass logo.jpg",
-    "description": "Creates strong random passwords using length & character options.",
-    "liveUrl": "https://password-generator-pro-theta.vercel.app/",
+    "description": "Client-side password generator offering configurable length and character sets to create strong, random passwords instantly.",
+    "liveUrl": "https://aliyank001.github.io/password-generator/",
     "githubUrl": "https://github.com/Aliyank001/password-generator.git",
     "category": "html"
   },
   {
     "title": "CV-Maker App",
     "image": "image/cv maker.jpg",
-    "description": "Build your professional CV in minutes and land your next interview faster.",
-    "liveUrl": "https://cv-maker-pro-mocha.vercel.app/",
+    "description": "Interactive CV builder with templates and export options to create professional resumes quickly and download as PDF.",
+    "liveUrl": " https://aliyank001.github.io/cv-maker/",
     "githubUrl": "https://github.com/Aliyank001/cv-maker.git",
     "category": "html"
   },
   {
     "title": "BUSINESS WEBSITE",
     "image": "image/business_web_banner_30.jpg",
-    "description": "A modern business website designed to showcase services and connect with customers.",
+    "description": "Small business landing site with service overviews, portfolio highlights, contact form, and responsive presentation.",
     "liveUrl": "#",
     "githubUrl": "#",
     "category": "html"

@@ -1345,14 +1345,15 @@ header *,
 .project-img {
     width: 100%;
     height: 260px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
-    transition: all 0.5s ease-in-out;
+    background: linear-gradient(180deg, rgba(6,20,27,0.02), rgba(6,20,27,0.06));
+    transition: filter 0.35s ease-in-out, transform 0.35s ease-in-out;
 }
 
 .project-card:hover .project-img {
     filter: blur(3px) brightness(0.5);
-    transform: scale(1.05);
+    transform: none;
 }
 
 .project-overlay {
