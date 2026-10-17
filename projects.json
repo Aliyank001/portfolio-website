@@ -4,7 +4,7 @@
     "image": "image/LASER GIG.png",
     "description": "Custom website for Dr. Hina's skin & laser clinic with appointment booking, service pages, image gallery, and responsive, SEO-friendly design.",
     "liveUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
-    "githubUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
+    "githubUrl": null,
     "category": "deployed"
   },
   {
@@ -67,7 +67,7 @@
     "title": "CLINIC WEBSITE",
     "image": "image/clinic logo.jpg",
     "description": "Clinic website focused on patient services, appointment booking, medical team introductions, and easy contact options.",
-    "liveUrl": " https://aliyank001.github.io/clinic-website-frontend/",
+    "liveUrl": "https://aliyank001.github.io/clinic-website-frontend/",
     "githubUrl": "https://github.com/Aliyank001/clinic-website-frontend.git",
     "category": "html"
   },
@@ -91,7 +91,7 @@
     "title": "CV-Maker App",
     "image": "image/cv maker.jpg",
     "description": "Interactive CV builder with templates and export options to create professional resumes quickly and download as PDF.",
-    "liveUrl": " https://aliyank001.github.io/cv-maker/",
+    "liveUrl": "https://aliyank001.github.io/cv-maker/",
     "githubUrl": "https://github.com/Aliyank001/cv-maker.git",
     "category": "html"
   },
@@ -99,8 +99,8 @@
     "title": "BUSINESS WEBSITE",
     "image": "image/business_web_banner_30.jpg",
     "description": "Small business landing site with service overviews, portfolio highlights, contact form, and responsive presentation.",
-    "liveUrl": "#",
-    "githubUrl": "#",
+    "liveUrl": null,
+    "githubUrl": null,
     "category": "html"
   }
 ]

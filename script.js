@@ -1,209 +1,176 @@
-// ============================================
-// PREMIUM PORTFOLIO — JavaScript
-// ============================================
+// Holographic Lab — animation and interactions
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const motionAllowed = () => !reducedMotion.matches;
+if (motionAllowed()) document.documentElement.classList.add('motion-ready');
 
-// ---------- Premium Loader ----------
-(function initLoader() {
-    const loaderBar = document.getElementById('loader-bar');
-    const loader = document.getElementById('loader');
-    const loaderBrand = document.getElementById('loader-brand');
-    const loaderText = document.getElementById('loader-text');
-    const loaderTrack = loader ? loader.querySelector('.loader-bar-track') : null;
-    const logoEl = document.getElementById('logo');
-    let progress = 0;
-
-    // Logo stays hidden until brand flies in
-    if (logoEl) logoEl.style.opacity = '0';
-
-    const interval = setInterval(() => {
-        progress += Math.random() * 15 + 5;
-        if (progress > 100) progress = 100;
-        if (loaderBar) loaderBar.style.width = progress + '%';
-
-        if (progress >= 100) {
-            clearInterval(interval);
-
-            // Fade out bar & text immediately
-            if (loaderTrack) loaderTrack.style.opacity = '0';
-            if (loaderText) loaderText.style.opacity = '0';
-
-            // Fly brand name to navbar
-            requestAnimationFrame(() => {
-                if (!loaderBrand || !logoEl) {
-                    if (loader) {
-                        loader.style.opacity = '0';
-                        loader.style.visibility = 'hidden';
-                        setTimeout(() => { loader.style.display = 'none'; }, 500);
-                    }
-                    if (logoEl) logoEl.style.opacity = '1';
-                    handleScrollReveal(); animateSkillBars(); startCounters(); typeEffect();
-                    return;
-                }
-
-                // Measure logo placeholder position
-                // Temporarily make logo visible but transparent to get correct rect
-                logoEl.style.visibility = 'hidden';
-                logoEl.style.opacity = '1';
-                const logoRect = logoEl.getBoundingClientRect();
-                logoEl.style.opacity = '0';
-                logoEl.style.visibility = 'visible';
-
-                // Measure brand's current on-screen position
-                const brandRect = loaderBrand.getBoundingClientRect();
-
-                // Scale from loader size to navbar size
-                const targetFontSize = window.innerWidth <= 768 ? 20 : 24;
-                const currentFontSize = parseFloat(getComputedStyle(loaderBrand).fontSize);
-                const scale = targetFontSize / currentFontSize;
-
-                // Calculate how far brand must travel (top-left to top-left)
-                const dx = logoRect.left - brandRect.left;
-                const dy = logoRect.top - brandRect.top + (logoRect.height - brandRect.height * scale) / 2;
-
-                // Fade loader bg
-                loader.style.background = 'transparent';
-                loader.style.pointerEvents = 'none';
-
-                // Pin brand at its exact current screen position with fixed positioning
-                // This prevents the jump when switching from flex-child to fixed
-                loaderBrand.style.position = 'fixed';
-                loaderBrand.style.left = brandRect.left + 'px';
-                loaderBrand.style.top = brandRect.top + 'px';
-                loaderBrand.style.margin = '0';
-                loaderBrand.style.zIndex = '99999';
-                loaderBrand.style.transformOrigin = 'left top';
-
-                // Force reflow so fixed position takes effect before animating
-                loaderBrand.offsetHeight;
-
-                // Now animate to navbar
-                loaderBrand.style.transition = 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)';
-                loaderBrand.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
-
-                // When fly completes — seamless handoff
-                loaderBrand.addEventListener('transitionend', function onEnd(e) {
-                    if (e.propertyName !== 'transform') return;
-                    loaderBrand.removeEventListener('transitionend', onEnd);
-
-                    // Kill all transitions for instant changes
-                    loaderBrand.style.transition = 'none';
-                    logoEl.style.transition = 'none';
-
-                    // Move brand to body so it survives loader removal
-                    document.body.appendChild(loaderBrand);
-
-                    // Show real logo behind the brand (same position)
-                    logoEl.style.opacity = '1';
-
-                    // Hide loader (brand is safe outside it)
-                    loader.style.display = 'none';
-
-                    // Smooth crossfade: dissolve brand to reveal real logo
-                    requestAnimationFrame(() => {
-                        loaderBrand.style.transition = 'opacity 0.3s ease';
-                        loaderBrand.style.opacity = '0';
-                        setTimeout(() => loaderBrand.remove(), 350);
-                    });
-
-                    handleScrollReveal();
-                    animateSkillBars();
-                    startCounters();
-                    typeEffect();
-                });
-            });
-        }
-    }, 100);
+// Restore the original letter intro and flight into the navigation logo.
+(function initBrandIntro() {
+    if (!motionAllowed()) return;
+    const logo = document.getElementById('logo');
+    if (!logo || typeof logo.animate !== 'function') return;
+    const overlay = document.createElement('div');
+    overlay.className = 'brand-intro';
+    overlay.innerHTML = '<div class="intro-content"><div class="intro-brand" aria-label="Aliyan"><span style="--i:0">A</span><span style="--i:1">l</span><span style="--i:2">i</span><span style="--i:3">y</span><span style="--i:4">a</span><span style="--i:5">n</span><span class="intro-dot" style="--i:6">.</span></div><div class="intro-track"><span></span></div><p class="intro-caption">LOADING EXPERIENCE</p></div><button class="intro-skip" type="button">Skip intro <i class="ri-arrow-right-line" aria-hidden="true"></i></button>';
+    document.body.appendChild(overlay);
+    document.documentElement.classList.add('intro-playing');
+    const brand = overlay.querySelector('.intro-brand');
+    let finished = false;
+    let launchTimer, safetyTimer;
+    const animations = [];
+    function finish() {
+        if (finished) return;
+        finished = true;
+        clearTimeout(launchTimer); clearTimeout(safetyTimer);
+        animations.forEach(animation => animation.cancel());
+        overlay.remove(); brand.remove();
+        document.documentElement.classList.remove('intro-playing');
+        reducedMotion.removeEventListener('change', onPreferenceChange);
+    }
+    function onPreferenceChange() { if (!motionAllowed()) finish(); }
+    overlay.querySelector('.intro-skip').addEventListener('click', finish);
+    reducedMotion.addEventListener('change', onPreferenceChange);
+    safetyTimer = setTimeout(finish, 2600);
+    launchTimer = setTimeout(async () => {
+        try {
+            const start = brand.getBoundingClientRect();
+            const target = logo.querySelector('.logo-text').getBoundingClientRect();
+            const scale = parseFloat(getComputedStyle(logo.querySelector('.logo-text')).fontSize) / parseFloat(getComputedStyle(brand).fontSize);
+            brand.style.position = 'fixed'; brand.style.margin = '0';
+            brand.style.left = start.left + 'px'; brand.style.top = start.top + 'px';
+            brand.style.width = start.width + 'px'; brand.style.transformOrigin = 'left top';
+            document.body.appendChild(brand);
+            const backdrop = overlay.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 550, fill: 'forwards' });
+            const flight = brand.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: 'translate(' + (target.left - start.left) + 'px,' + (target.top + (target.height - start.height * scale) / 2 - start.top) + 'px) scale(' + scale + ')' }], { duration: 800, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' });
+            animations.push(backdrop, flight);
+            await flight.finished;
+            if (finished) return;
+            document.documentElement.classList.remove('intro-playing');
+            const fade = brand.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
+            animations.push(fade); await fade.finished; finish();
+        } catch { finish(); }
+    }, 1000);
 })();
 
-// ---------- Particle Canvas ----------
-(function initParticles() {
-    const canvas = document.getElementById('particle-canvas');
+// A lightweight perspective-projected globe. No video or WebGL dependency.
+(function initHologram() {
+    const canvas = document.getElementById('holo-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animId;
-    let w, h;
-
-    function resize() {
-        w = canvas.width = canvas.parentElement.offsetWidth;
-        h = canvas.height = canvas.parentElement.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    class Particle {
-        constructor() {
-            this.reset();
-        }
-        reset() {
-            this.x = Math.random() * w;
-            this.y = Math.random() * h;
-            this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = (Math.random() - 0.5) * 0.4;
-            this.r = Math.random() * 1.5 + 0.5;
-            this.opacity = Math.random() * 0.4 + 0.1;
-        }
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > w) this.vx *= -1;
-            if (this.y < 0 || this.y > h) this.vy *= -1;
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(155, 168, 171, ${this.opacity})`;
-            ctx.fill();
-        }
-    }
-
-    // Create particles
-    const count = Math.min(80, Math.floor((w * h) / 15000));
+    if (!ctx) return;
+    const scene = canvas.parentElement;
+    let width = 0, height = 0, frame = null, visible = true, angle = 0, lastTime = 0;
+    let targetX = 0, targetY = 0, pointerX = 0, pointerY = 0;
+    const points = [];
+    const count = window.innerWidth < 768 ? 460 : 850;
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
     for (let i = 0; i < count; i++) {
-        particles.push(new Particle());
+        const y = 1 - (i / (count - 1)) * 2;
+        const r = Math.sqrt(1 - y * y);
+        const phi = goldenAngle * i;
+        points.push({ x: Math.cos(phi) * r, y, z: Math.sin(phi) * r });
     }
-
-    function drawLines() {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 120) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(74, 92, 106, ${0.15 * (1 - dist / 120)})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
+    function resize() {
+        width = scene.clientWidth; height = scene.clientHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (!motionAllowed()) draw(0);
+    }
+    function project(x, y, z, radius, rotation) {
+        const c = Math.cos(rotation), sn = Math.sin(rotation);
+        const rx = x * c - z * sn;
+        const rz = x * sn + z * c;
+        const tilt = -.24 + pointerY * .08;
+        const ry = y * Math.cos(tilt) - rz * Math.sin(tilt);
+        const depth = y * Math.sin(tilt) + rz * Math.cos(tilt);
+        const scale = 2.8 / (2.8 - depth * .35);
+        return { x: width * .51 + rx * radius * scale, y: height * .48 + ry * radius * scale, z: depth };
+    }
+    function draw(time) {
+        frame = null;
+        const delta = lastTime ? Math.min(time - lastTime, 40) : 16;
+        lastTime = time;
+        if (motionAllowed()) angle += delta * .000075;
+        pointerX += (targetX - pointerX) * .045; pointerY += (targetY - pointerY) * .045;
+        ctx.clearRect(0, 0, width, height);
+        const radius = Math.min(width * .34, height * .35);
+        const rotation = angle + pointerX * .16;
+        const cx = width * .51, cy = height * .48;
+        const glow = ctx.createRadialGradient(cx, cy, radius * .25, cx, cy, radius * 1.4);
+        glow.addColorStop(0, '#3843b82b'); glow.addColorStop(.65, '#176cd620'); glow.addColorStop(1, '#09112600');
+        ctx.fillStyle = glow; ctx.fillRect(0, 0, width, height);
+        // Meridians and latitude arcs create the layered holographic shell.
+        ctx.lineWidth = .65;
+        for (let band = -4; band <= 4; band++) {
+            const lat = band * Math.PI / 11;
+            ctx.beginPath();
+            for (let k = 0; k <= 100; k++) {
+                const t = k / 100 * Math.PI * 2;
+                const p = project(Math.cos(t) * Math.cos(lat), Math.sin(lat), Math.sin(t) * Math.cos(lat), radius, rotation);
+                if (k === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+            }
+            ctx.strokeStyle = band % 2 ? '#8d81ff4d' : '#4cbdff4d'; ctx.stroke();
+        }
+        for (let meridian = 0; meridian < 12; meridian++) {
+            const longitude = meridian * Math.PI / 6;
+            ctx.beginPath();
+            for (let k = 0; k <= 90; k++) {
+                const t = k / 90 * Math.PI * 2;
+                const p = project(Math.cos(longitude) * Math.cos(t), Math.sin(t), Math.sin(longitude) * Math.cos(t), radius, rotation);
+                if (k === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+            }
+            ctx.strokeStyle = '#558ddd2e'; ctx.stroke();
+        }
+        // Luminous arcs sweep across the sphere, like layered glass ribbons.
+        ctx.save();
+        ctx.shadowBlur = window.innerWidth < 768 ? 9 : 15;
+        for (let ribbon = 0; ribbon < 3; ribbon++) {
+            ctx.beginPath();
+            const twist = rotation * .65 + ribbon * 1.75;
+            for (let k = 0; k <= 120; k++) {
+                const t = k / 120 * Math.PI * 1.55 + twist;
+                const y = Math.sin(t) * .7;
+                const r = Math.sqrt(1 - y * y);
+                const p = project(Math.cos(t * .85 + ribbon) * r, y, Math.sin(t * .85 + ribbon) * r, radius * 1.04, rotation + ribbon);
+                if (!k) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+            }
+            ctx.strokeStyle = ribbon === 1 ? '#a891ffb3' : '#67dcffb3';
+            ctx.shadowColor = ribbon === 1 ? '#8465ff' : '#369aff';
+            ctx.lineWidth = ribbon === 1 ? 2 : 1.4; ctx.stroke();
+        }
+        ctx.restore();
+        for (let i = 0; i < points.length; i++) {
+            const v = points[i], p = project(v.x, v.y, v.z, radius, rotation);
+            const opacity = .16 + (p.z + 1) * .35;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.z > .25 ? 1.25 : .7, 0, Math.PI * 2);
+            ctx.fillStyle = i % 4 === 0 ? 'rgba(164,139,255,' + opacity + ')' : 'rgba(99,214,255,' + opacity + ')'; ctx.fill();
+            if (i % 73 === 0 && p.z > 0) {
+                const light = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 13);
+                light.addColorStop(0, '#a3eaff99'); light.addColorStop(1, '#5a95ff00');
+                ctx.fillStyle = light; ctx.fillRect(p.x - 13, p.y - 13, 26, 26);
             }
         }
+        ctx.beginPath(); ctx.ellipse(cx, cy, radius * 1.03, radius * 1.03, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = '#819bff50'; ctx.lineWidth = 1; ctx.stroke();
+        if (visible && !document.hidden && motionAllowed()) frame = requestAnimationFrame(draw);
     }
-
-    function animate() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        drawLines();
-        animId = requestAnimationFrame(animate);
+    function syncAnimation() {
+        if (frame !== null) cancelAnimationFrame(frame);
+        frame = null; lastTime = 0;
+        if (visible && !document.hidden) frame = requestAnimationFrame(draw);
+        scene.classList.toggle('scene-paused', !visible || document.hidden);
     }
-    animate();
-
-    // Pause when not visible
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (!animId) animate();
-            } else {
-                cancelAnimationFrame(animId);
-                animId = null;
-            }
-        });
+    if (window.matchMedia('(pointer:fine)').matches) scene.addEventListener('pointermove', e => {
+        const rect = scene.getBoundingClientRect();
+        targetX = (e.clientX - rect.left) / rect.width - .5;
+        targetY = (e.clientY - rect.top) / rect.height - .5;
     });
-    observer.observe(canvas);
+    scene.addEventListener('pointerleave', () => { targetX = 0; targetY = 0; });
+    new ResizeObserver(resize).observe(scene);
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; syncAnimation(); }).observe(scene);
+    document.addEventListener('visibilitychange', syncAnimation);
+    reducedMotion.addEventListener('change', syncAnimation);
+    resize(); syncAnimation();
 })();
 
 // ---------- Header Scroll Effect ----------
@@ -224,6 +191,7 @@ menuBtn.addEventListener('click', () => {
     const isOpen = !mobileMenu.classList.contains('hidden');
     mobileMenu.classList.toggle('hidden');
     menuBtn.classList.toggle('active', !isOpen);
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
 });
 
 // Auto-close mobile menu
@@ -231,26 +199,28 @@ document.querySelectorAll('#mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.add('hidden');
         menuBtn.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
     });
 });
 
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        mobileMenu.classList.add('hidden');
+        menuBtn.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+    }
+});
+window.matchMedia('(min-width:1024px)').addEventListener('change', e => {
+    if (e.matches) { mobileMenu.classList.add('hidden'); menuBtn.classList.remove('active'); menuBtn.setAttribute('aria-expanded', 'false'); }
+});
+
 // ---------- Scroll Reveal Animation ----------
-function handleScrollReveal() {
-    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
-    const windowHeight = window.innerHeight;
-
-    reveals.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        const revealPoint = 80;
-
-        if (top < windowHeight - revealPoint) {
-            el.classList.add('active');
-        }
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('active'); revealObserver.unobserve(entry.target); }
     });
-}
-
-window.addEventListener('scroll', handleScrollReveal);
-window.addEventListener('resize', handleScrollReveal);
+}, { threshold: .08 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach(el => revealObserver.observe(el));
 
 // ---------- Animated Number Counters ----------
 let countersStarted = false;
@@ -264,12 +234,12 @@ function startCounters() {
 
     counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000;
+        const duration = motionAllowed() ? 1600 : 0;
         const startTime = performance.now();
 
         function updateCounter(currentTime) {
             const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+            const progress = duration ? Math.min(elapsed / duration, 1) : 1;
             // Ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.round(eased * target);
@@ -324,6 +294,7 @@ let typingStarted = false;
 
 function typeEffect() {
     const typedEl = document.getElementById('typed-text');
+    if (!motionAllowed()) { if (typedEl) typedEl.textContent = texts[0]; return; }
     if (!typedEl) return;
 
     // On first call, show the first word instantly, then start deleting after a pause
@@ -360,20 +331,22 @@ function typeEffect() {
 
     setTimeout(typeEffect, speed);
 }
-// typeEffect is started after loader finishes
+// Typing starts with the other progressive enhancements.
 
 // ---------- Scroll to Top on Logo Click ----------
 document.getElementById("logo").addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: motionAllowed() ? 'smooth' : 'auto' });
 });
 
 // ---------- Smooth Scroll for All Anchor Links ----------
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.getElementById(href.slice(1));
         if (target) {
             e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
+            target.scrollIntoView({ behavior: motionAllowed() ? 'smooth' : 'auto' });
         }
     });
 });
@@ -411,16 +384,18 @@ if (backToTop) {
     });
 
     backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: motionAllowed() ? 'smooth' : 'auto' });
     });
 }
 
 // ---------- Tilt Effect on Cards ----------
 function initTilt() {
+    if (!motionAllowed() || !window.matchMedia('(pointer:fine)').matches) return;
     const tiltCards = document.querySelectorAll('[data-tilt]');
 
     tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
+            if (!motionAllowed()) return;
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -440,154 +415,84 @@ function initTilt() {
 initTilt();
 
 // ---------- Load Projects from JSON ----------
-async function loadProjects() {
-    try {
-        const response = await fetch('projects.json');
-        const projects = await response.json();
-        const container = document.getElementById('projects-container');
+let projectDataPromise;
 
-        projects.forEach(project => {
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-
-            slide.innerHTML = `
-                <div class="project-card" data-category="${project.category}">
-                    <img src="${project.image}" class="project-img" 
-                        alt="${project.title}" loading="lazy">
-                    <div class="project-overlay">
-                        <h3 class="font-bold text-lg mb-2">${project.title}</h3>
-                        <p class="text-sm px-2">${project.description}</p>
-                        <div class="flex gap-3">
-                            <a href="${project.liveUrl}" target="_blank" rel="noopener">
-                                <i class="ri-external-link-line"></i> Live Demo
-                            </a>
-                            <a href="${project.githubUrl}" target="_blank" rel="noopener">
-                                <i class="ri-github-line"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `;
-            container.appendChild(slide);
+function loadProjectData() {
+    if (!projectDataPromise) {
+        projectDataPromise = fetch('projects.json').then(response => {
+            if (!response.ok) throw new Error('Unable to load projects');
+            return response.json();
         });
+    }
+    return projectDataPromise;
+}
 
-        initSwiper();
+function safeProjectUrl(value) {
+    if (typeof value !== 'string') return null;
+    try { const url = new URL(value.trim()); return ['https:', 'http:'].includes(url.protocol) ? url.href : null; } catch { return null; }
+}
+let projectSwiper;
+let portfolioProjects = [];
+function renderProjects(filter = 'all') {
+    const container = document.getElementById('projects-container');
+    if (projectSwiper) { projectSwiper.destroy(true, true); projectSwiper = null; }
+    container.replaceChildren();
+    const filtered = portfolioProjects.filter(project => filter === 'all' || (filter === 'deployed' ? !!safeProjectUrl(project.liveUrl) : project.category === filter));
+    filtered.forEach(project => {
+        const slide = document.createElement('div'); slide.className = 'swiper-slide';
+        const card = document.createElement('article'); card.className = 'project-card';
+        const image = document.createElement('img'); image.className = 'project-img'; image.src = project.image; image.alt = project.title; image.loading = 'lazy'; image.width = 640; image.height = 400;
+        const body = document.createElement('div'); body.className = 'project-overlay';
+        const tag = document.createElement('span'); tag.className = 'project-category'; tag.textContent = project.category === 'deployed' ? 'CLIENT WEBSITE' : 'WEB DEVELOPMENT';
+        const title = document.createElement('h3'); title.textContent = project.title;
+        const description = document.createElement('p'); description.textContent = project.description;
+        const links = document.createElement('div'); links.className = 'flex flex-wrap';
+        const live = safeProjectUrl(project.liveUrl), github = safeProjectUrl(project.githubUrl);
+        function link(href, label, icon) {
+            const a = document.createElement('a'); a.href = href;
+            if (!href.startsWith('#')) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+            a.setAttribute('aria-label', label + ': ' + project.title);
+            const i = document.createElement('i'); i.className = icon; a.append(i, document.createTextNode(label)); links.appendChild(a);
+        }
+        if (live) link(live, 'Live demo', 'ri-arrow-right-up-line');
+        if (github && new URL(github).hostname === 'github.com') link(github, 'Source code', 'ri-github-line');
+        if (!live && !github) link('#consultation', 'Ask about this project', 'ri-chat-1-line');
+        body.append(tag, title, description, links); card.append(image, body); slide.appendChild(card); container.appendChild(slide);
+    });
+    if (typeof Swiper !== 'undefined') projectSwiper = new Swiper('.mySwiper', {
+        slidesPerView: 1, spaceBetween: 24, loop: false, grabCursor: true,
+        speed: motionAllowed() ? 600 : 0, watchOverflow: true,
+        breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        pagination: { el: '.swiper-pagination', clickable: true }
+    });
+    else container.classList.add('projects-fallback');
+}
+async function loadProjects() {
+    const container = document.getElementById('projects-container');
+    try {
+        portfolioProjects = await loadProjectData();
+        if (!Array.isArray(portfolioProjects)) throw new Error('Invalid project data');
+        renderProjects();
     } catch (error) {
         console.error('Error loading projects:', error);
+        const message = document.createElement('p'); message.className = 'project-status';
+        message.textContent = 'Projects could not load. ';
+        const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = 'Try again';
+        retry.addEventListener('click', () => { projectDataPromise = null; loadProjects(); });
+        message.appendChild(retry); container.replaceChildren(message);
     }
 }
-
-// ---------- Initialize Swiper ----------
-function initSwiper() {
-    var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 1,
-        spaceBetween: 24,
-        loop: true,
-        grabCursor: true,
-        centeredSlides: false,
-
-        breakpoints: {
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-        },
-
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-            dynamicBullets: true,
-        },
-    });
-
-    // Filter functionality
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const allSlides = document.querySelectorAll(".swiper-slide");
-
-    filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            filterButtons.forEach(b => b.classList.remove("active-filter"));
-            btn.classList.add("active-filter");
-
-            const filterValue = btn.getAttribute("data-filter");
-
-            allSlides.forEach(slide => {
-                const card = slide.querySelector(".project-card");
-                if (!card) return;
-                const category = card.getAttribute("data-category");
-
-                slide.style.display = (filterValue === "all" || filterValue === category) ? "block" : "none";
-            });
-
-            swiper.update();
-        });
-    });
-}
-
-// ---------- Project Card Touch/Click for Mobile ----------
-document.addEventListener('click', (e) => {
-    const card = e.target.closest('.project-card');
-    if (!card) return;
-
-    const overlay = card.querySelector('.project-overlay');
-    const img = card.querySelector('.project-img');
-    if (!overlay || !img) return;
-
-    if (e.target.tagName === 'A' || e.target.closest('a')) return;
-
-    const isVisible = overlay.style.opacity === '1';
-
-    document.querySelectorAll('.project-card').forEach(c => {
-        const o = c.querySelector('.project-overlay');
-        const i = c.querySelector('.project-img');
-        if (o) o.style.opacity = '0';
-        if (i) { i.style.filter = 'none'; i.style.transform = 'none'; }
-    });
-
-    if (!isVisible) {
-        overlay.style.opacity = '1';
-        img.style.filter = 'blur(3px) brightness(0.5)';
-        img.style.transform = 'scale(1.05)';
-    }
-});
-
-// ---------- Magnetic Button Effect ----------
-document.querySelectorAll('.btn-primary, .btn-outline, .btn-submit-pro').forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-    });
-
-    btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.setAttribute('aria-pressed', String(btn.classList.contains('active-filter')));
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active-filter'); b.setAttribute('aria-pressed', 'false'); });
+        btn.classList.add('active-filter'); btn.setAttribute('aria-pressed', 'true'); renderProjects(btn.dataset.filter);
     });
 });
-
-// ---------- Parallax on Scroll ----------
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const orbs = document.querySelectorAll('.hero-orb');
-    orbs.forEach((orb, i) => {
-        const speed = (i + 1) * 0.03;
-        orb.style.transform = `translateY(${scrolled * speed}px)`;
-    });
-});
-
-// ---------- Refresh Tilt & Cursor on Dynamic Content ----------
-function refreshInteractions() {
-    initTilt();
-}
 
 // Load projects on page load
-loadProjects().then(() => {
-    setTimeout(refreshInteractions, 500);
-});
+loadProjects();
 
 // ============================================
 //  AI CHATBOT — Local (No API Key Needed)
@@ -642,12 +547,12 @@ loadProjects().then(() => {
         return String(text || '').toLowerCase().replace(/\s+/g, ' ').trim();
     }
 
-    function includesAny(text, words) {
-        return words.some((w) => text.includes(w));
-    }
-
     function scoreIntent(text, words) {
-        return words.reduce((count, word) => count + (text.includes(word) ? 1 : 0), 0);
+        const tokens = ' ' + text.replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+        return words.reduce((score, word) => {
+            const matched = tokens.includes(' ' + word + ' ');
+            return score + (matched ? word.split(' ').length * 10 + 1 : 0);
+        }, 0);
     }
 
     function sleep(ms) {
@@ -656,9 +561,7 @@ loadProjects().then(() => {
 
     async function loadProjects() {
         try {
-            const response = await fetch('projects.json');
-            if (!response.ok) return;
-            const data = await response.json();
+            const data = await loadProjectData();
             if (Array.isArray(data)) projects = data;
         } catch (e) {
             projects = [];
@@ -670,8 +573,8 @@ loadProjects().then(() => {
             return "Aliyan has multiple live portfolio projects in web development, including business, clinic, gym, and tools apps. Ask 'contact' to get his details.";
         }
 
-        const top = projects.slice(0, 6);
-        const lines = top.map((p, i) => `${i + 1}. ${p.title} - [Live Demo](${p.liveUrl})`);
+        const top = projects.filter(p => safeProjectUrl(p.liveUrl)).slice(0, 6);
+        const lines = top.map((p, i) => `${i + 1}. ${p.title} - [Live Demo](${safeProjectUrl(p.liveUrl)})`);
         return `Here are some of Aliyan's projects:\n${lines.join('\n')}\n\nIf you want, I can also share GitHub links for these projects.`;
     }
 
@@ -680,7 +583,7 @@ loadProjects().then(() => {
             return `You can check Aliyan's GitHub here: [Aliyan GitHub](${PROFILE.github}).`;
         }
 
-        const withGithub = projects.filter((p) => p.githubUrl && p.githubUrl !== '#').slice(0, 6);
+        const withGithub = projects.filter(p => { const url = safeProjectUrl(p.githubUrl); return url && new URL(url).hostname === 'github.com'; }).slice(0, 6);
         if (!withGithub.length) {
             return `Most projects are available on [Aliyan GitHub](${PROFILE.github}).`;
         }
@@ -714,7 +617,7 @@ loadProjects().then(() => {
             },
             {
                 key: 'services',
-                words: ['service', 'offer', 'provide', 'what do you do', 'kya karte ho'],
+                words: ['what does aliyan do', 'service', 'offer', 'provide', 'what do you do', 'kya karte ho'],
                 reply: () => `Aliyan offers: ${SERVICES_TEXT}`
             },
             {
@@ -729,7 +632,7 @@ loadProjects().then(() => {
             },
             {
                 key: 'timeline',
-                words: ['timeline', 'delivery time', 'how long', 'deadline', 'duration', 'kitna time'],
+                words: ['project timeline', 'timeline', 'delivery time', 'how long', 'deadline', 'duration', 'kitna time'],
                 reply: () => `Typical delivery timelines:\n- Landing page: 2-4 days\n- Business website: 5-10 days\n- MERN web app: 2-5 weeks\n\nExact timeline depends on features, revisions, and content readiness.`
             },
             {
@@ -798,12 +701,19 @@ loadProjects().then(() => {
     chatToggle.addEventListener('click', () => {
         const isOpen = chatWindow.classList.toggle('open');
         chatToggle.classList.toggle('active', isOpen);
+        chatToggle.setAttribute('aria-expanded', String(isOpen));
         if (isOpen) chatInput.focus();
     });
 
     chatClose.addEventListener('click', () => {
         chatWindow.classList.remove('open');
         chatToggle.classList.remove('active');
+        chatToggle.setAttribute('aria-expanded', 'false');
+        chatToggle.focus();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && chatWindow.classList.contains('open')) chatClose.click();
     });
 
     if (chatSuggestions) {
@@ -875,6 +785,7 @@ loadProjects().then(() => {
         } finally {
             removeTypingIndicator();
             setSendingState(false);
+            if (chatWindow.classList.contains('open')) chatInput.focus();
         }
     }
 
@@ -885,4 +796,72 @@ loadProjects().then(() => {
             .replace(/\n/g, '<br>')
             .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--text-bright); text-decoration: underline;">$1</a>');
     }
+})();
+
+// Initialize progressive enhancements after the document is ready.
+animateSkillBars();
+startCounters();
+typeEffect();
+
+reducedMotion.addEventListener('change', () => {
+    document.documentElement.classList.toggle('motion-ready', motionAllowed());
+    if (!motionAllowed()) document.querySelectorAll('[data-tilt]').forEach(card => card.style.transform = '');
+});
+
+// Consultation requests use WhatsApp's click-to-chat link; no message is sent silently.
+function buildConsultationUrl(details) {
+    const lines = [
+        'Hi Aliyan! I would like to request a consultation.', '',
+        'Name: ' + details.name,
+        'Email: ' + details.email,
+        'Service: ' + details.service,
+        'Preferred date: ' + details.date,
+        'Preferred time: ' + details.time,
+        'Time zone: ' + details.timezone,
+        '', 'Project details:', details.message, '',
+        'Please confirm your availability for this time.'
+    ];
+    return 'https://wa.me/923083504631?text=' + encodeURIComponent(lines.join('\n'));
+}
+(function initConsultation() {
+    const form = document.getElementById('consultation-form');
+    if (!form) return;
+    const dateInput = document.getElementById('booking-date');
+    const timezoneInput = document.getElementById('booking-timezone');
+    const fallback = document.getElementById('booking-fallback');
+    const status = document.getElementById('booking-status');
+    function localToday() {
+        const now = new Date();
+        return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+    }
+    function updateMinimumDate() { dateInput.min = localToday(); }
+    updateMinimumDate();
+    form.querySelector('button[type=submit]').disabled = false;
+    try { timezoneInput.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch { /* Manual entry stays available. */ }
+    form.addEventListener('focusin', updateMinimumDate);
+    form.addEventListener('input', () => {
+        fallback.hidden = true; status.textContent = '';
+        form.querySelectorAll('[data-trim-invalid]').forEach(input => { input.setCustomValidity(''); delete input.dataset.trimInvalid; });
+    });
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        updateMinimumDate();
+        for (const input of form.querySelectorAll('input[required], textarea[required]')) {
+            if (!input.value.trim()) {
+                input.setCustomValidity('Please enter a value.'); input.dataset.trimInvalid = 'true';
+            }
+        }
+        if (!form.reportValidity()) return;
+        const data = new FormData(form);
+        const details = {
+            name: String(data.get('client_name')).trim(), email: String(data.get('client_email')).trim(),
+            service: String(data.get('service')).trim(), date: String(data.get('preferred_date')),
+            time: String(data.get('preferred_time')), timezone: String(data.get('timezone')).trim(),
+            message: String(data.get('project_details')).trim()
+        };
+        const url = buildConsultationUrl(details);
+        fallback.href = url; fallback.hidden = false;
+        status.textContent = 'Your request is ready. Tap Send in WhatsApp to share it. If WhatsApp did not open, use the link below.';
+        window.open(url, '_blank', 'noopener,noreferrer');
+    });
 })();

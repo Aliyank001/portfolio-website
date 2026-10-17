@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
     <meta name="description"
@@ -18,14 +18,14 @@
         content="Full Stack Web Developer specializing in MERN Stack. Building modern, responsive websites with 100+ satisfied clients." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.aaliyankhan.me" />
-    <meta property="og:image" content="https://www.aaliyankhan.me/image/profile%202.png" />
+    <meta property="og:image" content="https://www.aaliyankhan.me/image/PROFILE%20PIC.png" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Aliyan's Portfolio - Full Stack Web Developer" />
     <meta name="twitter:description"
         content="Full Stack Web Developer specializing in MERN Stack. Building modern, responsive websites." />
-    <meta name="twitter:image" content="https://www.aaliyankhan.me/image/profile%202.png" />
+    <meta name="twitter:image" content="https://www.aaliyankhan.me/image/PROFILE%20PIC.png" />
 
     <!-- Favicon -->
     <link rel="icon"
@@ -33,17 +33,8 @@
 
     <title>Aliyan's Portfolio - Full Stack Web Developer</title>
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { poppins: ['Poppins', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
-                }
-            }
-        }
-    </script>
+    <!-- Local layout utilities: no runtime CSS compiler -->
+    <link rel="stylesheet" href="utilities.css">
 
     <!-- Fonts -->
     <link
@@ -76,31 +67,12 @@
     <div class="noise-overlay"></div>
 
 
-    <!-- ==================== PREMIUM LOADER ==================== -->
-    <div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center">
-        <div class="loader-content">
-            <div class="loader-brand" id="loader-brand">
-                <span class="loader-letter" style="--i:0">A</span>
-                <span class="loader-letter" style="--i:1">l</span>
-                <span class="loader-letter" style="--i:2">i</span>
-                <span class="loader-letter" style="--i:3">y</span>
-                <span class="loader-letter" style="--i:4">a</span>
-                <span class="loader-letter" style="--i:5">n</span>
-                <span class="loader-dot" style="--i:6">.</span>
-            </div>
-            <div class="loader-bar-track">
-                <div class="loader-bar-fill" id="loader-bar"></div>
-            </div>
-            <p class="loader-text" id="loader-text">Loading Experience</p>
-        </div>
-    </div>
-
     <!-- ==================== HEADER ==================== -->
     <header class="fixed w-full top-0 left-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-3 md:py-4">
-            <h1 id="logo" class="text-2xl font-bold cursor-pointer tracking-tight" style="opacity:0;">
+            <a href="#home" id="logo" aria-label="Aliyan home" class="text-2xl font-bold cursor-pointer tracking-tight">
                 <span class="logo-text">Aliyan</span><span class="logo-dot">.</span>
-            </h1>
+            </a>
 
             <nav class="hidden md:flex items-center space-x-1">
                 <a href="#home" class="nav-link">Home</a>
@@ -109,12 +81,12 @@
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#testimonials" class="nav-link">Testimonials</a>
-                <a href="#contact" class="nav-link-cta">
-                    <i class="ri-mail-send-line"></i> Contact
+                <a href="#consultation" class="nav-link-cta">
+                    <i class="ri-calendar-line"></i> Book a call
                 </a>
             </nav>
 
-            <button id="menu-btn" type="button" title="Toggle menu" class="md:hidden text-2xl hamburger-btn">
+            <button id="menu-btn" type="button" title="Toggle menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden text-2xl hamburger-btn">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -137,117 +109,53 @@
             <a href="#projects" class="mobile-link">
                 <i class="ri-folder-line"></i> Projects
             </a>
+            <a href="#consultation" class="mobile-link"><i class="ri-calendar-line"></i> Book a consultation</a>
             <a href="#testimonials" class="mobile-link">
                 <i class="ri-chat-quote-line"></i> Testimonials
-            </a>
-            <a href="#contact" class="mobile-link">
-                <i class="ri-mail-line"></i> Contact
             </a>
         </nav>
     </header>
 
-    <!-- ==================== HERO SECTION ==================== -->
-    <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
-        <!-- Particle Canvas -->
-        <canvas id="particle-canvas" class="absolute inset-0 z-0"></canvas>
-        <!-- Gradient Orbs -->
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-
-        <div class="max-w-7xl mx-auto px-4 md:px-6 pt-28 pb-20 relative z-10 w-full">
-            <div class="flex flex-col lg:flex-row gap-16 items-center">
-
-                <!-- Left Side -->
-                <div class="text-center lg:text-left flex-1 reveal-left">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6 hero-badge">
-                        <span class="status-dot"></span>
-                        <span class="text-xs font-medium tracking-wider uppercase">Available for freelance</span>
-                    </div>
-
-                    <h2 class="text-4xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight hero-heading">
-                        Hi, I'm<br>
-                        <span class="name-highlight">Aliyan</span>
-                    </h2>
-
-                    <div class="mt-4 h-12 flex items-center justify-center lg:justify-start">
-                        <span class="typed-prefix">I'm a&nbsp;</span>
-                        <span id="typed-text" class="typed-text"></span>
-                    </div>
-
-                    <p class="mt-6 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 hero-desc">
-                        Crafting high-performance digital experiences with clean code, modern design, and pixel-perfect
-                        attention to detail.
-                    </p>
-
-                    <!-- Stats Row -->
-                    <div class="flex flex-wrap gap-3 md:gap-10 justify-center lg:justify-start mt-10 mb-10">
-                        <div class="stat-card">
-                            <div class="stat-number counter" data-target="100">0</div>
-                            <div class="stat-suffix">+</div>
-                            <div class="stat-label">Happy Clients</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number counter" data-target="50">0</div>
-                            <div class="stat-suffix">+</div>
-                            <div class="stat-label">Projects Done</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number counter" data-target="2">0</div>
-                            <div class="stat-suffix">+</div>
-                            <div class="stat-label">Years Exp.</div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                        <a href="#projects" class="btn-primary">
-                            <span>View My Work</span>
-                            <i class="ri-arrow-right-up-line"></i>
-                        </a>
-                        <a href="image/ALIYAN%20RESUME%20FINAL.pdf" target="_blank" rel="noopener noreferrer"
-                            class="btn-outline">
-                            <i class="ri-download-2-line"></i>
-                            <span>Resume</span>
-                        </a>
-                        <a href="#contact" class="btn-outline">
-                            <i class="ri-chat-1-line"></i>
-                            <span>Let's Talk</span>
-                        </a>
-                    </div>
+    <main>
+    <section id="home" class="hero-section">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-layout">
+            <div class="hero-copy">
+                <div class="hero-eyebrow"><span class="status-dot"></span> ALIYAN <span class="eyebrow-divider">/</span> FULL STACK DEVELOPER</div>
+                <h1 class="hero-heading">Ideas into<br>digital<br><span class="name-highlight">experiences</span></h1>
+                <p class="hero-desc">I design and build modern web experiences — from concept to code. Focused on clean aesthetics, scalable architecture and real-world impact.</p>
+                <div class="hero-role"><span class="role-line"></span><span class="typed-prefix">I'm a </span><span id="typed-text">Web Developer</span></div>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn-primary">View projects <i class="ri-arrow-right-up-line"></i></a>
+                    <a href="#consultation" class="btn-outline"><i class="ri-calendar-line"></i> Book a call</a>
                 </div>
-
-                <!-- Right Side: 3D Cube -->
-                <div class="hidden lg:flex justify-center flex-1 reveal-right">
-                    <div class="cube-container">
-                        <div class="cube">
-                            <div class="face front"><span>&lt;/&gt;</span></div>
-                            <div class="face back"><span>{ }</span></div>
-                            <div class="face left"><span>API</span></div>
-                            <div class="face right"><span>UI</span></div>
-                            <div class="face top"><span>DB</span></div>
-                            <div class="face bottom"><span>JS</span></div>
-                        </div>
-                    </div>
+                <div class="hero-stats">
+                    <div class="stat-card"><div><span class="stat-number counter" data-target="2">2</span><span class="stat-suffix">+</span></div><span class="stat-label">Years of experience</span></div>
+                    <div class="stat-card"><div><span class="stat-number counter" data-target="50">50</span><span class="stat-suffix">+</span></div><span class="stat-label">Projects delivered</span></div>
+                    <div class="stat-card"><div><span class="stat-number counter" data-target="100">100</span><span class="stat-suffix">+</span></div><span class="stat-label">Happy clients</span></div>
                 </div>
-
             </div>
-
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator reveal">
-                <div class="scroll-mouse">
-                    <div class="scroll-wheel"></div>
-                </div>
-                <span>Scroll down</span>
+            <div class="holo-scene" aria-label="Animated holographic globe with orbiting code panels" role="img">
+                <div class="globe-halo"></div>
+                <canvas id="holo-canvas" aria-hidden="true"></canvas>
+                <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+                <div class="code-panel panel-one"><span class="panel-dot"></span><span class="panel-caption">THE APPROACH</span><strong>&lt;/&gt;</strong><code>Build.<br>Innovate.<br>Iterate.</code></div>
+                <div class="code-panel panel-two"><span class="panel-caption">ideas.js</span><code><span>const</span> ideas = [<br>&nbsp; 'design',<br>&nbsp; 'develop',<br>&nbsp; 'animate'<br>];</code></div>
+                <div class="code-panel panel-three"><span class="panel-caption">FROM CONCEPT TO CODE</span><code>// turning ideas<br>// into experiences</code><div class="code-progress"><span></span></div></div>
+                <div class="scene-axis"><span>DESIGN</span><span>DEVELOP</span><span>DEPLOY</span><span>IMPROVE</span></div>
+                <div class="globe-floor"></div>
+                <span class="scene-coordinate">CREATIVE MIND. ENGINEERED SOLUTIONS.</span>
             </div>
         </div>
+        <div class="hero-bottom"><span><span class="status-dot"></span> AVAILABLE FOR FREELANCE</span><a href="#projects">SCROLL TO EXPLORE <i class="ri-arrow-down-line"></i></a><a href="image/ALIYAN%20RESUME%20FINAL.pdf" target="_blank" rel="noopener noreferrer">DOWNLOAD RESUME <i class="ri-download-2-line"></i></a></div>
     </section>
 
     <!-- ==================== ABOUT SECTION ==================== -->
     <section id="about" class="section-padding">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <span class="section-tag">Who I Am</span>
-                <h2 class="section-heading">About Me</h2>
+                <span class="section-tag">01 / THE DEVELOPER</span>
+                <h2 class="section-heading">A little about me.</h2>
                 <div class="section-line"></div>
             </div>
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -256,7 +164,7 @@
                     <div class="about-image-wrap">
                         <div class="about-image-ring"></div>
                         <div class="about-image-ring about-image-ring-2"></div>
-                        <img src="image/profile 2.png" alt="Aliyan - Full Stack Developer" class="about-img">
+                        <img src="image/PROFILE PIC.png" alt="Aliyan - Full Stack Developer" class="about-img" width="720" height="840" loading="lazy" decoding="async">
                         <!-- Experience badge -->
                         <div class="experience-badge">
                             <span class="exp-number">2+</span>
@@ -319,7 +227,7 @@
                     </div>
 
                     <div class="flex flex-wrap gap-4">
-                        <a href="#contact" class="btn-primary">
+                        <a href="#consultation" class="btn-primary">
                             <span>Work With Me</span>
                             <i class="ri-arrow-right-line"></i>
                         </a>
@@ -336,8 +244,8 @@
     <section id="skills" class="section-padding section-alt">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <span class="section-tag">What I Know</span>
-                <h2 class="section-heading">My Skills</h2>
+                <span class="section-tag">02 / MY TOOLKIT</span>
+                <h2 class="section-heading">Built with the right tools.</h2>
                 <div class="section-line"></div>
                 <p class="section-desc">Technologies & tools I use to bring ideas to life</p>
             </div>
@@ -406,9 +314,9 @@
 
                 <div class="skill-card-pro group" data-tilt>
                     <div class="skill-icon-wrap">
-                        <i class="ri-code-box-fill text-purple-500"></i>
+                        <i class="ri-cup-line text-purple-500" aria-hidden="true"></i>
                     </div>
-                    <span class="skill-name">C++</span>
+                    <span class="skill-name">Java</span>
                     <div class="skill-bar">
                         <div class="skill-fill" data-width="70"></div>
                     </div>
@@ -437,8 +345,8 @@
     <section id="services" class="section-padding">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <span class="section-tag">What I Do</span>
-                <h2 class="section-heading">My Services</h2>
+                <span class="section-tag">03 / WHAT I BRING</span>
+                <h2 class="section-heading">From idea to launch.</h2>
                 <div class="section-line"></div>
                 <p class="section-desc">Transforming your ideas into exceptional digital products</p>
             </div>
@@ -461,7 +369,7 @@
                         <li><i class="ri-check-line"></i> SEO Optimized</li>
                         <li><i class="ri-check-line"></i> Fast Loading</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="#consultation" class="service-cta">
                         Get Started <i class="ri-arrow-right-up-line"></i>
                     </a>
                 </div>
@@ -482,7 +390,7 @@
                         <li><i class="ri-check-line"></i> Database Design</li>
                         <li><i class="ri-check-line"></i> API Development</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="#consultation" class="service-cta">
                         Get Started <i class="ri-arrow-right-up-line"></i>
                     </a>
                 </div>
@@ -502,7 +410,7 @@
                         <li><i class="ri-check-line"></i> Modern Redesign</li>
                         <li><i class="ri-check-line"></i> Bug Fixing</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="#consultation" class="service-cta">
                         Get Started <i class="ri-arrow-right-up-line"></i>
                     </a>
                 </div>
@@ -515,8 +423,8 @@
     <section id="projects" class="section-padding section-alt">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <span class="section-tag">My Work</span>
-                <h2 class="section-heading">Featured Projects</h2>
+                <span class="section-tag">04 / SELECTED WORK</span>
+                <h2 class="section-heading">A few things I’ve built.</h2>
                 <div class="section-line"></div>
                 <p class="section-desc">A showcase of my recent development work</p>
             </div>
@@ -525,8 +433,8 @@
             <div class="flex flex-wrap justify-center gap-3 mb-14 reveal">
                 <button class="filter-btn active-filter" data-filter="all">All Projects</button>
                 <button class="filter-btn" data-filter="html">HTML / CSS / JS</button>
-                <button class="filter-btn" data-filter="react">React</button>
-                <button class="filter-btn" data-filter="deployed">Deployed (Live)</button>
+
+                <button class="filter-btn" data-filter="deployed">Live websites</button>
             </div>
 
             <!-- Swiper Container -->
@@ -545,8 +453,8 @@
     <section id="testimonials" class="section-padding">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <span class="section-tag">Client Stories</span>
-                <h2 class="section-heading">What Clients Say</h2>
+                <span class="section-tag">05 / KIND WORDS</span>
+                <h2 class="section-heading">Good work. Happy people.</h2>
                 <div class="section-line"></div>
                 <p class="section-desc">Feedback from people I've had the pleasure to work with</p>
             </div>
@@ -610,95 +518,44 @@
         </div>
     </section>
 
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="section-padding section-alt">
+    <!-- ==================== CONSULTATION BOOKING ==================== -->
+    <section id="consultation" class="section-padding consultation-section">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20 reveal">
-                <span class="section-tag">Say Hello</span>
-                <h2 class="section-heading">Get In Touch</h2>
-                <div class="section-line"></div>
-                <p class="section-desc">Have a project in mind? Let's build something amazing together</p>
-            </div>
-            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-
-                <!-- Left: Info & Social -->
-                <div class="lg:col-span-2 flex flex-col gap-6 reveal-left">
-                    <div class="contact-info-card">
-                        <div class="contact-info-icon">
-                            <i class="ri-mail-line"></i>
-                        </div>
-                        <div>
-                            <span class="contact-info-label">Email</span>
-                            <span class="contact-info-value">aliyanbc7@gmail.com</span>
-                        </div>
+            <div class="consultation-layout">
+                <div class="consultation-copy reveal-left">
+                    <span class="section-tag">06 / LET’S TALK IDEAS</span>
+                    <h2 class="section-heading">Your idea.<br>Our next conversation.</h2>
+                    <p class="section-desc">Have a website in mind or need a fresh perspective? Request a consultation and let’s figure out the right next step.</p>
+                    <div class="consultation-benefits">
+                        <div><i class="ri-chat-3-line" aria-hidden="true"></i><span>A focused conversation about your goals</span></div>
+                        <div><i class="ri-code-s-slash-line" aria-hidden="true"></i><span>Practical guidance on features and technology</span></div>
+                        <div><i class="ri-calendar-check-line" aria-hidden="true"></i><span>A plan for scope, timeline and next steps</span></div>
                     </div>
-                    <div class="contact-info-card">
-                        <div class="contact-info-icon">
-                            <i class="ri-map-pin-line"></i>
-                        </div>
-                        <div>
-                            <span class="contact-info-label">Location</span>
-                            <span class="contact-info-value">Pakistan</span>
-                        </div>
-                    </div>
-
-                    <div class="social-links-grid">
-                        <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank"
-                            rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
-                            <i class="ri-linkedin-box-fill"></i>
-                        </a>
-                        <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer"
-                            class="social-icon-btn" title="GitHub">
-                            <i class="ri-github-fill"></i>
-                        </a>
-                        <a href="https://www.instagram.com/web_nova_solutions" target="_blank" rel="noopener noreferrer"
-                            class="social-icon-btn" title="Instagram">
-                            <i class="ri-instagram-fill"></i>
-                        </a>
-                        <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer"
-                            class="social-icon-btn" title="WhatsApp">
-                            <i class="ri-whatsapp-fill"></i>
-                        </a>
-                    </div>
+                    <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer" class="consultation-direct"><i class="ri-whatsapp-line" aria-hidden="true"></i><span>Prefer to chat directly?<strong>+92 308 3504631 <i class="ri-arrow-right-up-line" aria-hidden="true"></i></strong></span></a>
+                    <p class="booking-note">Your preferred time is a request. I’ll confirm availability with you on WhatsApp.</p>
                 </div>
-
-                <!-- Right: Form -->
-                <div class="lg:col-span-3 reveal-right">
-                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form-pro">
-                        <input type="hidden" name="access_key" value="b2ea003c-64a7-4070-9209-540db8f7f7e6">
-                        <input type="hidden" name="subject" value="New Contact from Portfolio Website">
-                        <input type="hidden" name="from_name" value="Portfolio Contact Form">
-                        <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-                        <input type="hidden" name="redirect" value="https://web3forms.com/success">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <div class="form-group">
-                                <label>Your Name</label>
-                                <input type="text" name="name" placeholder="Aaliyan Khan" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Your Email</label>
-                                <input type="email" name="email" placeholder="aliyan@gmail.com" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" name="subject" placeholder="Project Inquiry">
-                        </div>
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea name="message" placeholder="Tell me about your project..." rows="5"
-                                required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit-pro">
-                            <span>Send Message</span>
-                            <i class="ri-send-plane-fill"></i>
-                        </button>
-                    </form>
-                </div>
-
+                <form id="consultation-form" class="contact-form-pro consultation-form reveal-right" action="https://wa.me/923083504631" method="get" target="_blank" rel="noopener noreferrer">
+                    <div class="booking-form-heading"><span class="booking-icon"><i class="ri-calendar-line" aria-hidden="true"></i></span><div><h3>Book a consultation</h3><p>Tell me a little about your project.</p></div></div>
+                    <div class="booking-fields">
+                        <div class="form-group"><label for="booking-name">Your name <span aria-hidden="true">*</span></label><input id="booking-name" name="client_name" type="text" autocomplete="name" placeholder="Your full name" maxlength="100" required></div>
+                        <div class="form-group"><label for="booking-email">Email address <span aria-hidden="true">*</span></label><input id="booking-email" name="client_email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="150" required></div>
+                        <div class="form-group booking-full"><label for="booking-service">What can I help with? <span aria-hidden="true">*</span></label><select id="booking-service" name="service" required><option value="" disabled selected>Select a service</option><option>Web Development</option><option>MERN Stack Development</option><option>Website Redesign / Refinement</option><option>API Development</option><option>Something else</option></select></div>
+                        <div class="form-group"><label for="booking-date">Preferred date <span aria-hidden="true">*</span></label><input id="booking-date" name="preferred_date" type="date" required></div>
+                        <div class="form-group"><label for="booking-time">Preferred time <span aria-hidden="true">*</span></label><input id="booking-time" name="preferred_time" type="time" required></div>
+                        <div class="form-group booking-full"><label for="booking-timezone">Your time zone <span aria-hidden="true">*</span></label><input id="booking-timezone" name="timezone" type="text" placeholder="e.g. Asia/Karachi (UTC+5)" maxlength="100" required><small>Use your local time above. Your time zone helps us coordinate.</small></div>
+                        <div class="form-group booking-full"><label for="booking-message">A little about your project <span aria-hidden="true">*</span></label><textarea id="booking-message" name="project_details" rows="4" placeholder="What would you like to build or improve?" maxlength="1500" required></textarea></div>
+                    </div>
+                    <button type="submit" class="btn-submit-pro booking-submit" disabled><i class="ri-whatsapp-line" aria-hidden="true"></i><span>Request consultation on WhatsApp</span><i class="ri-arrow-right-up-line" aria-hidden="true"></i></button>
+                    <p class="booking-note">WhatsApp opens with your request ready. Tap Send there to share it with Aliyan. No appointment is confirmed automatically.</p>
+                    <p id="booking-status" class="booking-status" role="status" aria-live="polite"></p>
+                    <a id="booking-fallback" class="booking-fallback" href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer" hidden>Open your prepared request in WhatsApp <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+                    <noscript><p class="booking-note">JavaScript is needed to prepare your request. <a href="https://wa.me/923083504631">Chat with Aliyan on WhatsApp instead.</a></p></noscript>
+                </form>
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="footer-pro">
@@ -710,13 +567,13 @@
                     <p>Full Stack Developer specializing in MERN Stack. Building digital experiences that make a
                         difference.</p>
                     <div class="footer-social">
-                        <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" target="_blank"
+                        <a href="https://www.linkedin.com/in/aliyan-khan-4595a7252" aria-label="LinkedIn" target="_blank"
                             rel="noopener noreferrer"><i class="ri-linkedin-box-fill"></i></a>
-                        <a href="https://github.com/Aliyank001" target="_blank" rel="noopener noreferrer"><i
+                        <a href="https://github.com/Aliyank001" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i
                                 class="ri-github-fill"></i></a>
-                        <a href="https://www.instagram.com/web_nova_solutions" target="_blank" rel="noopener noreferrer"><i
+                        <a href="https://www.instagram.com/web_nova_solutions" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i
                                 class="ri-instagram-fill"></i></a>
-                        <a href="https://wa.me/923083504631" target="_blank" rel="noopener noreferrer"><i
+                        <a href="https://wa.me/923083504631" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i
                                 class="ri-whatsapp-fill"></i></a>
                     </div>
                 </div>
@@ -729,7 +586,7 @@
                     <a href="#skills">Skills</a>
                     <a href="#services">Services</a>
                     <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#consultation">Book a consultation</a>
                 </div>
 
                 <!-- Services -->
@@ -757,7 +614,7 @@
         </button>
 
         <!-- Chat Toggle Button -->
-        <button id="chat-toggle" class="chat-toggle-btn" title="Chat with AI Assistant">
+        <button id="chat-toggle" class="chat-toggle-btn" title="Chat with portfolio assistant" aria-controls="chat-window" aria-expanded="false">
             <i class="ri-robot-2-line chat-icon-open"></i>
             <i class="ri-close-line chat-icon-close"></i>
             <span class="chat-pulse"></span>
@@ -772,7 +629,7 @@
                         <span class="chat-status-dot"></span>
                     </div>
                     <div>
-                        <h4 class="chat-title">Aliyan's AI Assistant</h4>
+                        <h4 class="chat-title">Aliyan’s Assistant</h4>
                         <span class="chat-subtitle">Ask me anything about Aliyan</span>
                     </div>
                 </div>
@@ -781,11 +638,11 @@
                 </button>
             </div>
 
-            <div id="chat-messages" class="chat-messages">
+            <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
                 <div class="chat-msg bot">
                     <div class="chat-msg-avatar"><i class="ri-robot-2-line"></i></div>
                     <div class="chat-msg-bubble">
-                        <p>Hey! 👋 I'm Aliyan's AI assistant. Ask me anything about his skills, projects, services, or
+                        <p>Hey! 👋 I'm Aliyan's portfolio assistant. Ask me anything about his skills, projects, services, or
                             how to work with him!</p>
                     </div>
                 </div>
@@ -801,7 +658,7 @@
                     <button class="chat-suggestion" data-msg="Show GitHub project links">GitHub links</button>
                 </div>
                 <form id="chat-form" class="chat-form">
-                    <input type="text" id="chat-input" class="chat-input" placeholder="Ask about Aliyan..."
+                    <input type="text" id="chat-input" class="chat-input" aria-label="Your message" placeholder="Ask about Aliyan..."
                         autocomplete="off" />
                     <button type="submit" class="chat-send-btn" title="Send">
                         <i class="ri-send-plane-2-fill"></i>
