@@ -1,5 +1,13 @@
 [
   {
+    "title": "CLIENT REQUIREMENT WEBSITE",
+    "image": "image/CR pic.webp",
+    "description": "Client Requirements Portal guides clients through a step-by-step form to define their website requirements. Clients can review their answers, download a PDF project brief, and share it via email or WhatsApp.",
+    "liveUrl": "https://clientrequirement.consulting/",
+    "githubUrl": "https://github.com/Aliyank001/symmetric-code-portal.git",
+    "category": "deployed"
+  },
+  {
     "title": "SKIN & LASER CLINIC WEBSITE",
     "image": "image/LASER GIG.webp",
     "description": "Custom website for Dr. Hina's skin & laser clinic with appointment booking, service pages, image gallery, and responsive, SEO-friendly design.",
