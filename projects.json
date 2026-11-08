@@ -1,7 +1,7 @@
 [
   {
     "title": "SKIN & LASER CLINIC WEBSITE",
-    "image": "image/LASER GIG.png",
+    "image": "image/LASER GIG.webp",
     "description": "Custom website for Dr. Hina's skin & laser clinic with appointment booking, service pages, image gallery, and responsive, SEO-friendly design.",
     "liveUrl": "https://www.zahraskinlaserclinicbydrhina.com/",
     "githubUrl": null,
@@ -9,7 +9,7 @@
   },
   {
     "title": "CAFÉ WEBSITE",
-    "image": "image/cafe logo.png",
+    "image": "image/cafe logo.webp",
     "description": "Contemporary café site with interactive menu, featured specials, photo gallery, and contact/ordering CTA; mobile-first and demo-ready.",
     "liveUrl": "https://aliyank001.github.io/Coffee-frontend/",
     "githubUrl": "https://github.com/Aliyank001/Coffee-frontend.git",
@@ -17,7 +17,7 @@
   },
   {
     "title": "HAIR TRANSPLANT WEBSITE",
-    "image": "image/hair gig.jpg",
+    "image": "image/hair gig.webp",
     "description": "Clinic-focused hair transplant website showcasing procedures, before/after gallery, team bios, and an easy contact form; responsive demo.",
     "liveUrl": "https://aliyank001.github.io/hair-transplant-frontend/",
     "githubUrl": "https://github.com/Aliyank001/hair-transplant-frontend.git",
@@ -25,7 +25,7 @@
   },
   {
     "title": "PHYSIOTHERAPY CLINIC WEBSITE",
-    "image": "image/phsio pic.jpg",
+    "image": "image/phsio pic.webp",
     "description": "Physiotherapy clinic site highlighting treatments, therapist profiles, patient testimonials, and appointment contact options.",
     "liveUrl": "https://aliyank001.github.io/physiocare-clinic-website-/",
     "githubUrl": "https://github.com/Aliyank001/physiocare-clinic-website-.git",
@@ -33,7 +33,7 @@
   },
   {
     "title": "HOME DECORE WEBSITE",
-    "image": "image/home decore pic.jpg",
+    "image": "image/home decore pic.webp",
     "description": "Home décor showcase with 7 designed pages, product highlights, smooth animations, and responsive layouts for seamless browsing.",
     "liveUrl": "https://aliyank001.github.io/Home-decore-website/",
     "githubUrl": "https://github.com/Aliyank001/Home-decore-website.git",
@@ -41,7 +41,7 @@
   },
   {
     "title": "REAL STATE WEBSITE",
-    "image": "image/real state logo.jpg",
+    "image": "image/real state logo.webp",
     "description": "Real estate demo tailored for the Gulf market with property listings, advanced search UI, high-end visuals, and lead-capture features.",
     "liveUrl": "https://aliyank001.github.io/Real-State-website-frontend-/",
     "githubUrl": "https://github.com/Aliyank001/Real-State-website-frontend-.git",
@@ -49,7 +49,7 @@
   },
   {
     "title": "GYM WEBSITE",
-    "image": "image/gym logo 2.jpg",
+    "image": "image/gym logo 2.webp",
     "description": "Fitness studio site showcasing programs, trainer profiles, class schedules, and membership call-to-actions.",
     "liveUrl": "https://aliyank001.github.io/gym-website-frontend/",
     "githubUrl": "https://github.com/Aliyank001/gym-website-frontend.git",
@@ -57,7 +57,7 @@
   },
   {
     "title": "CLEANING WEBSITE",
-    "image": "image/cleaning.jpg",
+    "image": "image/cleaning.webp",
     "description": "Commercial cleaning service site with clear service packages, service area info, booking contact, and client testimonials.",
     "liveUrl": "https://aliyank001.github.io/cleaning-frontend/",
     "githubUrl": "https://github.com/Aliyank001/cleaning-frontend.git",
@@ -65,7 +65,7 @@
   },
   {
     "title": "CLINIC WEBSITE",
-    "image": "image/clinic logo.jpg",
+    "image": "image/clinic logo.webp",
     "description": "Clinic website focused on patient services, appointment booking, medical team introductions, and easy contact options.",
     "liveUrl": "https://aliyank001.github.io/clinic-website-frontend/",
     "githubUrl": "https://github.com/Aliyank001/clinic-website-frontend.git",
@@ -73,7 +73,7 @@
   },
   {
     "title": "Calculator Webpage",
-    "image": "image/calculator.jpg",
+    "image": "image/calculator.webp",
     "description": "Lightweight calculator app implementing basic arithmetic operations with a clear, responsive UI built in HTML/CSS/JS.",
     "liveUrl": "https://aliyank001.github.io/calculator/",
     "githubUrl": "https://github.com/Aliyank001/calculator.git",
@@ -81,7 +81,7 @@
   },
   {
     "title": "Password Generator App",
-    "image": "image/pass logo.jpg",
+    "image": "image/pass logo.webp",
     "description": "Client-side password generator offering configurable length and character sets to create strong, random passwords instantly.",
     "liveUrl": "https://aliyank001.github.io/password-generator/",
     "githubUrl": "https://github.com/Aliyank001/password-generator.git",
@@ -89,7 +89,7 @@
   },
   {
     "title": "CV-Maker App",
-    "image": "image/cv maker.jpg",
+    "image": "image/cv maker.webp",
     "description": "Interactive CV builder with templates and export options to create professional resumes quickly and download as PDF.",
     "liveUrl": "https://aliyank001.github.io/cv-maker/",
     "githubUrl": "https://github.com/Aliyank001/cv-maker.git",
@@ -97,7 +97,7 @@
   },
   {
     "title": "BUSINESS WEBSITE",
-    "image": "image/business_web_banner_30.jpg",
+    "image": "image/business_web_banner_30.webp",
     "description": "Small business landing site with service overviews, portfolio highlights, contact form, and responsive presentation.",
     "liveUrl": null,
     "githubUrl": null,

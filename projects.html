@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore Aliyan Khan’s client websites, responsive demos, and web apps.">
+    <meta property="og:title" content="Selected Projects | Aliyan Khan">
+    <meta property="og:description" content="Browse client websites, responsive demos, and web apps with live previews and source code.">
+    <meta property="og:type" content="website">
+    <title>Selected Projects | Aliyan Khan</title>
+    <link rel="stylesheet" href="utilities.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="projects.js" defer></script>
+</head>
+<body class="font-inter projects-page">
+    <a class="skip-link" href="#gallery">Skip to projects</a>
+    <header class="gallery-header">
+        <div class="gallery-shell">
+            <a class="text-2xl font-bold tracking-tight" href="index.html" aria-label="Aliyan home"><span class="logo-text">Aliyan</span><span class="logo-dot">.</span></a>
+            <nav aria-label="Portfolio">
+                <a href="index.html">Home</a>
+                <a href="index.html#consultation" class="nav-link-cta">Book a call <span aria-hidden="true">↗</span></a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="gallery-hero">
+            <div class="gallery-shell">
+                <p class="section-tag">ALIYAN KHAN / PORTFOLIO</p>
+                <h1>Selected <span>work.</span></h1>
+                <p>Browse client websites, responsive demos and web apps. Open a live preview or explore the source code where available.</p>
+            </div>
+        </section>
+        <section id="gallery" class="gallery-shell" tabindex="-1" aria-labelledby="gallery-title">
+            <div class="gallery-toolbar">
+                <h2 id="gallery-title">Project gallery</h2>
+                <div class="gallery-filters" role="group" aria-label="Filter projects" hidden>
+                    <button type="button" class="filter-btn active-filter" data-filter="all" aria-pressed="true">All projects</button>
+                    <button type="button" class="filter-btn" data-filter="html" aria-pressed="false">HTML / CSS / JS</button>
+                    <button type="button" class="filter-btn" data-filter="live" aria-pressed="false">Live websites</button>
+                </div>
+            </div>
+            <p class="project-status" role="status" id="project-status"></p>
+            <button id="project-retry" class="btn-outline" type="button" hidden>Try again</button>
+            <noscript><p>Enable JavaScript to load the gallery, or visit <a href="https://github.com/Aliyank001">Aliyan’s GitHub</a>.</p></noscript>
+            <div class="project-grid" id="projects-container"></div>
+        </section>
+        <aside class="gallery-shell">
+            <div class="work-preview">
+                <div>
+                    <span class="section-tag">HAVE A PROJECT IN MIND?</span>
+                    <h2 class="section-heading">Let’s talk about it.</h2>
+                </div>
+                <a class="btn-primary" href="index.html#consultation">Book a consultation <span aria-hidden="true">↗</span></a>
+            </div>
+        </aside>
+    </main>
+    <footer class="gallery-shell gallery-footer"><a href="index.html">← Back to the portfolio</a><span>Aliyan Khan · Full Stack Developer</span></footer>
+    <template id="project-template">
+        <article class="project-card">
+            <div class="project-media"><img class="project-img" alt="" width="640" height="400" loading="lazy" decoding="async"></div>
+            <div class="project-overlay">
+                <span class="project-category"></span>
+                <h3></h3>
+                <p></p>
+                <div class="project-links flex flex-wrap"></div>
+            </div>
+        </article>
+    </template>
+</body>
+</html>

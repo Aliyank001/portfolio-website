@@ -11,7 +11,11 @@ if (motionAllowed()) document.documentElement.classList.add('motion-ready');
     const overlay = document.createElement('div');
     overlay.className = 'brand-intro';
     overlay.innerHTML = '<div class="intro-content"><div class="intro-brand" aria-label="Aliyan"><span style="--i:0">A</span><span style="--i:1">l</span><span style="--i:2">i</span><span style="--i:3">y</span><span style="--i:4">a</span><span style="--i:5">n</span><span class="intro-dot" style="--i:6">.</span></div><div class="intro-track"><span></span></div><p class="intro-caption">LOADING EXPERIENCE</p></div><button class="intro-skip" type="button">Skip intro <i class="ri-arrow-right-line" aria-hidden="true"></i></button>';
+    const background = [...document.body.children].filter(element => !element.inert && element.tagName !== 'SCRIPT');
+    background.forEach(element => { element.inert = true; });
     document.body.appendChild(overlay);
+    const skip = overlay.querySelector('.intro-skip');
+    skip.focus({ preventScroll: true });
     document.documentElement.classList.add('intro-playing');
     const brand = overlay.querySelector('.intro-brand');
     let finished = false;
@@ -22,12 +26,18 @@ if (motionAllowed()) document.documentElement.classList.add('motion-ready');
         finished = true;
         clearTimeout(launchTimer); clearTimeout(safetyTimer);
         animations.forEach(animation => animation.cancel());
+        const restoreFocus = document.activeElement === skip;
+        background.forEach(element => { element.inert = false; });
         overlay.remove(); brand.remove();
+        if (restoreFocus) logo.focus({ preventScroll: true });
         document.documentElement.classList.remove('intro-playing');
         reducedMotion.removeEventListener('change', onPreferenceChange);
     }
     function onPreferenceChange() { if (!motionAllowed()) finish(); }
-    overlay.querySelector('.intro-skip').addEventListener('click', finish);
+    skip.addEventListener('click', finish);
+    overlay.addEventListener('keydown', event => {
+        if (event.key === 'Escape') finish();
+    });
     reducedMotion.addEventListener('change', onPreferenceChange);
     safetyTimer = setTimeout(finish, 2600);
     launchTimer = setTimeout(async () => {
@@ -415,85 +425,6 @@ function initTilt() {
 initTilt();
 
 // ---------- Load Projects from JSON ----------
-let projectDataPromise;
-
-function loadProjectData() {
-    if (!projectDataPromise) {
-        projectDataPromise = fetch('projects.json').then(response => {
-            if (!response.ok) throw new Error('Unable to load projects');
-            return response.json();
-        });
-    }
-    return projectDataPromise;
-}
-
-function safeProjectUrl(value) {
-    if (typeof value !== 'string') return null;
-    try { const url = new URL(value.trim()); return ['https:', 'http:'].includes(url.protocol) ? url.href : null; } catch { return null; }
-}
-let projectSwiper;
-let portfolioProjects = [];
-function renderProjects(filter = 'all') {
-    const container = document.getElementById('projects-container');
-    if (projectSwiper) { projectSwiper.destroy(true, true); projectSwiper = null; }
-    container.replaceChildren();
-    const filtered = portfolioProjects.filter(project => filter === 'all' || (filter === 'deployed' ? !!safeProjectUrl(project.liveUrl) : project.category === filter));
-    filtered.forEach(project => {
-        const slide = document.createElement('div'); slide.className = 'swiper-slide';
-        const card = document.createElement('article'); card.className = 'project-card';
-        const image = document.createElement('img'); image.className = 'project-img'; image.src = project.image; image.alt = project.title; image.loading = 'lazy'; image.width = 640; image.height = 400;
-        const body = document.createElement('div'); body.className = 'project-overlay';
-        const tag = document.createElement('span'); tag.className = 'project-category'; tag.textContent = project.category === 'deployed' ? 'CLIENT WEBSITE' : 'WEB DEVELOPMENT';
-        const title = document.createElement('h3'); title.textContent = project.title;
-        const description = document.createElement('p'); description.textContent = project.description;
-        const links = document.createElement('div'); links.className = 'flex flex-wrap';
-        const live = safeProjectUrl(project.liveUrl), github = safeProjectUrl(project.githubUrl);
-        function link(href, label, icon) {
-            const a = document.createElement('a'); a.href = href;
-            if (!href.startsWith('#')) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
-            a.setAttribute('aria-label', label + ': ' + project.title);
-            const i = document.createElement('i'); i.className = icon; a.append(i, document.createTextNode(label)); links.appendChild(a);
-        }
-        if (live) link(live, 'Live demo', 'ri-arrow-right-up-line');
-        if (github && new URL(github).hostname === 'github.com') link(github, 'Source code', 'ri-github-line');
-        if (!live && !github) link('#consultation', 'Ask about this project', 'ri-chat-1-line');
-        body.append(tag, title, description, links); card.append(image, body); slide.appendChild(card); container.appendChild(slide);
-    });
-    if (typeof Swiper !== 'undefined') projectSwiper = new Swiper('.mySwiper', {
-        slidesPerView: 1, spaceBetween: 24, loop: false, grabCursor: true,
-        speed: motionAllowed() ? 600 : 0, watchOverflow: true,
-        breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        pagination: { el: '.swiper-pagination', clickable: true }
-    });
-    else container.classList.add('projects-fallback');
-}
-async function loadProjects() {
-    const container = document.getElementById('projects-container');
-    try {
-        portfolioProjects = await loadProjectData();
-        if (!Array.isArray(portfolioProjects)) throw new Error('Invalid project data');
-        renderProjects();
-    } catch (error) {
-        console.error('Error loading projects:', error);
-        const message = document.createElement('p'); message.className = 'project-status';
-        message.textContent = 'Projects could not load. ';
-        const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = 'Try again';
-        retry.addEventListener('click', () => { projectDataPromise = null; loadProjects(); });
-        message.appendChild(retry); container.replaceChildren(message);
-    }
-}
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.setAttribute('aria-pressed', String(btn.classList.contains('active-filter')));
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active-filter'); b.setAttribute('aria-pressed', 'false'); });
-        btn.classList.add('active-filter'); btn.setAttribute('aria-pressed', 'true'); renderProjects(btn.dataset.filter);
-    });
-});
-
-// Load projects on page load
-loadProjects();
-
 // ============================================
 //  AI CHATBOT — Local (No API Key Needed)
 // ============================================
@@ -575,7 +506,7 @@ loadProjects();
 
         const top = projects.filter(p => safeProjectUrl(p.liveUrl)).slice(0, 6);
         const lines = top.map((p, i) => `${i + 1}. ${p.title} - [Live Demo](${safeProjectUrl(p.liveUrl)})`);
-        return `Here are some of Aliyan's projects:\n${lines.join('\n')}\n\nIf you want, I can also share GitHub links for these projects.`;
+        return `Here are some of Aliyan's projects:\n${lines.join('\n')}\n\nSee the full [project gallery](projects.html), or ask me for GitHub links.`;
     }
 
     function projectGithubSummary() {

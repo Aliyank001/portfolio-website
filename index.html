@@ -44,9 +44,6 @@
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
 
@@ -79,7 +76,7 @@
                 <a href="#about" class="nav-link">About</a>
                 <a href="#skills" class="nav-link">Skills</a>
                 <a href="#services" class="nav-link">Services</a>
-                <a href="#projects" class="nav-link">Projects</a>
+                <a href="projects.html" class="nav-link">Projects</a>
                 <a href="#testimonials" class="nav-link">Testimonials</a>
                 <a href="#consultation" class="nav-link-cta">
                     <i class="ri-calendar-line"></i> Book a call
@@ -106,7 +103,7 @@
             <a href="#services" class="mobile-link">
                 <i class="ri-briefcase-line"></i> Services
             </a>
-            <a href="#projects" class="mobile-link">
+            <a href="projects.html" class="mobile-link">
                 <i class="ri-folder-line"></i> Projects
             </a>
             <a href="#consultation" class="mobile-link"><i class="ri-calendar-line"></i> Book a consultation</a>
@@ -126,7 +123,7 @@
                 <p class="hero-desc">I design and build modern web experiences — from concept to code. Focused on clean aesthetics, scalable architecture and real-world impact.</p>
                 <div class="hero-role"><span class="role-line"></span><span class="typed-prefix">I'm a </span><span id="typed-text">Web Developer</span></div>
                 <div class="hero-actions">
-                    <a href="#projects" class="btn-primary">View projects <i class="ri-arrow-right-up-line"></i></a>
+                    <a href="projects.html" class="btn-primary">View projects <i class="ri-arrow-right-up-line"></i></a>
                     <a href="#consultation" class="btn-outline"><i class="ri-calendar-line"></i> Book a call</a>
                 </div>
                 <div class="hero-stats">
@@ -147,7 +144,7 @@
                 <span class="scene-coordinate">CREATIVE MIND. ENGINEERED SOLUTIONS.</span>
             </div>
         </div>
-        <div class="hero-bottom"><span><span class="status-dot"></span> AVAILABLE FOR FREELANCE</span><a href="#projects">SCROLL TO EXPLORE <i class="ri-arrow-down-line"></i></a><a href="image/ALIYAN%20RESUME%20FINAL.pdf" target="_blank" rel="noopener noreferrer">DOWNLOAD RESUME <i class="ri-download-2-line"></i></a></div>
+        <div class="hero-bottom"><span><span class="status-dot"></span> AVAILABLE FOR FREELANCE</span><a href="#about">SCROLL TO EXPLORE <i class="ri-arrow-down-line"></i></a><a href="image/ALIYAN%20RESUME%20FINAL.pdf" download>DOWNLOAD RESUME <i class="ri-download-2-line"></i></a></div>
     </section>
 
     <!-- ==================== ABOUT SECTION ==================== -->
@@ -419,32 +416,15 @@
         </div>
     </section>
 
-    <!-- ==================== PROJECTS SECTION ==================== -->
     <section id="projects" class="section-padding section-alt">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20 reveal">
-                <span class="section-tag">04 / SELECTED WORK</span>
-                <h2 class="section-heading">A few things I’ve built.</h2>
-                <div class="section-line"></div>
-                <p class="section-desc">A showcase of my recent development work</p>
-            </div>
-
-            <!-- FILTER BUTTONS -->
-            <div class="flex flex-wrap justify-center gap-3 mb-14 reveal">
-                <button class="filter-btn active-filter" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="html">HTML / CSS / JS</button>
-
-                <button class="filter-btn" data-filter="deployed">Live websites</button>
-            </div>
-
-            <!-- Swiper Container -->
-            <div class="swiper mySwiper reveal">
-                <div class="swiper-wrapper" id="projects-container">
-                    <!-- Projects will be loaded here from projects.json -->
+            <div class="work-preview reveal">
+                <div>
+                    <span class="section-tag">04 / SELECTED WORK</span>
+                    <h2 class="section-heading">A few things I’ve built.</h2>
+                    <p>Explore client websites, responsive demos and web apps, with live previews and source code where available.</p>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
+                <a href="projects.html" class="btn-primary">Explore all projects <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
             </div>
         </div>
     </section>
@@ -585,7 +565,7 @@
                     <a href="#about">About</a>
                     <a href="#skills">Skills</a>
                     <a href="#services">Services</a>
-                    <a href="#projects">Projects</a>
+                    <a href="projects.html">Projects</a>
                     <a href="#consultation">Book a consultation</a>
                 </div>
 
@@ -668,8 +648,7 @@
         </div>
     </div>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="projects.js"></script>
 
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
